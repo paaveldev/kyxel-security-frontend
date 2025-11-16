@@ -1,0 +1,41 @@
+---
+import logo from '../../public/kyxelsecurity.png';
+---
+<nav class="site-header sticky top-0 z-50">
+  <div class="header-beam"></div>
+  <div class="bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-3 items-center py-3 md:py-4">
+        <!-- left links -->
+        <div class="flex justify-end items-center gap-6 md:gap-7 text-slate-300 nav-text text-base md:text-lg">
+          <a href="/" class="hover:text-white whitespace-nowrap">Kyxel Studios</a>
+          <a href="#features" class="hover:text-white whitespace-nowrap">Features</a>
+          <a href="#pricing" class="hover:text-white whitespace-nowrap">Pricing</a>
+        </div>
+
+        <!-- centered logo -->
+        <div class="flex justify-center">
+          <a href="/" class="inline-flex items-center">
+            <!-- Much larger visual logo via transform; header height stays from h-12/md:h-14 -->
+            <img src={logo.src} width={logo.width} height={logo.height} alt="Kyxel Studios" class="h-12 md:h-14 object-contain transform scale-[2.6] md:scale-[2.6] origin-center" />
+          </a>
+        </div>
+
+        <!-- right links -->
+        <div class="flex items-center text-slate-300 nav-text text-base md:text-lg w-full ml-auto justify-end gap-6 md:gap-7 pr-2 md:pr-3">
+          <a href="/docs" class="hover:text-white whitespace-nowrap">Docs</a>
+          <a href="#how" class="hover:text-white whitespace-nowrap">How it works</a>
+          <div class="flex items-center gap-2 md:gap-3">
+            <a href="/login" class="hover:text-white whitespace-nowrap">Login</a>
+            <a href="/register" class="px-4 py-2 bg-cyan-400 text-black rounded-full font-display tracking-nav whitespace-nowrap">register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- full-width divider under nav -->
+  <div class="w-full">
+    <div class="h-px bg-white/10"></div>
+  </div>
+</nav>

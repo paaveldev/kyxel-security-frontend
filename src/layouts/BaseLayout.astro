@@ -1,0 +1,42 @@
+---
+import Navbar from '../components/nav/Navbar.astro';
+import Footer from '../components/footer/Footer.astro';
+const { title = 'Kyxel Security' } = Astro.props;
+---
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/src/styles/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <meta name="theme-color" content="#000000" />
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <Navbar />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <script>
+      (function(){
+        const obs = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+        },{threshold:0.12});
+        document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+        const header = document.querySelector('.site-header');
+        if(header){
+          const onScroll = ()=>{
+            if(window.scrollY > 40) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+          };
+          window.addEventListener('scroll', onScroll, {passive:true});
+          onScroll();
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Dashboard — Kyxel Security">
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-semibold">Overview</h2>
+      <div class="text-sm text-slate-400">Admin · Demo</div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-6">
+      <div class="card-strong p-4 rounded-lg">
+        <div class="text-slate-300 text-sm">Attacks (24h)</div>
+        <div class="text-2xl font-bold text-white">1,342</div>
+      </div>
+      <div class="card-strong p-4 rounded-lg">
+        <div class="text-slate-300 text-sm">Unique IPs</div>
+        <div class="text-2xl font-bold text-white">724</div>
+      </div>
+      <div class="card-strong p-4 rounded-lg">
+        <div class="text-slate-300 text-sm">Active servers</div>
+        <div class="text-2xl font-bold text-white">18</div>
+      </div>
+    </div>
+
+    <div class="card-strong rounded-lg p-4">
+      // TODO: replace mock data with API calls (Kyxel Security backend)
+      <div class="overflow-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="text-slate-400">
+            <tr>
+              <th>Time</th>
+              <th>IP</th>
+              <th>Type</th>
+              <th class="text-right">Score</th>
+            </tr>
+          </thead>
+          <tbody class="text-white">
+            <tr>
+              <td>2025-11-15 11:02</td>
+              <td>203.0.113.12</td>
+              <td>SSH brute</td>
+              <td class="text-right text-cyan-300">7.8</td>
+            </tr>
+            <tr>
+              <td>2025-11-15 10:58</td>
+              <td>198.51.100.45</td>
+              <td>HTTP scan</td>
+              <td class="text-right text-cyan-300">5.3</td>
+            </tr>
+            <tr>
+              <td>2025-11-15 10:41</td>
+              <td>192.0.2.7</td>
+              <td>Suspicious</td>
+              <td class="text-right text-cyan-300">6.1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
