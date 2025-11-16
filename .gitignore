@@ -1,8 +1,0 @@
-node_modules/
-.astro/
-
-.DS_Store
-Thumbs.db
-
-.env
-.env.*
