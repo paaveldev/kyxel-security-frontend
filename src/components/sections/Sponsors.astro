@@ -1,8 +1,12 @@
+---
+import kyxelstudios from '../../public/logos/kyxelstudios.png';
+import kyxelhosting from '../../public/logos/kyxelhosting.png';
+import coimoiesports from '../../public/logos/coimoiesports.png';
+import ccc from '../../public/logos/ccc.png';
+---
 <section class="relative overflow-hidden py-8 md:py-10 mt-0 mb-0
   bg-[radial-gradient(circle_at_center,rgba(0,140,255,0.20)_0%,rgba(0,0,0,0)_60%)]
-  bg-[#030617]
-  before:content-[''] before:absolute before:inset-x-0 before:top-0 before:h-24
-  before:bg-gradient-to-b before:from-[#071725]/70 before:to-transparent"
+  bg-[#030617]"
 >
   <div class="max-w-4xl mx-auto text-center relative z-10 px-6 mt-12 md:mt-16">
     <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
@@ -16,7 +20,7 @@
     <div class="mb-2">
       <a href="https://paaveldev.github.io/kyxel-security-frontend/" target="_blank" rel="noopener" aria-label="Ir a la página principal de Kyxel Security">
         <img 
-          src="/logos/kyxelstudios.png"
+          src={kyxelstudios.src}
           alt="Kyxel Studios" 
           class="h-40 md:h-48 mx-auto opacity-100 transition-transform duration-200 ease-in-out hover:scale-105"
         />
@@ -26,7 +30,7 @@
     <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6">
       <a href="https://paaveldev.github.io/kyxelhosting-frontend/" target="_blank" rel="noopener" aria-label="Kyxel Hosting">
         <img 
-          src="/logos/kyxelhosting.png"
+          src={kyxelhosting.src}
           alt="Kyxel Hosting" 
           class="h-16 md:h-24 opacity-100 transition-transform duration-200 ease-in-out hover:scale-110"
         />
@@ -34,7 +38,7 @@
 
       <a href="https://paaveldev.github.io/coimoi-frontend-test/" target="_blank" rel="noopener" aria-label="Coimoi eSports">
         <img 
-          src="/logos/coimoiesports.png"
+          src={coimoiesports.src}
           alt="Coimoi eSports" 
           class="h-16 md:h-24 opacity-100 transition-transform duration-200 ease-in-out hover:scale-110"
         />
@@ -42,7 +46,7 @@
 
       <a href="https://paveltodica.dev/" target="_blank" rel="noopener" aria-label="CCC (Code. Connect. Create.)">
         <img 
-          src="/logos/ccc.png"
+          src={ccc.src}
           alt="CCC (Code. Connect. Create.)" 
           class="h-16 md:h-24 opacity-100 transition-transform duration-200 ease-in-out hover:scale-110"
         />
