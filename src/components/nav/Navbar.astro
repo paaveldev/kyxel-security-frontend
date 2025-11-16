@@ -1,41 +1,144 @@
 ---
-import logo from '../../public/kyxelsecurity.png';
+import logo from '../../public/logos/kyxelsecurity.png';
 ---
+
 <nav class="site-header sticky top-0 z-50">
   <div class="header-beam"></div>
   <div class="bg-transparent">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
-      <div class="grid grid-cols-3 items-center py-3 md:py-4">
-        <!-- left links -->
-        <div class="flex justify-end items-center gap-6 md:gap-7 text-slate-300 nav-text text-base md:text-lg">
+      <!-- Desktop nav -->
+      <div class="hidden md:grid grid-cols-3 items-center py-3 md:py-4">
+        <!-- izquierda -->
+        <div class="flex items-center justify-end gap-3 md:gap-4 text-slate-300 nav-text text-base">
           <a href="/" class="hover:text-white whitespace-nowrap">Kyxel Studios</a>
           <a href="#features" class="hover:text-white whitespace-nowrap">Features</a>
           <a href="#pricing" class="hover:text-white whitespace-nowrap">Pricing</a>
         </div>
 
-        <!-- centered logo -->
+        <!-- logo centro -->
         <div class="flex justify-center">
-          <a href="/" class="inline-flex items-center">
-            <!-- Much larger visual logo via transform; header height stays from h-12/md:h-14 -->
-            <img src={logo.src} width={logo.width} height={logo.height} alt="Kyxel Studios" class="h-12 md:h-14 object-contain transform scale-[2.6] md:scale-[2.6] origin-center" />
+          <a href="/kyxel-security-frontend/" class="inline-flex items-center" aria-label="Ir a la página principal">
+            <img
+              src={logo.src}
+              width={logo.width}
+              height={logo.height}
+              alt="Kyxel Security"
+              class="h-12 object-contain transform scale-[2.4] origin-center cursor-pointer"
+            />
           </a>
         </div>
 
-        <!-- right links -->
-        <div class="flex items-center text-slate-300 nav-text text-base md:text-lg w-full ml-auto justify-end gap-6 md:gap-7 pr-2 md:pr-3">
+        <!-- derecha -->
+        <div class="flex items-center justify-start gap-4 md:gap-5 text-slate-300 nav-text text-base">
           <a href="/docs" class="hover:text-white whitespace-nowrap">Docs</a>
           <a href="#how" class="hover:text-white whitespace-nowrap">How it works</a>
           <div class="flex items-center gap-2 md:gap-3">
             <a href="/login" class="hover:text-white whitespace-nowrap">Login</a>
-            <a href="/register" class="px-4 py-2 bg-cyan-400 text-black rounded-full font-display tracking-nav whitespace-nowrap">register</a>
+            <a
+              href="/register"
+              class="px-4 py-2 bg-cyan-400 text-black rounded-full font-display tracking-nav whitespace-nowrap"
+            >
+              Register
+            </a>
           </div>
+        </div>
+      </div>
+
+      <!-- Mobile nav (solo barra superior) -->
+      <div class="flex md:hidden items-center py-2 gap-2">
+        <a href="/kyxel-security-frontend/" class="inline-flex items-center flex-shrink-0" aria-label="Ir a la página principal">
+          <img
+            src={logo.src}
+            width={logo.width}
+            height={logo.height}
+            alt="Kyxel Security"
+            class="h-16 w-auto object-contain cursor-pointer"
+          />
+        </a>
+        <div class="flex items-center gap-4 flex-1 justify-end">
+          <a href="#pricing" class="hover:text-cyan-400 text-slate-300 nav-text text-base">Pricing</a>
+          <a href="#features" class="hover:text-cyan-400 text-slate-300 nav-text text-base">Features</a>
+          <a href="/docs" class="hover:text-cyan-400 text-slate-300 nav-text text-base">Docs</a>
+          <button
+            id="mobile-menu-btn"
+            class="p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#00a6f9]"
+          >
+            <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
+              <rect y="7" width="32" height="3" rx="1.5" fill="#00a6f9" />
+              <rect y="14" width="32" height="3" rx="1.5" fill="#00a6f9" />
+              <rect y="21" width="32" height="3" rx="1.5" fill="#00a6f9" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- full-width divider under nav -->
+  <!-- Divider bajo nav -->
   <div class="w-full">
     <div class="h-px bg-white/10"></div>
   </div>
 </nav>
+
+<!-- Mobile menu overlay FUERA del nav para que sí ocupe toda la pantalla -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 bg-black/90 z-[999] hidden md:hidden flex-col justify-center items-center
+         transition-transform duration-300 ease-in-out translate-x-full"
+>
+  <button
+    id="close-menu"
+    class="absolute top-6 right-6 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-400"
+  >
+    <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
+      <line x1="8" y1="8" x2="24" y2="24" stroke="#00a6f9" stroke-width="3" stroke-linecap="round" />
+      <line x1="24" y1="8" x2="8" y2="24" stroke="#00a6f9" stroke-width="3" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <nav class="flex flex-col gap-8 text-xl text-slate-100 nav-text items-center mt-12">
+    <a href="#how" class="hover:text-[#00a6f9]" onclick="window.dispatchEvent(new Event('close-mobile-menu'))">
+      How it works
+    </a>
+    <a href="/login" class="hover:text-[#00a6f9]" onclick="window.dispatchEvent(new Event('close-mobile-menu'))">
+      Login
+    </a>
+    <a
+      href="/register"
+      class="px-6 py-3 bg-[#00a6f9] text-black rounded-full font-display tracking-nav"
+      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+    >
+      Register
+    </a>
+  </nav>
+</div>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const closeMenu = document.getElementById('close-menu');
+
+  function openMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('hidden', 'translate-x-full');
+    mobileMenu.classList.add('flex', 'translate-x-0');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenuFn() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('translate-x-0');
+    mobileMenu.classList.add('translate-x-full');
+    setTimeout(() => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  menuBtn && menuBtn.addEventListener('click', openMenu);
+  closeMenu && closeMenu.addEventListener('click', closeMenuFn);
+
+  // cerrar menú cuando se navega con los links del overlay (evento custom opcional)
+  window.addEventListener('close-mobile-menu', closeMenuFn);
+</script>
