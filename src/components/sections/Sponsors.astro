@@ -8,6 +8,10 @@ import ccc from '../../public/logos/ccc.png';
   bg-[radial-gradient(circle_at_center,rgba(0,140,255,0.20)_0%,rgba(0,0,0,0)_60%)]
   bg-[#030617]"
 >
+  <!-- top horizontal fade: darken the left/right top edges while keeping center glow -->
+  <div class="absolute inset-x-0 top-0 h-40 pointer-events-none z-0 md:block">
+    <div class="h-full w-full bg-gradient-to-r from-[#030617] via-transparent to-[#030617] opacity-70"></div>
+  </div>
   <div class="max-w-4xl mx-auto text-center relative z-10 px-6 mt-12 md:mt-16">
     <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
       Part of the Kyxel ecosystem
