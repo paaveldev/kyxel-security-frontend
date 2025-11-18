@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact Kyxel Security"
+  description="Reach the Kyxel Security team for support, partnerships or media inquiries."
+>
+  <section class="py-20 bg-[#030417] text-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="section-eyebrow text-cyan-200">Contact</p>
+      <h1 class="text-4xl font-bold mt-3">We’re here to help</h1>
+      <p class="mt-4 text-slate-300">
+        Drop us a message and a Kyxel Security engineer will reply within one business day.
+      </p>
+      <form class="mt-10 space-y-6">
+        <div>
+          <label for="name" class="text-sm font-semibold">Full name</label>
+          <input id="name" name="name" type="text" class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Ada Lovelace" />
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="email" class="text-sm font-semibold">Work email</label>
+            <input id="email" name="email" type="email" class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="you@studio.gg" />
+          </div>
+          <div>
+            <label for="company" class="text-sm font-semibold">Company</label>
+            <input id="company" name="company" type="text" class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Kyxel Studios" />
+          </div>
+        </div>
+        <div>
+          <label for="message" class="text-sm font-semibold">Message</label>
+          <textarea id="message" name="message" rows="4" class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="How can we support your team?"></textarea>
+        </div>
+        <button class="w-full rounded-full bg-cyan-400 text-black font-semibold py-3 hover:bg-cyan-300 transition">Send message</button>
+      </form>
+      <p class="mt-6 text-sm text-slate-400">
+        Prefer email? Write us at <a href="mailto:security@kyxelstudios.com" class="text-cyan-300 underline">security@kyxelstudios.com</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+

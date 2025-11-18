@@ -2,8 +2,19 @@
 import '../styles/global.css';
 import Navbar from '../components/nav/Navbar.astro';
 import Footer from '../components/footer/Footer.astro';
+import favicon from '../public/favicon.png';
+import ogImage from '../public/logos/kyxelsecurity.png';
 
-const { title = 'Kyxel Security' } = Astro.props;
+const {
+  title = 'Kyxel Security — Real-time security telemetry',
+  description = 'Kyxel Security monitors your servers, VPS and game hosts with live attack detection, enriched telemetry and actionable workflows.',
+  showNav = true,
+  showFooter = true,
+} = Astro.props;
+
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).toString()
+  : undefined;
 ---
 
 <!doctype html>
@@ -12,40 +23,39 @@ const { title = 'Kyxel Security' } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="description" content={description} />
     <!-- Favicon -->
-    <link
-      rel="icon"
-      type="image/png"
-      href="../src/public/favicon.png"
-    />
-    <!-- Tailwind / global styles se importan arriba con import '../styles/global.css' -->
+    <link rel="icon" type="image/png" href={favicon.src} />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kyxel Security" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage.src} />
+    <meta property="og:image:alt" content="Kyxel Security brand mark" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.src} />
+    <meta name="theme-color" content="#030417" />
+    <!-- Tailwind / global styles imported via ../styles/global.css -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <meta name="theme-color" content="#000000" />
   </head>
   <body>
     <div class="min-h-screen flex flex-col">
-      <Navbar />
+      {showNav && <Navbar />}
       <main class="flex-1">
         <slot />
       </main>
-      <Footer />
+      {showFooter && <Footer />}
     </div>
 
     <script>
       (function () {
-        if (typeof navigator !== "undefined") {
-          const ua = navigator.userAgent.toLowerCase();
-          const blockedAgents = ["httrack", "webcopy", "wget", "curl"];
-          if (blockedAgents.some(a => ua.includes(a))) {
-            // Bloquea scrapers típicos sin afectar navegadores normales
-            document.body.innerHTML = "";
-            document.write("Access denied");
-            return;
-          }
-        }
         const obs = new IntersectionObserver(
           (entries) => {
             entries.forEach((e) => {

@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$39',
+    cadence: 'per month',
+    description: 'Ideal for indie studios or staging clusters that need visibility fast.',
+    perks: [
+      'Up to 3 servers or containers',
+      'Live attack timeline & alerts',
+      '7-day log retention',
+      'Community support',
+    ],
+    cta: { href: '/register', label: 'Get started' },
+  },
+  {
+    name: 'Pro',
+    price: '$79',
+    cadence: 'per month',
+    description: 'Full coverage for production workloads with automation included.',
+    perks: [
+      'Unlimited agents & projects',
+      'Alert routing (Slack, PagerDuty, Discord)',
+      '30-day log retention',
+      'Priority support',
+      'API & Terraform module',
+    ],
+    cta: { href: '/register', label: 'Get started with Pro Plan'},
+    highlighted: true,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    cadence: 'annual agreements',
+    description: 'For MSPs, large studios or regulated environments that need bespoke support.',
+    perks: [
+      'Dedicated ingest region',
+      'Unlimited retention',
+      '24/7 incident desk',
+      'On-prem / air-gapped collectors',
+      'Assigned customer engineer',
+    ],
+    cta: { href: '/contact', label: 'Talk to sales' },
+  },
+];
+
+const comparison = [
+  { label: 'Servers included', starter: '3', pro: 'Unlimited', enterprise: 'Unlimited' },
+  { label: 'Retention', starter: '7 days', pro: '30 days', enterprise: 'Custom' },
+  { label: 'Alerting destinations', starter: 'Email', pro: 'Slack · PagerDuty · Webhook', enterprise: 'All + SIEM' },
+  { label: 'Support', starter: 'Community', pro: 'Business hours', enterprise: '24/7 dedicated' },
+  { label: 'Automation', starter: 'Manual actions', pro: 'Playbooks', enterprise: 'Playbooks + custom runbooks' },
+];
+---
+
+<BaseLayout
+  title="Kyxel Security Pricing — Plans for every scale"
+  description="Choose the Kyxel Security plan that fits your infrastructure. Transparent pricing for indie teams, production workloads and enterprise networks."
+>
+  <section class="py-20 bg-[#030417] text-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <p class="section-eyebrow text-[#01a1f7]">Pricing</p>
+      <h1 class="text-4xl md:text-5xl font-bold mt-3">Predictable pricing. Serious protection.</h1>
+      <p class="mt-5 text-lg text-slate-300">
+        Every plan includes the Kyxel dashboard, sensor updates, and threat intelligence feed. Upgrade or downgrade anytime.
+      </p>
+    </div>
+
+    <div class="mt-14 max-w-6xl mx-auto px-6 grid gap-6 md:grid-cols-3">
+      {plans.map((plan) => (
+        <article
+          class={`card-strong rounded-3xl p-8 flex flex-col ${
+            plan.highlighted
+              ? 'ring-2 ring-[#01a1f7] shadow-[0_25px_80px_rgba(1,161,247,0.25)]'
+              : 'ring-1 ring-white/5'
+          }`}
+        >
+          <div class="flex items-center justify-between">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">{plan.name}</p>
+
+            {plan.highlighted && (
+              <span class="text-[0.6rem] uppercase text-black bg-[#01a1f7] px-2 py-1 rounded-full">
+                Most popular
+              </span>
+            )}
+          </div>
+
+          <div class="mt-5">
+            <p class="text-4xl font-bold">{plan.price}</p>
+            <p class="text-sm text-slate-400">{plan.cadence}</p>
+          </div>
+
+          <p class="mt-4 text-sm text-slate-300">{plan.description}</p>
+
+          <ul class="mt-6 space-y-3 text-sm text-slate-100">
+            {plan.perks.map((perk, i) => (
+              <li class="flex items-start gap-2">
+                {plan.name === 'Starter' && i === plan.perks.length - 1 ? (
+                  <span class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#01a1f7]/20 text-[#01a1f7] text-[0.7rem] font-bold">✗</span>
+                ) : (
+                  <span class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#01a1f7]/20 text-[#01a1f7] text-[0.7rem]">✓</span>
+                )}
+                <span>{perk}</span>
+                {plan.name === 'Starter' && i === plan.perks.length - 1 && (
+                  <span class="ml-2 text-xs text-slate-400">No verified support</span>
+                )}
+              </li>
+            ))}
+            {plan.name === 'Starter' && (
+              <li class="flex items-start gap-2">
+                <span class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#01a1f7]/20 text-[#01a1f7] text-[0.7rem] font-bold">✗</span>
+                <span>No advanced analytics</span>
+              </li>
+            )}
+
+          <a
+            href={plan.cta.href}
+            class={`mt-8 inline-flex justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${
+              plan.highlighted
+                ? 'bg-[#01a1f7] text-black hover:bg-[#59bff5]'
+                : 'border border-white/30 hover:border-[#01a1f7]'
+            }`}
+          >
+            {plan.cta.label}
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-20 max-w-5xl mx-auto px-6">
+      <div class="card-strong rounded-3xl p-8 overflow-hidden">
+        <h2 class="text-2xl font-semibold mb-6">Quick comparison</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="text-slate-400 uppercase tracking-[0.3em] text-[0.65rem]">
+              <tr>
+                <th class="py-3 pr-4">Feature</th>
+                <th class="py-3 pr-4">Starter</th>
+                <th class="py-3 pr-4">Pro</th>
+                <th class="py-3">Enterprise</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-200 divide-y divide-white/10">
+              {comparison.map((row) => (
+                <tr>
+                  <td class="py-4 pr-4 font-semibold">{row.label}</td>
+                  <td class="py-4 pr-4 text-slate-300">{row.starter}</td>
+                  <td class="py-4 pr-4 text-slate-100">{row.pro}</td>
+                  <td class="py-4 text-slate-100">{row.enterprise}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-6 text-sm text-slate-400 flex flex-wrap gap-3">
+          <span>* Pro and Enterprise include incident response SLAs.</span>
+          <span>* Enterprise pricing available in EUR, USD and RON.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

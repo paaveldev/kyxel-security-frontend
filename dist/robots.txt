@@ -1,0 +1,11 @@
+# Bloqueo específico para HTTrack
+User-agent: HTTrack
+Disallow: /
+
+# Puedes añadir más reglas para otros scrapers si lo deseas
+# User-agent: WebCopy
+# Disallow: /
+
+# Si quieres bloquear todo para todos los bots (NO recomendado para SEO):
+# User-agent: *
+# Disallow: /

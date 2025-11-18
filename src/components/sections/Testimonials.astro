@@ -1,22 +1,41 @@
 ---
+const testimonials = [
+  {
+    quote: 'Kyxel replaced three dashboards and a mess of shell scripts. Our ops team can finally see who is hammering our game shards without digging through log buckets.',
+    name: 'Iris Mendez',
+    role: 'Head of Infrastructure, LunarForge Studios',
+  },
+  {
+    quote: 'The agent footprint is tiny and the enrichment is gold. We pipe detections straight into PagerDuty and auto-block repeat offenders.',
+    name: 'Mateo R., SOC Lead',
+    role: 'Northwind VPS',
+  },
+  {
+    quote: 'Deploying Kyxel at the edge gave us immediate visibility across 200+ community servers. Our response time dropped from minutes to seconds.',
+    name: 'Hannah Qi',
+    role: 'Security Engineer, Vertex LAN',
+  },
+];
 ---
-<section class="py-16">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="reveal card-strong p-6 rounded-xl">
-        <div class="font-semibold">Kyxel gave us real-time clarity during attacks.</div>
-        <div class="text-slate-300 text-sm mt-3">Lead Ops, cloud provider — faster incident response and fewer false positives.</div>
-      </div>
+<section aria-label="Part of the Kyxel ecosystem" class="bg-[#030617] py-10 md:py-12 border-y border-white/5">
+<section id="testimonials" class="py-20 md:py-24 bg-[#050918]">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto">
+      <p class="section-eyebrow text-cyan-200">Testimonials</p>
+      <h2 class="section-heading mt-3">Loved by defenders, producers and eSports operators</h2>
+      <p class="mt-4 text-slate-300">Kyxel Security powers teams on six continents. Here is what they say.</p>
+    </div>
 
-      <div class="reveal card-strong p-6 rounded-xl">
-        <div class="font-semibold">IP enrichment is accurate and actionable.</div>
-        <div class="text-slate-300 text-sm mt-3">Security Engineer — we now block and automate mitigation workflows.</div>
-      </div>
-
-      <div class="reveal card-strong p-6 rounded-xl">
-        <div class="font-semibold">Lightweight agent that just works.</div>
-        <div class="text-slate-300 text-sm mt-3">DevOps — easy install and straightforward integrations.</div>
-      </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {testimonials.map((item) => (
+        <article class="card-strong rounded-3xl p-6 flex flex-col gap-4">
+          <p class="text-slate-100 text-base leading-relaxed">“{item.quote}”</p>
+          <div class="pt-4 border-t border-white/10">
+            <p class="text-sm font-semibold text-white">{item.name}</p>
+            <p class="text-xs text-slate-400">{item.role}</p>
+          </div>
+        </article>
+      ))}
     </div>
   </div>
 </section>

@@ -1,5 +1,6 @@
 ---
 import logo from '../../public/logos/kyxelsecurity.png';
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <nav class="site-header sticky top-0 z-50">
@@ -7,69 +8,144 @@ import logo from '../../public/logos/kyxelsecurity.png';
   <div class="bg-transparent">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <!-- Desktop nav -->
-      <div class="hidden md:grid grid-cols-3 items-center py-3 md:py-4">
-        <!-- izquierda -->
-        <div class="flex items-center justify-end gap-3 md:gap-4 text-slate-300 nav-text text-base">
-          <a href="/" class="hover:text-white whitespace-nowrap">Kyxel Studios</a>
-          <a href="#features" class="hover:text-white whitespace-nowrap">Features</a>
-          <a href="#pricing" class="hover:text-white whitespace-nowrap">Pricing</a>
+      <div class="hidden md:flex items-center py-4 w-full">
+        <!-- Contenedor izquierdo -->
+        <div class="flex gap-10 flex-1 justify-end pr-20">
+          <a
+            href="#features"
+            class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
+            onclick="event.preventDefault(); const el=document.getElementById('features'); if(el){el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>{window.scrollBy({top:-window.innerHeight/2+el.getBoundingClientRect().height/2,behavior:'smooth'});},400);} return false;"
+          >
+            Features
+          </a>
+          <a
+            href="#how-it-works"
+            class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
+            onclick="event.preventDefault(); const el=document.getElementById('how-it-works'); if(el){el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>{window.scrollBy({top:-window.innerHeight/2+el.getBoundingClientRect().height/2,behavior:'smooth'});},400);} return false;"
+          >
+            How it works
+          </a>
+          <a
+            href="#pricing"
+            class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
+            onclick="event.preventDefault(); const el=document.getElementById('pricing'); if(el){el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>{window.scrollBy({top:-window.innerHeight/2+el.getBoundingClientRect().height/2,behavior:'smooth'});},400);} return false;"
+          >
+            Pricing
+          </a>
         </div>
 
-        <!-- logo centro -->
-        <div class="flex justify-center">
-          <a href="/kyxel-security-frontend/" class="inline-flex items-center" aria-label="Ir a la página principal">
+        <!-- Logo centrado -->
+        <div class="flex-shrink-0 flex justify-center items-center">
+          <a
+            href={`${baseUrl}`}
+            class="inline-flex items-center m-0 p-0"
+            aria-label="Kyxel Security home"
+            style="height:40px; width:70px;"
+          >
             <img
               src={logo.src}
               width={logo.width}
               height={logo.height}
               alt="Kyxel Security"
-              class="h-12 object-contain transform scale-[2.4] origin-center cursor-pointer"
+              class="h-full w-full object-contain transform scale-[2] origin-center cursor-pointer transition-transform duration-200 hover:scale-[2.1] m-0 p-0"
+              style="display:block;"
             />
           </a>
         </div>
 
-        <!-- derecha -->
-        <div class="flex items-center justify-start gap-4 md:gap-5 text-slate-300 nav-text text-base">
-          <a href="/docs" class="hover:text-white whitespace-nowrap">Docs</a>
-          <a href="#how" class="hover:text-white whitespace-nowrap">How it workss</a>
-          <div class="flex items-center gap-2 md:gap-3">
-            <a href="/login" class="hover:text-white whitespace-nowrap">Login</a>
+        <!-- Contenedor derecho -->
+        <div class="flex gap-10 flex-1 justify-start items-center pl-20">
+          <a
+            href={`${baseUrl}docs`}
+            class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
+          >
+            Docs
+          </a>
+          <a
+            href={`${baseUrl}pricing`}
+            class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
+          >
+            Plans
+          </a>
+          <a
+            href="#faq"
+            class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
+            onclick="event.preventDefault(); const el=document.getElementById('faq'); if(el){el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>{window.scrollBy({top:-window.innerHeight/2+el.getBoundingClientRect().height/2,behavior:'smooth'});},400);} return false;"
+          >
+            FAQ
+          </a>
+          <div class="flex gap-2 items-center">
             <a
-              href="/register"
-              class="px-4 py-2 bg-cyan-400 text-black rounded-full font-display tracking-nav whitespace-nowrap"
+              href={`${baseUrl}login`}
+              class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
             >
-              Register
+              Login
+            </a>
+            <a
+              href={`${baseUrl}register`}
+              class="px-5 py-2 text-black rounded-full font-semibold whitespace-nowrap transition hover:opacity-90 text-base"
+              style="background-color: #01a1f7; letter-spacing: 0.08em; font-family: 'Inter', 'Poppins', Arial, sans-serif;"
+            >
+              REGISTER
             </a>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Mobile nav (solo barra superior) -->
-      <div class="flex md:hidden items-center py-2 gap-2">
-        <a href="/kyxel-security-frontend/" class="inline-flex items-center flex-shrink-0" aria-label="Ir a la página principal">
-          <img
-            src={logo.src}
-            width={logo.width}
-            height={logo.height}
-            alt="Kyxel Security"
-            class="h-16 w-auto object-contain cursor-pointer"
-          />
+    <!-- Mobile nav (solo barra superior) -->
+    <div class="flex md:hidden items-center py-2 gap-2 px-4 md:px-6 max-w-7xl mx-auto">
+      <a
+        href={`${baseUrl}`}
+        class="inline-flex items-center flex-shrink-0"
+        aria-label="Kyxel Security home"
+      >
+        <img
+          src={logo.src}
+          width={logo.width}
+          height={logo.height}
+          alt="Kyxel Security"
+          class="h-16 w-auto object-contain cursor-pointer"
+        />
+      </a>
+      <div class="flex items-center gap-4 flex-1 justify-end">
+        <a
+          href="#features"
+          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
+          onclick="event.preventDefault(); document.getElementById('features').scrollIntoView({behavior: 'smooth'});"
+        >
+          Features
         </a>
-        <div class="flex items-center gap-4 flex-1 justify-end">
-          <a href="#pricing" class="hover:text-cyan-400 text-slate-300 nav-text text-base">Pricing</a>
-          <a href="#features" class="hover:text-cyan-400 text-slate-300 nav-text text-base">Features</a>
-          <a href="/docs" class="hover:text-cyan-400 text-slate-300 nav-text text-base">Docs</a>
-          <button
-            id="mobile-menu-btn"
-            class="p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#00a6f9]"
-          >
-            <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
-              <rect y="7" width="32" height="3" rx="1.5" fill="#00a6f9" />
-              <rect y="14" width="32" height="3" rx="1.5" fill="#00a6f9" />
-              <rect y="21" width="32" height="3" rx="1.5" fill="#00a6f9" />
-            </svg>
-          </button>
-        </div>
+        <a
+          href="#how-it-works"
+          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
+          onclick="event.preventDefault(); document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'});"
+        >
+          How it works
+        </a>
+        <a
+          href="#pricing"
+          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
+          onclick="event.preventDefault(); document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});"
+        >
+          Pricing
+        </a>
+        <a
+          href={`${baseUrl}docs`}
+          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
+        >
+          Docs
+        </a>
+        <button
+          id="mobile-menu-btn"
+          class="p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+        >
+          <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
+            <rect y="7" width="32" height="3" rx="1.5" fill="#01a1f7" />
+            <rect y="14" width="32" height="3" rx="1.5" fill="#01a1f7" />
+            <rect y="21" width="32" height="3" rx="1.5" fill="#01a1f7" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
@@ -88,24 +164,60 @@ import logo from '../../public/logos/kyxelsecurity.png';
 >
   <button
     id="close-menu"
-    class="absolute top-6 right-6 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-400"
+    class="absolute top-6 right-6 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
   >
     <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
-      <line x1="8" y1="8" x2="24" y2="24" stroke="#00a6f9" stroke-width="3" stroke-linecap="round" />
-      <line x1="24" y1="8" x2="8" y2="24" stroke="#00a6f9" stroke-width="3" stroke-linecap="round" />
+      <line x1="8" y1="8" x2="24" y2="24" stroke="#01a1f7" stroke-width="3" stroke-linecap="round" />
+      <line x1="24" y1="8" x2="8" y2="24" stroke="#01a1f7" stroke-width="3" stroke-linecap="round" />
     </svg>
   </button>
 
-  <nav class="flex flex-col gap-8 text-xl text-slate-100 nav-text items-center mt-12">
-    <a href="#how" class="hover:text-[#00a6f9]" onclick="window.dispatchEvent(new Event('close-mobile-menu'))">
+  <nav class="flex flex-col gap-6 text-xl text-slate-100 nav-text items-center mt-12">
+    <a
+      href="#features"
+      class="hover:text-[#01a1f7]"
+      onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); const el=document.getElementById('features'); if(el){el.scrollIntoView({behavior:'smooth'});} return false;"
+    >
+      Features
+    </a>
+    <a
+      href="#how-it-works"
+      class="hover:text-[#01a1f7]"
+      onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); const el=document.getElementById('how-it-works'); if(el){el.scrollIntoView({behavior:'smooth'});} return false;"
+    >
       How it works
     </a>
-    <a href="/login" class="hover:text-[#00a6f9]" onclick="window.dispatchEvent(new Event('close-mobile-menu'))">
+    <a
+      href="#pricing"
+      class="hover:text-[#01a1f7]"
+      onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); const el=document.getElementById('pricing'); if(el){el.scrollIntoView({behavior:'smooth'});} return false;"
+    >
+      Pricing
+    </a>
+    <a
+      href="#faq"
+      class="hover:text-[#01a1f7]"
+      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+    >
+      FAQ
+    </a>
+    <a
+      href={`${baseUrl}docs`}
+      class="hover:text-[#01a1f7]"
+      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+    >
+      Docs
+    </a>
+    <a
+      href={`${baseUrl}login`}
+      class="px-6 py-3 bg-[#01a1f7] text-black rounded-full font-display tracking-nav"
+      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+    >
       Login
     </a>
     <a
-      href="/register"
-      class="px-6 py-3 bg-[#00a6f9] text-black rounded-full font-display tracking-nav"
+      href={`${baseUrl}register`}
+      class="px-6 py-3 bg-[#01a1f7] text-black rounded-full font-display tracking-nav"
       onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
     >
       Register

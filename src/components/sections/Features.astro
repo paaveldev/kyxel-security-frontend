@@ -1,55 +1,60 @@
 ---
+const features = [
+  {
+    title: 'Live attack stream',
+    copy: 'Visualize SSH brute force, HTTP floods, UDP spikes and suspicious auth in one correlated timeline.',
+    icon: 'fa-solid fa-wave-square',
+  },
+  {
+    title: 'Threat enrichment',
+    copy: 'Automatic ASN, geolocation, TOR/VPN reputation and kill chain scoring per event.',
+    icon: 'fa-solid fa-magnifying-glass-chart',
+  },
+  {
+    title: 'Multi-tenant ready',
+    copy: 'Organize projects per client or game title with scoped access and RBAC.',
+    icon: 'fa-solid fa-layer-group',
+  },
+  {
+    title: 'Automated playbooks',
+    copy: 'Send alerts to Slack, PagerDuty, Discord or your firewall in seconds.',
+    icon: 'fa-solid fa-robot',
+  },
+  {
+    title: 'Compliance logging',
+    copy: 'Tamper-proof retention with exports to S3, GCS or any SIEM downstream.',
+    icon: 'fa-solid fa-shield-halved',
+  },
+  {
+    title: 'Developer-first APIs',
+    copy: 'REST & GraphQL endpoints plus Terraform module for agent rollout.',
+    icon: 'fa-solid fa-code-branch',
+  },
+];
 ---
-<section id="features" class="pt-12 pb-16 bg-gradient-to-b from-[#040514] to-kyxel-900/90">
+<section aria-label="Part of the Kyxel ecosystem" class="bg-[#030617] py-10 md:py-12 border-y border-white/5">
+<section id="features" class="pt-20 pb-24 bg-gradient-to-b from-[#040514] to-kyxel-900/90">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="reveal card-strong p-6 rounded-xl transform transition hover:scale-105">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 flex items-center justify-center bg-kyxel-800 rounded-lg text-[#00a6f9]">
-            <i class="fa-solid fa-bolt"></i>
-          </div>
-          <div>
-            <div class="font-semibold text-lg">Real-time attack visibility</div>
-            <div class="text-slate-300 text-sm mt-1">Stream and correlate SSH, HTTP and game server attacks as they happen.</div>
-          </div>
-        </div>
-      </div>
+    <div class="max-w-3xl">
+      <p class="section-eyebrow" style="color:#01a1f7">Platform</p>
+      <h2 class="section-heading mt-3">Everything you need to keep hostile traffic in check</h2>
+      <p class="mt-4 text-slate-300">
+        Kyxel Security centralizes telemetry, investigations and orchestrations so your SREs, SOC analysts and producers stay aligned.
+      </p>
+    </div>
 
-      <div class="reveal card-strong p-6 rounded-xl transform transition hover:scale-105">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 flex items-center justify-center bg-kyxel-800 rounded-lg text-[#00a6f9]">
-            <i class="fa-solid fa-map-location-dot"></i>
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      {features.map((feature) => (
+        <article class="card-strong rounded-2xl p-6 flex gap-4 hover:-translate-y-1 transition duration-300 feature-glow" style="box-shadow:0 20px 60px rgba(1,161,247,0.15);">
+          <div class="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center text-[#01a1f7] text-xl">
+            <i class={feature.icon} aria-hidden="true" style="color:#01a1f7"></i>
           </div>
           <div>
-            <div class="font-semibold text-lg">IP intelligence</div>
-            <div class="text-slate-300 text-sm mt-1">Enrich each event with geolocation, ASN and reputation.</div>
+            <h3 class="text-xl font-semibold text-white">{feature.title}</h3>
+            <p class="mt-2 text-sm text-slate-300">{feature.copy}</p>
           </div>
-        </div>
-      </div>
-
-      <div class="reveal card-strong p-6 rounded-xl transform transition hover:scale-105">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 flex items-center justify-center bg-kyxel-800 rounded-lg text-[#00a6f9]">
-            <i class="fa-solid fa-server"></i>
-          </div>
-          <div>
-            <div class="font-semibold text-lg">Multi-server monitoring</div>
-            <div class="text-slate-300 text-sm mt-1">Aggregate events across VPS, websites and custom services.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal card-strong p-6 rounded-xl transform transition hover:scale-105">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 flex items-center justify-center bg-kyxel-800 rounded-lg text-[#00a6f9]">
-            <i class="fa-solid fa-code-branch"></i>
-          </div>
-          <div>
-            <div class="font-semibold text-lg">Developer-first workflow</div>
-            <div class="text-slate-300 text-sm mt-1">Agents, webhooks and APIs ready for automation.</div>
-          </div>
-        </div>
-      </div>
+        </article>
+      ))}
     </div>
   </div>
 </section>

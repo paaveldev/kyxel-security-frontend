@@ -1,25 +1,79 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
+const steps = [
+  {
+    step: 'Step 1',
+    title: 'Install the Kyxel Agent',
+    body: 'Drop a single script or container on your servers. Agents auto-update and authenticate via short-lived tokens.',
+    icon: 'M12 2.25l9.75 5.625v8.25L12 21.75 2.25 16.125v-8.25L12 2.25z',
+  },
+  {
+    step: 'Step 2',
+    title: 'Signals are enriched in Kyxel Cloud',
+    body: 'We correlate every packet with IP intelligence, MITRE tactics and your suppression lists in under 200ms.',
+    icon: 'M12 4.5l7.5 4.327v8.346L12 21.5 4.5 17.173V8.827z',
+  },
+  {
+    step: 'Step 3',
+    title: 'Act from the real-time dashboard',
+    body: 'Visualize attacks, trigger playbooks, export reports or push actions back to your firewalls automatically.',
+    icon: 'M4.5 5.25h15v13.5h-15z',
+  },
+];
 ---
-<section id="how" class="py-16">
+
+<section id="how-it-works" class="py-20 md:py-24">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="relative">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="reveal card-strong p-6 rounded-xl">
-          <div class="text-4xl font-bold mb-2 text-[#00a6f9]">1</div>
-          <div class="font-semibold text-lg">Install the Kyxel Agent</div>
-          <div class="text-slate-300 text-sm mt-2">Lightweight agent ships events securely to Kyxel's ingestion endpoint.</div>
-        </div>
+    <div class="max-w-3xl">
+      <p class="section-eyebrow text-[#01a1f7]">How it works</p>
+      <h2 class="section-heading mt-3">Deploy agents, stream telemetry, unlock full visibility</h2>
+      <p class="mt-4 text-slate-300">
+        No appliances, no week-long onboarding. Just connect, authorize and watch incidents arrive enriched and prioritized.
+      </p>
+    </div>
 
-        <div class="reveal card-strong p-6 rounded-xl">
-          <div class="text-4xl font-bold mb-2 text-[#00a6f9]">2</div>
-          <div class="font-semibold text-lg">Agent sends events to backend</div>
-          <div class="text-slate-300 text-sm mt-2">Events are enriched with ASN, geolocation and threat signals in transit.</div>
-        </div>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {steps.map((item) => (
+        <article class="card-strong rounded-2xl p-6 flex flex-col gap-3 hover:shadow-[0_20px_60px_rgba(0,166,249,0.15)] transition duration-300">
+          <div class="flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-[#01a1f7]">
+            <span>{item.step}</span>
+            <div class="h-px flex-1 bg-[#01a1f7]/30"></div>
+          </div>
+          <div class="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center text-[#01a1f7]">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d={item.icon}></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white">{item.title}</h3>
+          <p class="text-sm text-slate-300 flex-1">{item.body}</p>
+        </article>
+      ))}
+    </div>
 
-        <div class="reveal card-strong p-6 rounded-xl">
-          <div class="text-4xl font-bold mb-2 text-[#00a6f9]">3</div>
-          <div class="font-semibold text-lg">Analyze in the dashboard</div>
-          <div class="text-slate-300 text-sm mt-2">Investigate incidents, export data, and integrate with your tooling.</div>
+    <div class="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+      <div class="grid gap-6 md:grid-cols-3 items-center">
+        <div class="space-y-2">
+          <p class="text-sm font-semibold text-[#01a1f7] uppercase tracking-[0.3em]">Flow</p>
+          <h4 class="text-lg font-semibold text-white whitespace-nowrap">Servers → Kyxel Security → Dashboard</h4>
+          <p class="text-sm text-slate-300">Every hop is encrypted. Latency stays under 80ms globally.</p>
+        </div>
+        <div class="md:col-span-2">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
+                <img src="/src/public/server.svg" alt="Server icon" class="h-8 w-8 object-contain" />
+              </span>
+              <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
+              <span class="h-12 w-12 rounded-full border border-[#01a1f7] flex items-center justify-center bg-[#061638]">
+                <img src="/src/public/logos/kyxelsecurity.png" alt="Kyxel Security" class="h-8 w-8 object-contain" />
+              </span>
+              <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
+              <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
+                <img src="/src/public/dashboard.svg" alt="Dashboard icon" class="h-8 w-8 object-contain" />
+              </span>
+            </div>
+            <a href={`${baseUrl}docs`} class="text-sm text-[#01a1f7] underline">View setup docs</a>
+          </div>
         </div>
       </div>
     </div>

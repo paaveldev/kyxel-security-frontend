@@ -1,53 +1,130 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
 ---
-<section class="hero-spotlight flex items-start pt-8 md:pt-12 pb-6 md:pb-10 md:min-h-[45vh]">
-  <div class="max-w-7xl mx-auto px-6 w-full">
-    <div class="grid md:grid-cols-2 gap-8 items-start">
-      <div class="reveal">
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">See who’s attacking your servers. In real time.</h1>
-        <p class="mt-6 text-lg text-slate-300 max-w-xl">Kyxel Security provides continuous visibility across VPS, game servers and websites. Live event streams, IP intelligence and investigation tools for fast, confident response.</p>
+<section id="hero" class="hero-spotlight pt-12 pb-10 md:pt-16 md:pb-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+      <div class="space-y-5 md:space-y-6 relative z-10">
+        <p class="section-eyebrow" style="color:#01a1f7">Active defense for servers & game hosts</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+          See every attack, correlate every IP, and respond before players feel it.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-300 max-w-xl">
+          Kyxel Security gives you live telemetry across VPS, bare metal, and multiplayer infrastructures.
+          Ship a lightweight agent, get instant dashboards, and automate mitigations in minutes.
+        </p>
 
-        <div class="mt-4 flex gap-4">
-          <a class="px-6 py-3 rounded-full bg-[#00a6f9] text-black font-semibold shadow-soft" href="/register">Get Started</a>
-          <a class="px-6 py-3 rounded-full border border-slate-700 text-slate-200 hover:text-white glass" href="/dashboard">View Dashboard</a>
+        <ul class="space-y-3 text-slate-200">
+          <li class="flex items-center gap-3">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">01</span>
+            <span>Unified attack stream with ASN, geo and reputation enrichment.</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">02</span>
+            <span>Playbooks, alerts and webhooks tailored to your incident workflow.</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">03</span>
+            <span>Purpose-built dashboards for SRE, SOC and eSports operations.</span>
+          </li>
+        </ul>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-2 relative z-20">
+          <a
+            class="px-7 py-3 rounded-full shadow-soft text-center relative z-20 transition duration-200 hover:scale-105 get-started-btn"
+            style="background:#01a4f7;color:#000;font-weight:600;"
+            href={`${baseUrl}register`}
+          >
+            Get started
+          </a>
+          <a
+            class="px-7 py-3 rounded-full border border-white/20 text-white text-center relative z-20 transition duration-200 hover:scale-105"
+            style="border-color:#01a1f7;"
+            href={`${baseUrl}dashboard`}
+          >
+            View live dashboard
+          </a>
+        </div>
+        <div class="flex flex-wrap gap-6 text-sm text-slate-400 relative z-20">
+          <span class="flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full" style="background:#22c55e;"></span> Affordable pricing for every team
+          </span>
+          <span class="flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full" style="background:#01a1f7;"></span> Agent ships in 4.7 MB
+          </span>
         </div>
       </div>
 
-      <div class="reveal flex justify-center">
-        <div class="card-strong rounded-2xl p-6 w-full max-w-2xl transform transition duration-200 hover:scale-[1.01]">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-sm text-slate-300">Active Events</div>
-            <div class="text-xs text-slate-400">Updated 2m ago</div>
+      <div class="reveal">
+        <div class="card-strong rounded-3xl p-6 bg-gradient-to-b from-[#061638] to-[#040a1d] shadow-[0_35px_100px_rgba(3,10,30,0.65)] hover:scale-[1.02] transition-transform duration-200">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Live feed</p>
+              <p class="text-2xl font-semibold text-white mt-1">Kyxel Sensor Mesh</p>
+            </div>
+            <!-- <a href={`${baseUrl}dashboard`} class="text-sm" style="color:#01a1f7;text-decoration:underline;">Open demo</a> -->
           </div>
 
-          <div class="bg-gradient-to-b from-kyxel-800 to-kyxel-700 rounded-lg p-4 shadow-inner">
-            <div class="grid grid-cols-4 text-slate-400 text-xs uppercase tracking-wider mb-2">
-              <div>IP</div>
-              <div>Type</div>
-              <div class="text-right">Score</div>
-              <div class="text-right">Time</div>
+          <div class="mt-6 grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p class="text-3xl font-bold text-white">1,342</p>
+              <p class="text-xs text-slate-400">Attacks today</p>
+            </div>
+            <div>
+              <p class="text-3xl font-bold text-white">724</p>
+              <p class="text-xs text-slate-400">Unique IPs</p>
+            </div>
+            <div>
+              <p class="text-3xl font-bold text-white">18</p>
+              <p class="text-xs text-slate-400">Regions</p>
+            </div>
             </div>
 
-            <div class="divide-y divide-kyxel-700 text-white">
-              <div class="py-3 grid grid-cols-4 items-center">
-                <div class="font-mono text-sm">203.0.113.12</div>
-                <div class="text-slate-300">SSH brute</div>
-                <div class="text-[#00a6f9] text-right font-semibold">7.8</div>
-                <div class="text-slate-400 text-right text-sm">11:02</div>
+          <div class="mt-6 rounded-2xl border border-white/10 p-4 bg-white/5">
+            <div class="flex items-center justify-between text-xs text-slate-400">
+              <span>Sensor network</span>
+              <span>Encrypted TLS · 45 ms latency</span>
+            </div>
+            <div class="mt-4 flex flex-col gap-3">
+              <div class="flex items-center gap-3">
+                <div class="flex-1 rounded-full bg-slate-800/80 p-2 flex items-center justify-between">
+                  <span class="text-sm text-white/80">Edge servers</span>
+                  <span class="text-[0.65rem] text-[#01a1f7] uppercase tracking-[0.3em]">Agents</span>
+                </div>
+                <span class="text-[#01a1f7]">⇢</span>
+                <div class="flex-1 rounded-full bg-slate-800/80 p-2 flex items-center justify-between">
+                  <span class="text-sm text-white/80">Kyxel Cloud</span>
+                  <span class="text-[0.65rem] text-slate-400 uppercase tracking-[0.3em]">Enrich</span>
+                </div>
+                <span class="text-[#01a1f7]">⇢</span>
+                <div class="flex-1 rounded-full bg-slate-800/80 p-2 flex items-center justify-between">
+                  <span class="text-sm text-white/80">Command</span>
+                  <span class="text-[0.65rem] text-slate-400 uppercase tracking-[0.3em]">Alert</span>
+                </div>
               </div>
-              <div class="py-3 grid grid-cols-4 items-center">
-                <div class="font-mono text-sm">198.51.100.45</div>
-                <div class="text-slate-300">HTTP scan</div>
-                <div class="text-[#00a6f9] text-right font-semibold">5.3</div>
-                <div class="text-slate-400 text-right text-sm">10:58</div>
+              <div class="chart-row">
+                <div class="chart-bar small"></div>
+                <div class="chart-bar large"></div>
+                <div class="chart-bar med"></div>
+                <div class="chart-bar xlarge"></div>
+                <div class="chart-bar large"></div>
+                <div class="chart-bar med"></div>
+                <div class="chart-bar small"></div>
+                <div class="chart-bar large"></div>
               </div>
-              <div class="py-3 grid grid-cols-4 items-center">
-                <div class="font-mono text-sm">192.0.2.7</div>
-                <div class="text-slate-300">Suspicious</div>
-                <div class="text-[#00a6f9] text-right font-semibold">6.1</div>
-                <div class="text-slate-400 text-right text-sm">10:41</div>
+              <div class="flex justify-between text-[0.65rem] text-slate-500">
+                <span>00:00</span>
+                <span>06:00</span>
+                <span>12:00</span>
+                <span>18:00</span>
+                <span>24:00</span>
               </div>
             </div>
+          </div>
+
+          <div class="mt-6 text-xs text-slate-400 flex items-center justify-between">
+            <span>Last sync: 2m ago</span>
+            <span>v0.1.0-alpha</span>
           </div>
         </div>
       </div>

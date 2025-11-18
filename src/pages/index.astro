@@ -1,21 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/hero/Hero.astro';
+import TrustedBy from '../components/sections/TrustedBy.astro';
 import Features from '../components/sections/Features.astro';
 import HowItWorks from '../components/sections/HowItWorks.astro';
 import PreviewPanel from '../components/sections/PreviewPanel.astro';
+import Pricing from '../components/sections/Pricing.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import CTA from '../components/sections/CTA.astro';
 import Sponsors from '../components/sections/Sponsors.astro';
 ---
-<BaseLayout title="Kyxel Security — Real-time server security">
+<BaseLayout
+  title="Kyxel Security — Real-time server security"
+  description="Kyxel Security protects servers, VPS and multiplayer infrastructures with live telemetry, threat intelligence and automated playbooks."
+>
   <Hero />
-
   <Features />
-
   <HowItWorks />
-
   <PreviewPanel />
-
+  <Pricing />
   <Testimonials />
+  <FAQ />
+  <CTA />
   <Sponsors />
 </BaseLayout>

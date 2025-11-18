@@ -1,0 +1,73 @@
+---
+const faqs = [
+  {
+    question: 'How do I connect my servers to Kyxel Security?',
+    answer:
+      'Install the Kyxel agent via script or container. It streams telemetry over TLS to your nearest Kyxel region. You can also forward logs via syslog, webhook or our REST ingestion endpoint.',
+  },
+  {
+    question: 'Do you support game servers and custom binaries?',
+    answer:
+      'Yes. The agent can monitor raw UDP/TCP traffic, RCON events and kernel logs. Many studios monitor Minecraft, FiveM and proprietary engines without extra work.',
+  },
+  {
+    question: 'Where are dashboards and data hosted?',
+    answer:
+      'Dashboards run in the Kyxel Security cloud (EU & US). For Enterprise we offer dedicated VPC deployment or on-prem collectors to satisfy regulatory needs.',
+  },
+  {
+    question: 'Can I integrate with my existing SOC tools?',
+    answer:
+      'Absolutely. Send detections to Slack, PagerDuty, Discord, webhooks or SIEM platforms. The API lets you pull incidents, suppression lists and metrics on demand.',
+  },
+  {
+    question: 'What about false positives?',
+    answer:
+      'Our models learn from your environment. Suppress noisy sources, tune thresholds per agent, or leverage our enrichment feed to auto-classify commodity scans.',
+  },
+];
+---
+
+<section id="faq" class="py-20 md:py-24 bg-[#030417]">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center">
+      <p class="section-eyebrow" style="color:#01a1f7">FAQ</p>
+      <h2 class="section-heading mt-3">Everything teams ask before shipping agents</h2>
+      <p class="mt-4 text-slate-300">
+          Need more? Email <a href="mailto:security@kyxelstudios.com" style="color:#01a1f7;text-decoration:underline;">security@kyxelstudios.com</a> and we’ll help you scope.
+      </p>
+    </div>
+
+    <div class="mt-12 space-y-6">
+      {faqs.map((item) => (
+        <details class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition cursor-pointer">
+          <summary class="flex items-center justify-between text-left text-lg font-semibold text-white list-none w-full">
+            <span class="flex-1 pr-4">{item.question}</span>
+            <span style="color:#01a1f7" class="transition group-open:rotate-45 flex-shrink-0">+</span>
+          </summary>
+          <p class="mt-4 text-sm text-slate-300 leading-relaxed">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+
+    <script>
+      (function() {
+        const faqSection = document.getElementById('faq');
+        if (!faqSection) return;
+        
+        faqSection.querySelectorAll('details').forEach((detail) => {
+          // Hacer que toda la tarjeta sea clickeable
+          detail.addEventListener('click', (e) => {
+            const summary = detail.querySelector('summary');
+            // Si el click no es directamente en el summary o sus hijos, toggle manualmente
+            if (e.target !== summary && !summary.contains(e.target)) {
+              e.preventDefault();
+              detail.open = !detail.open;
+            }
+          });
+        });
+      })();
+    </script>
+  </div>
+</section>
+

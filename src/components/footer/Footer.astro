@@ -1,53 +1,96 @@
 ---
+import kyxelSecurityLogo from '../../public/logos/kyxelsecurity.png';
+const baseUrl = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
 ---
 <footer class="relative bg-[#04050a] border-t border-kyxel-800 overflow-hidden">
   <div class="absolute -top-10 left-0 w-full h-10 pointer-events-none z-10">
     <div class="w-full h-full bg-gradient-to-b from-[#031a2b] via-[#04050a] to-[#04050a] opacity-80"></div>
   </div>
-  <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-5 gap-8 text-slate-300">
-    <div>
-      <div class="font-bold text-[#00a6f9] text-lg">KYXEL SECURITY</div>
-      <div class="text-slate-400 mt-2 text-sm">Real-time attack visibility and IP intelligence for servers and game hosting.</div>
-    </div>
-
-    <div>
-      <div class="font-semibold mb-2">Company</div>
-      <ul class="space-y-2 text-sm">
-        <li><a href="/about" class="hover:text-white">About</a></li>
-        <li><a href="/contact" class="hover:text-white">Contact</a></li>
-        <li><a href="/careers" class="hover:text-white">Careers</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="font-semibold mb-2">Product</div>
-      <ul class="space-y-2 text-sm">
-        <li><a href="#features" class="hover:text-white">Overview</a></li>
-        <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
-        <li><a href="/docs" class="hover:text-white">Docs</a></li>
-        <li><a href="/dashboard" class="hover:text-white">Dashboard</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="font-semibold mb-2">Legal</div>
-      <ul class="space-y-2 text-sm">
-        <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
-        <li><a href="/terms" class="hover:text-white">Terms of Service</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="font-semibold mb-2">Social</div>
-      <div class="flex gap-3 mt-2">
-        <a href="https://github.com" class="hover:text-white"><i class="fa-brands fa-github"></i></a>
-        <a href="https://x.com" class="hover:text-white"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://linkedin.com" class="hover:text-white"><i class="fa-brands fa-linkedin"></i></a>
+  <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-6 gap-8 text-slate-300">
+    <div class="md:col-span-2 space-y-4">
+      <a href={baseUrl} class="footer-logo-link" style="display:inline-block;">
+        <img src={kyxelSecurityLogo.src} alt="Kyxel Security" class="h-10 w-auto footer-logo" />
+      </a>
+          <style>
+            .footer-logo {
+              transition: transform 0.2s;
+            }
+            .footer-logo-link:hover .footer-logo {
+              transform: scale(1.05);
+            }
+          </style>
+      <p class="text-sm text-slate-400">
+        Real-time attack visibility, IP intelligence and automated responses for servers, VPS and multiplayer infrastructures.
+      </p>
+      <div class="space-y-2">
+          <a href="mailto:security@kyxelstudios.com" class="text-sm footer-email" style="color:#01a1f7">security@kyxelstudios.com</a>
+      </div>
+      <div class="flex gap-4 text-lg">
+        <a href="https://github.com" aria-label="GitHub" class="hover:text-white transition"><i class="fa-brands fa-github"></i></a>
+        <a href="https://x.com" aria-label="X" class="hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://linkedin.com" aria-label="LinkedIn" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
       </div>
     </div>
+
+    <div>
+        <p class="font-semibold mb-3" style="color:#01a1f7">Product</p>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+        <li><a href="#how-it-works" class="hover:text-white transition">How it works</a></li>
+        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+        <li><a href={`${baseUrl}docs`} class="hover:text-white transition">Docs</a></li>
+        <li><a href={`${baseUrl}dashboard`} class="hover:text-white transition">Dashboard</a></li>
+      </ul>
+    </div>
+
+    <div>
+        <p class="font-semibold mb-3" style="color:#01a1f7">Company</p>
+      <ul class="space-y-2 text-sm">
+        <li><a href={`${baseUrl}about`} class="hover:text-white transition">About</a></li>
+        <li><a href={`${baseUrl}contact`} class="hover:text-white transition">Contact</a></li>
+        <li><a href={`${baseUrl}careers`} class="hover:text-white transition">Careers</a></li>
+        <li><a href={`${baseUrl}docs#roadmap`} class="hover:text-white transition">Roadmap</a></li>
+      </ul>
+    </div>
+
+    <div>
+        <p class="font-semibold mb-3" style="color:#01a1f7">Legal</p>
+      <ul class="space-y-2 text-sm">
+        <li><a href={`${baseUrl}privacy`} class="hover:text-white transition">Privacy Policy</a></li>
+        <li><a href={`${baseUrl}terms`} class="hover:text-white transition">Terms of Service</a></li>
+        <li><a href={`${baseUrl}docs#security`} class="hover:text-white transition">Security</a></li>
+      </ul>
+    </div>
+
+    <div>
+        <p class="font-semibold mb-3" style="color:#01a1f7">Ecosystem</p>
+      <ul class="space-y-2 text-sm">
+        <li><a href="https://paaveldev.github.io/kyxel-security-frontend/" target="_blank" style="color:#fff" rel="noopener">Kyxel Studios</a></li>
+        <li><a href="https://paaveldev.github.io/kyxelhosting-frontend/" target="_blank" style="color:#fff" rel="noopener">Kyxel Hosting</a></li>
+        <li><a href="https://paaveldev.github.io/coimoi-frontend-test/" target="_blank" style="color:#fff" rel="noopener">Coimoi eSports</a></li>
+        <li><a href="https://paveltodica.dev/" target="_blank" style="color:#fff" rel="noopener">CCC</a></li>
+      </ul>
+    </div>
   </div>
 
-  <div class="border-t border-kyxel-800">
-    <div class="max-w-7xl mx-auto px-6 py-4 text-sm text-slate-400">© 2025 Kyxel Security. All rights reserved.</div>
-  </div>
+    <div class="border-t border-kyxel-800">
+      <div class="max-w-7xl mx-auto px-6 py-5 text-sm flex flex-col items-center justify-center">
+        <span style="color:#01a1f7;display:block;text-align:center;width:100%;">© {year} Kyxel Security. Part of the Kyxel Studios ecosystem.</span>
+      </div>
+    </div>
+    <style>
+      footer a[href]:not(.footer-email) {
+        transition: color 0.2s;
+      }
+      footer a[href]:not(.footer-email):hover {
+        color: #01a1f7 !important;
+      }
+      .footer-email {
+        transition: color 0.2s;
+      }
+      .footer-email:hover {
+        color: #59bff5 !important;
+      }
+    </style>
 </footer>

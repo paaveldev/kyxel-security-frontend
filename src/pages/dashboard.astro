@@ -1,62 +1,171 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const baseUrl = import.meta.env.BASE_URL;
+
+const stats = [
+  { label: 'Attacks (24h)', value: '1,342', change: '+12%' },
+  { label: 'Unique IPs', value: '724', change: '-4%' },
+  { label: 'Active sensors', value: '58', change: '+3 new' },
+  { label: 'Automation coverage', value: '82%', change: '+6%' },
+];
+
+const attacks = [
+  { time: '11:02', ip: '203.0.113.12', country: 'DE', type: 'SSH brute', status: 'Blocked', score: 7.8 },
+  { time: '10:58', ip: '198.51.100.45', country: 'US', type: 'HTTP scan', status: 'Rate limited', score: 5.3 },
+  { time: '10:41', ip: '192.0.2.7', country: 'CN', type: 'UDP flood', status: 'Mitigated', score: 6.1 },
+  { time: '10:32', ip: '185.11.24.9', country: 'BR', type: 'Credential stuffing', status: 'Quarantined', score: 8.4 },
+];
+
+const servers = [
+  { name: 'Lobby Cluster', status: 'Healthy', latency: '34ms' },
+  { name: 'Matchmaking EU', status: 'Investigating', latency: '58ms' },
+  { name: 'Community NA', status: 'Healthy', latency: '41ms' },
+];
 ---
-<BaseLayout title="Dashboard — Kyxel Security">
-  <div class="max-w-7xl mx-auto px-6 py-8">
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-semibold">Overview</h2>
-      <div class="text-sm text-slate-400">Admin · Demo</div>
-    </div>
 
-    <div class="grid md:grid-cols-3 gap-6 mb-6">
-      <div class="card-strong p-4 rounded-lg">
-        <div class="text-slate-300 text-sm">Attacks (24h)</div>
-        <div class="text-2xl font-bold text-white">1,342</div>
+<BaseLayout
+  title="Dashboard — Kyxel Security"
+  description="Preview the Kyxel Security dashboard with live telemetry and incident history."
+  showNav={false}
+  showFooter={false}
+>
+  <div class="min-h-screen bg-[#01030b] text-slate-100 flex">
+    <aside class="hidden lg:flex w-72 flex-col border-r border-white/5 bg-[#020617] p-6 space-y-8">
+      <div>
+        <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Kyxel</p>
+        <h1 class="text-2xl font-bold mt-2">Command</h1>
       </div>
-      <div class="card-strong p-4 rounded-lg">
-        <div class="text-slate-300 text-sm">Unique IPs</div>
-        <div class="text-2xl font-bold text-white">724</div>
+      <nav class="space-y-4 text-sm">
+        <a class="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3" href="#overview">
+          <span>Overview</span>
+          <span class="text-[0.65rem] text-cyan-200">LIVE</span>
+        </a>
+        <a class="block rounded-2xl px-4 py-3 hover:bg-white/5" href="#servers">Servers</a>
+        <a class="block rounded-2xl px-4 py-3 hover:bg-white/5" href="#attacks">Attacks</a>
+        <a class="block rounded-2xl px-4 py-3 hover:bg-white/5" href="#playbooks">Playbooks</a>
+        <a class="block rounded-2xl px-4 py-3 hover:bg-white/5" href="#settings">Settings</a>
+      </nav>
+      <div class="mt-auto space-y-3 text-sm text-slate-400">
+        <a href={`${baseUrl}`} class="inline-flex items-center gap-2 text-cyan-300">← Back to marketing site</a>
+        <p>Demo build 1.7.2</p>
       </div>
-      <div class="card-strong p-4 rounded-lg">
-        <div class="text-slate-300 text-sm">Active servers</div>
-        <div class="text-2xl font-bold text-white">18</div>
-      </div>
-    </div>
+    </aside>
 
-    <div class="card-strong rounded-lg p-4">
-      // TODO: replace mock data with API calls (Kyxel Security backend)
-      <div class="overflow-auto">
-        <table class="w-full text-left text-sm">
-          <thead class="text-slate-400">
-            <tr>
-              <th>Time</th>
-              <th>IP</th>
-              <th>Type</th>
-              <th class="text-right">Score</th>
-            </tr>
-          </thead>
-          <tbody class="text-white">
-            <tr>
-              <td>2025-11-15 11:02</td>
-              <td>203.0.113.12</td>
-              <td>SSH brute</td>
-              <td class="text-right text-cyan-300">7.8</td>
-            </tr>
-            <tr>
-              <td>2025-11-15 10:58</td>
-              <td>198.51.100.45</td>
-              <td>HTTP scan</td>
-              <td class="text-right text-cyan-300">5.3</td>
-            </tr>
-            <tr>
-              <td>2025-11-15 10:41</td>
-              <td>192.0.2.7</td>
-              <td>Suspicious</td>
-              <td class="text-right text-cyan-300">6.1</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="flex-1 flex flex-col min-h-screen">
+      <header class="border-b border-white/5 bg-[#020617]/90 backdrop-blur px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Demo workspace</p>
+          <h2 class="text-2xl font-semibold">Overview</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="rounded-full border border-white/10 px-4 py-2 text-sm">Upgrade plan</button>
+          <div class="flex items-center gap-2 rounded-full border border-white/10 px-4 py-2">
+            <span class="h-8 w-8 rounded-full bg-cyan-400/20 flex items-center justify-center text-cyan-200 font-semibold">AR</span>
+            <div>
+              <p class="text-sm font-semibold">Admin</p>
+              <p class="text-xs text-slate-400">Kyxel Studios</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto px-6 py-8 space-y-8">
+        <section id="overview" class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {stats.map((stat) => (
+            <div class="card-strong rounded-2xl p-5">
+              <p class="text-sm text-slate-400">{stat.label}</p>
+              <p class="text-3xl font-bold text-white mt-2">{stat.value}</p>
+              <p class="text-xs text-green-400 mt-1">{stat.change}</p>
+            </div>
+          ))}
+        </section>
+
+        <section class="grid gap-6 xl:grid-cols-3">
+          <div class="card-strong rounded-3xl p-6 xl:col-span-2">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Traffic</p>
+                <h3 class="text-xl font-semibold">Attack volume</h3>
+              </div>
+              <span class="text-xs text-slate-400">UTC timezone</span>
+            </div>
+            <div class="chart-row">
+              <div class="chart-bar small"></div>
+              <div class="chart-bar med"></div>
+              <div class="chart-bar large"></div>
+              <div class="chart-bar xlarge"></div>
+              <div class="chart-bar large"></div>
+              <div class="chart-bar med"></div>
+              <div class="chart-bar small"></div>
+              <div class="chart-bar large"></div>
+            </div>
+            <div class="flex justify-between text-[0.65rem] text-slate-500 mt-3">
+              <span>00:00</span>
+              <span>06:00</span>
+              <span>12:00</span>
+              <span>18:00</span>
+              <span>24:00</span>
+            </div>
+          </div>
+
+          <div id="servers" class="card-strong rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Fleet</p>
+                <h3 class="text-xl font-semibold">Servers</h3>
+              </div>
+              <button class="text-xs text-cyan-300">Add</button>
+            </div>
+            <div class="space-y-3">
+              {servers.map((server) => (
+                <div class="rounded-2xl border border-white/10 p-4 flex items-center justify-between">
+                  <div>
+                    <p class="font-semibold">{server.name}</p>
+                    <p class="text-xs text-slate-400">{server.status}</p>
+                  </div>
+                  <p class="text-xs text-slate-500">{server.latency}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="attacks" class="card-strong rounded-3xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Incidents</p>
+              <h3 class="text-xl font-semibold">Recent attacks</h3>
+            </div>
+            <a href={`${baseUrl}docs`} class="text-sm text-cyan-300 underline">Build automations</a>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="text-slate-400 uppercase tracking-[0.3em] text-[0.6rem]">
+                <tr>
+                  <th class="py-3 pr-4">Time</th>
+                  <th class="py-3 pr-4">IP</th>
+                  <th class="py-3 pr-4">Country</th>
+                  <th class="py-3 pr-4">Type</th>
+                  <th class="py-3 pr-4">Status</th>
+                  <th class="py-3 text-right">Score</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-200 divide-y divide-white/10">
+                {attacks.map((attack) => (
+                  <tr>
+                    <td class="py-4 pr-4 font-mono text-xs text-slate-500">{attack.time}</td>
+                    <td class="py-4 pr-4 font-mono">{attack.ip}</td>
+                    <td class="py-4 pr-4 text-slate-300">{attack.country}</td>
+                    <td class="py-4 pr-4 text-slate-200">{attack.type}</td>
+                    <td class="py-4 pr-4 text-xs text-slate-400">{attack.status}</td>
+                    <td class="py-4 text-right text-cyan-300 font-semibold">{attack.score.toFixed(1)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
     </div>
   </div>
 </BaseLayout>

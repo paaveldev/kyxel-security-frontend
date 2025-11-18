@@ -1,0 +1,26 @@
+---
+const logos = [
+  { name: 'Kyxel Hosting', vertical: 'Game & VPS hosting' },
+  { name: 'Coimoi eSports', vertical: 'Esports infrastructure' },
+  { name: 'CCC', vertical: 'Developer hub & tools' },
+  { name: 'Kyxel Studios', vertical: 'Digital projects' },
+];
+---
+
+<section aria-label="Part of the Kyxel ecosystem" class="bg-[#030617] py-10 md:py-12 border-y border-white/5">
+  <div class="max-w-7xl mx-auto px-6">
+    <p class="section-eyebrow text-center text-cyan-200">Part of the Kyxel ecosystem</p>
+    <p class="text-center text-slate-400 text-sm mt-2 max-w-2xl mx-auto">
+      Already powering real infrastructure projects across game hosting, eSports, and developer tools.
+    </p>
+    <div class="mt-8 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {logos.map((logo) => (
+        <div class="rounded-xl border border-white/5 bg-white/5 px-4 py-3 text-center shadow-soft hover:border-cyan-400/30 transition">
+          <div class="text-sm font-semibold text-white tracking-wide">{logo.name}</div>
+          <div class="text-[0.7rem] uppercase text-white/50 mt-1">{logo.vertical}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+

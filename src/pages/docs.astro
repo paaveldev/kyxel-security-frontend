@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sections = [
+  {
+    id: 'getting-started',
+    title: 'Getting started',
+    body:
+      'Install the Kyxel agent on any Linux host with a single command. The agent streams telemetry over TLS and auto-updates in the background.',
+    code: `curl -s https://get.kyxel.sh | bash -s -- --token <YOUR_TOKEN>
+kyxel-agent enroll --project <project-id>
+kyxel-agent status`,
+  },
+  {
+    id: 'api',
+    title: 'API reference',
+    body: 'Use the REST API to pull incidents, suppression lists and metrics. Authenticate with a project token.',
+    code: `GET https://api.kyxel.sh/v1/incidents
+Authorization: Bearer <project-token>`,
+  },
+  {
+    id: 'webhooks',
+    title: 'Integrations & webhooks',
+    body: 'Send detections to Slack, Discord, PagerDuty or any webhook by creating a playbook in the dashboard.',
+  },
+  {
+    id: 'security',
+    title: 'Security & compliance',
+    body: 'All telemetry is encrypted at rest using AES-256. Enterprise customers can opt for dedicated regions or on-prem collectors.',
+  },
+  {
+    id: 'roadmap',
+    title: 'Roadmap',
+    body: 'Upcoming: agentless AWS/GCP ingest, machine-learning anomaly scores, and expanded SOC2 reporting.',
+  },
+];
+---
+
+<BaseLayout
+  title="Kyxel Security Documentation"
+  description="Guides and API reference for deploying the Kyxel Security platform."
+>
+  <section class="py-20 bg-[#030417] text-white">
+    <div class="max-w-6xl mx-auto px-6 grid gap-10 md:grid-cols-[240px,1fr]">
+      <aside class="card-strong rounded-3xl p-6 h-fit sticky top-24 space-y-4">
+        <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Docs</p>
+        <nav class="space-y-3 text-sm">
+          {sections.map((section) => (
+            <a href={`#${section.id}`} class="block text-slate-300 hover:text-white">{section.title}</a>
+          ))}
+        </nav>
+        <div class="text-xs text-slate-500 pt-4 border-t border-white/10">
+          Need support? Email <a href="mailto:support@kyxel.studio" class="text-cyan-300 underline">support@kyxel.studio</a>
+        </div>
+      </aside>
+
+      <article class="space-y-12">
+        {sections.map((section) => (
+          <section id={section.id} class="card-strong rounded-3xl p-8 space-y-4">
+            <h2 class="text-2xl font-semibold text-white">{section.title}</h2>
+            <p class="text-slate-300">{section.body}</p>
+            {section.code && (
+              <pre class="mt-4 bg-black/50 rounded-2xl p-4 text-sm text-cyan-200 overflow-x-auto">
+                <code>{section.code}</code>
+              </pre>
+            )}
+          </section>
+        ))}
+      </article>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+---
+<section aria-label="Part of the Kyxel ecosystem" class="bg-[#030617] py-10 md:py-12 border-y border-white/5">
+<section class="py-16 md:py-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="card-strong rounded-3xl p-10 text-center bg-gradient-to-r from-[#041024] to-[#07263a]">
+      <p class="section-eyebrow text-cyan-200">Ready to respond faster?</p>
+
+      <h2 class="section-heading mt-4">Deploy Kyxel Security in under 5 minutes</h2>
+
+      <p class="mt-4 text-slate-300 text-lg">
+        Connect your servers, invite your team, and watch the live attack console populate in real time.
+        No hardware, no complicated licensing.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+
+        <a
+          href={`${baseUrl}register`}
+          class="w-full sm:w-auto rounded-full bg-[#01a1f7] text-black font-semibold px-8 py-3 hover:bg-[#59bff5] transition"
+        >
+          Get started
+        </a>
+
+        <a
+          href={`${baseUrl}docs`}
+          class="w-full sm:w-auto rounded-full border border-white/20 text-white px-8 py-3 font-semibold hover:border-[#01a1f7] transition"
+        >
+          Explore docs
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>

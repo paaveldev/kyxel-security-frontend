@@ -1,60 +1,98 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
+const mockAttacks = [
+  { time: '11:02', ip: '203.0.113.12', type: 'SSH brute', severity: 'High', status: 'Blocked' },
+  { time: '10:58', ip: '198.51.100.45', type: 'HTTP scan', severity: 'Medium', status: 'Rate limited' },
+  { time: '10:41', ip: '192.0.2.7', type: 'UDP flood', severity: 'Critical', status: 'Mitigated' },
+  { time: '10:32', ip: '185.11.24.9', type: 'Credential stuffing', severity: 'High', status: 'Quarantined' },
+];
 ---
-<section class="py-20">
+<section aria-label="Part of the Kyxel ecosystem" class="bg-[#030617] py-10 md:py-12 border-y border-white/5">
+<section class="py-20 md:py-24">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="reveal card-strong rounded-3xl p-6" style="box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 100px rgba(0,200,255,0.04);">
-      <div class="flex items-center justify-between mb-6">
-        <div class="flex gap-10">
-          <div>
-            <div class="text-slate-300 text-sm">Attacks today</div>
-            <div class="text-3xl font-bold text-white">1,342</div>
+    <div class="grid gap-10 lg:grid-cols-2 items-center">
+      <div>
+        <p class="section-eyebrow text-cyan-200">Command center</p>
+        <h2 class="section-heading mt-3">Your dashboard stays ahead of every spike</h2>
+        <p class="mt-4 text-slate-300">
+          Follow live traffic, drill into suspicious IPs, and push mitigations back to your infrastructure with a single click.
+          The dashboard reflects the real monitoring experience used in production environments.
+        </p>
+        <div class="mt-8 grid grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-white/10 p-5">
+            <p class="text-sm text-slate-400">Mean detection time</p>
+            <p class="text-3xl font-bold text-white">14s</p>
+            <p class="text-xs text-green-400 mt-1">-32% vs last week</p>
           </div>
-          <div>
-            <div class="text-slate-300 text-sm">Unique IPs</div>
-            <div class="text-3xl font-bold text-white">724</div>
-          </div>
-          <div>
-            <div class="text-slate-300 text-sm">Servers monitored</div>
-            <div class="text-3xl font-bold text-white">18</div>
+          <div class="rounded-2xl border border-white/10 p-5">
+            <p class="text-sm text-slate-400">Automation coverage</p>
+            <p class="text-3xl font-bold text-white">82%</p>
+            <p class="text-xs text-slate-400 mt-1">Playbooks executed</p>
           </div>
         </div>
-        <div class="text-sm text-slate-400">Preview</div>
+        <div class="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">Real-time charting</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">Audit-ready logs</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">Role-based access</span>
+        </div>
+        <a
+          href={`${baseUrl}dashboard`}
+          class="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold text-black shadow-soft transition duration-200 hover:scale-105"
+          style="background-color: #01a1f7;"
+        >
+          Launch dashboard
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
 
-      <div class="bg-kyxel-800 rounded-2xl p-6 mt-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card-strong rounded-3xl p-6 bg-gradient-to-b from-[#050b1e] to-[#030612] hover:scale-[1.02] transition-transform duration-200">
+        <div class="flex items-center justify-between">
           <div>
-            <div class="chart-row">
-              <div class="chart-bar small"></div>
-              <div class="chart-bar med"></div>
-              <div class="chart-bar large"></div>
-              <div class="chart-bar med"></div>
-              <div class="chart-bar xlarge"></div>
-              <div class="chart-bar large"></div>
-              <div class="chart-bar med"></div>
-              <div class="chart-bar small"></div>
-            </div>
-            <div class="mt-3 text-xs text-slate-400 flex justify-between">
-              <div>00:00</div>
-              <div>06:00</div>
-              <div>12:00</div>
-              <div>18:00</div>
-              <div>24:00</div>
-            </div>
+            <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Overview</p>
+            <p class="text-xl font-semibold text-white mt-1">Attacks last 24h</p>
           </div>
+          <span class="text-xs text-slate-400">Synced 2m ago</span>
+        </div>
 
-          <div>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="text-slate-300 text-sm">Top sources</div>
-                <div class="text-slate-400 text-xs">Last 24h</div>
+        <div class="mt-6">
+          <div class="chart-row">
+            <div class="chart-bar small"></div>
+            <div class="chart-bar med"></div>
+            <div class="chart-bar large"></div>
+            <div class="chart-bar xlarge"></div>
+            <div class="chart-bar large"></div>
+            <div class="chart-bar med"></div>
+            <div class="chart-bar small"></div>
+            <div class="chart-bar large"></div>
+          </div>
+          <div class="mt-3 text-xs text-slate-400 flex justify-between">
+            <span>00:00</span>
+            <span>06:00</span>
+            <span>12:00</span>
+            <span>18:00</span>
+            <span>24:00</span>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <div class="flex items-center justify-between text-sm text-slate-300">
+            <span>Recent incidents</span>
+            <span class="text-xs text-slate-500">Auto sorted by severity</span>
+          </div>
+          <div class="mt-4 divide-y divide-white/10">
+            {mockAttacks.map((attack) => (
+              <div class="py-3 grid grid-cols-5 gap-3 text-sm text-white items-center">
+                <span class="font-mono text-xs text-slate-400">{attack.time}</span>
+                <span class="font-mono">{attack.ip}</span>
+                <span class="text-slate-300">{attack.type}</span>
+                <span class={`text-xs font-semibold ${
+                  attack.severity === 'Critical' ? 'text-red-400' : attack.severity === 'High' ? 'text-orange-300' : 'text-yellow-200'
+                }`}>
+                  {attack.severity}
+                </span>
+                <span class="text-right text-xs text-slate-400">{attack.status}</span>
               </div>
-              <div class="divide-y divide-kyxel-700">
-                <div class="py-2 flex justify-between items-center"><div class="font-mono text-sm">203.0.113.12</div><div class="text-[#00a6f9]">SSH brute</div></div>
-                <div class="py-2 flex justify-between items-center"><div class="font-mono text-sm">198.51.100.45</div><div class="text-[#00a6f9]">HTTP scan</div></div>
-                <div class="py-2 flex justify-between items-center"><div class="font-mono text-sm">192.0.2.7</div><div class="text-[#00a6f9]">Suspicious</div></div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
