@@ -135,14 +135,13 @@ body{
   opacity: .5;
 }
 
-/* Fade al fondo para que se funda con la sección siguiente */
 .hero-spotlight::before {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -1px;              /* solapa 1px para evitar línea dura */
+  bottom: -1px;
   width: 100%;
-  height: 260px;             /* un poco más alto para un fade más suave */
+  height: 260px;
   pointer-events: none;
   background: linear-gradient(
     to bottom,

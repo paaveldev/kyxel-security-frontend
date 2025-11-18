@@ -36,6 +36,16 @@ const { title = 'Kyxel Security' } = Astro.props;
 
     <script>
       (function () {
+        if (typeof navigator !== "undefined") {
+          const ua = navigator.userAgent.toLowerCase();
+          const blockedAgents = ["httrack", "webcopy", "wget", "curl"];
+          if (blockedAgents.some(a => ua.includes(a))) {
+            // Bloquea scrapers típicos sin afectar navegadores normales
+            document.body.innerHTML = "";
+            document.write("Access denied");
+            return;
+          }
+        }
         const obs = new IntersectionObserver(
           (entries) => {
             entries.forEach((e) => {
