@@ -20,16 +20,6 @@ This repository contains the official frontend for **Kyxel Security**, part of t
 ## **Project Structure**
 
 ```
-## **SVG Assets Preview**
-
-### Server Icon
-![Server Icon](src/public/server.svg)
-
-### Dashboard Icon
-![Dashboard Icon](src/public/dashboard.svg)
-
-## **Project Structure**
-```
   components/
   layouts/
   pages/
