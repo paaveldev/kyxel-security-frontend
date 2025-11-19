@@ -1,9 +1,10 @@
 ---
-import server from '../../public/server.svg';
-import kyxelsecurity from '../../public/logos/kyxelsecurity.png';
-import dashboard from '../../public/dashboard.svg';
-
 const baseUrl = import.meta.env.BASE_URL;
+
+const serverPath = `${baseUrl}/src/public/server.svg`;
+const kyxelLogoPath = `${baseUrl}/src/public/logos/kyxelsecurity.png`;
+const dashboardPath = `${baseUrl}/src/public/dashboard.svg`;
+
 const steps = [
   {
     step: 'Step 1',
@@ -61,21 +62,32 @@ const steps = [
           <h4 class="text-lg font-semibold text-white whitespace-nowrap">Servers → Kyxel Security → Dashboard</h4>
           <p class="text-sm text-slate-300">Every hop is encrypted. Latency stays under 80ms globally.</p>
         </div>
+
         <div class="md:col-span-2">
           <div class="flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
+
+              <!-- Server -->
               <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
-                <img src={server.src} alt="Server icon" class="h-8 w-8 object-contain" />
+                <img src={serverPath} alt="Server icon" class="h-8 w-8 object-contain" />
               </span>
+
               <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
+
+              <!-- Kyxel Security -->
               <span class="h-12 w-12 rounded-full border border-[#01a1f7] flex items-center justify-center bg-[#061638]">
-                <img src={kyxelsecurity.src} alt="Kyxel Security" class="h-8 w-8 object-contain" />
+                <img src={kyxelLogoPath} alt="Kyxel Security" class="h-8 w-8 object-contain" />
               </span>
+
               <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
+
+              <!-- Dashboard -->
               <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
-                <img src={dashboard.src} alt="Dashboard icon" class="h-8 w-8 object-contain" />
+                <img src={dashboardPath} alt="Dashboard icon" class="h-8 w-8 object-contain" />
               </span>
+
             </div>
+
             <a href={`${baseUrl}docs`} class="text-sm text-[#01a1f7] underline">View setup docs</a>
           </div>
         </div>
