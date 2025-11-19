@@ -1,9 +1,8 @@
 ---
+import server from '../../public/server.svg';
+import kyxelsecurity from '../../public/logos/kyxelsecurity.png';
+import dashboard from '../../public/dashboard.svg'
 const baseUrl = import.meta.env.BASE_URL;
-
-const serverPath = `${baseUrl}src/public/server.svg`;
-const kyxelLogoPath = `${baseUrl}src/public/logos/kyxelsecurity.png`;
-const dashboardPath = `${baseUrl}src/public/dashboard.svg`;
 
 const steps = [
   {
@@ -69,21 +68,21 @@ const steps = [
 
               <!-- Server -->
               <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
-                <img src={serverPath}.src alt="Server icon" class="h-8 w-8 object-contain" />
+                <img src={server.src} alt="Server icon" class="h-8 w-8 object-contain" />
               </span>
 
               <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
 
               <!-- Kyxel Security -->
               <span class="h-12 w-12 rounded-full border border-[#01a1f7] flex items-center justify-center bg-[#061638]">
-                <img src={kyxelLogoPath}.src alt="Kyxel Security" class="h-8 w-8 object-contain" />
+                <img src={kyxelsecurity.src} alt="Kyxel Security" class="h-8 w-8 object-contain" />
               </span>
 
               <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
 
               <!-- Dashboard -->
               <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
-                <img src={dashboardPath}.src alt="Dashboard icon" class="h-8 w-8 object-contain" />
+                <img src={dashboard.src} alt="Dashboard icon" class="h-8 w-8 object-contain" />
               </span>
 
             </div>
