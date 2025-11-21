@@ -2,104 +2,104 @@
 const baseUrl = import.meta.env.BASE_URL;
 ---
 <section id="hero" class="hero-spotlight pt-12 pb-10 md:pt-16 md:pb-12">
-  <div class="max-w-7xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
-      <div class="space-y-5 md:space-y-6 relative z-10">
-        <p class="section-eyebrow" style="color:#01a1f7">Active defense for servers & game hostss</p>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+      <div class="space-y-5 md:space-y-6 relative z-10 w-full overflow-hidden">
+        <p class="section-eyebrow text-xs sm:text-sm" style="color:#01a1f7">Active defense for servers & game hosts</p>
+        <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight break-words">
           See every attack, correlate every IP, and respond before players feel it.
         </h1>
-        <p class="text-lg md:text-xl text-slate-300 max-w-xl">
+        <p class="text-base sm:text-lg md:text-xl text-slate-300 max-w-xl break-words">
           Kyxel Security gives you live telemetry across VPS, bare metal, and multiplayer infrastructures.
           Ship a lightweight agent, get instant dashboards, and automate mitigations in minutes.
         </p>
 
         <ul class="space-y-3 text-slate-200">
-          <li class="flex items-center gap-3">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">01</span>
-            <span>Unified attack stream with ASN, geo and reputation enrichment.</span>
+          <li class="flex items-start gap-3">
+            <span class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">01</span>
+            <span class="break-words">Unified attack stream with ASN, geo and reputation enrichment.</span>
           </li>
-          <li class="flex items-center gap-3">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">02</span>
-            <span>Playbooks, alerts and webhooks tailored to your incident workflow.</span>
+          <li class="flex items-start gap-3">
+            <span class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">02</span>
+            <span class="break-words">Playbooks, alerts and webhooks tailored to your incident workflow.</span>
           </li>
-          <li class="flex items-center gap-3">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">03</span>
-            <span>Purpose-built dashboards for SRE, SOC and eSports operations.</span>
+          <li class="flex items-start gap-3">
+            <span class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;">03</span>
+            <span class="break-words">Purpose-built dashboards for SRE, SOC and eSports operations.</span>
           </li>
         </ul>
 
-        <div class="flex flex-col sm:flex-row gap-4 pt-2 relative z-20">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 relative z-20">
           <a
-            class="px-7 py-3 rounded-full shadow-soft text-center relative z-20 transition duration-200 hover:scale-105 get-started-btn"
+            class="px-5 sm:px-7 py-2.5 sm:py-3 rounded-full shadow-soft text-center relative z-20 transition duration-200 hover:scale-105 get-started-btn text-sm sm:text-base whitespace-nowrap"
             style="background:#01a4f7;color:#000;font-weight:600;"
             href={`${baseUrl}register`}
           >
             Get started
           </a>
           <a
-            class="px-7 py-3 rounded-full border border-white/20 text-white text-center relative z-20 transition duration-200 hover:scale-105"
+            class="px-5 sm:px-7 py-2.5 sm:py-3 rounded-full border border-white/20 text-white text-center relative z-20 transition duration-200 hover:scale-105 text-sm sm:text-base whitespace-nowrap"
             style="border-color:#01a1f7;"
             href={`${baseUrl}dashboard`}
           >
             View live dashboard
           </a>
         </div>
-        <div class="flex flex-wrap gap-6 text-sm text-slate-400 relative z-20">
-          <span class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full" style="background:#22c55e;"></span> Affordable pricing for every team
+        <div class="flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm text-slate-400 relative z-20">
+          <span class="flex items-center gap-2 flex-shrink-0">
+            <span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#22c55e;"></span> <span class="break-words">Affordable pricing for every team</span>
           </span>
-          <span class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full" style="background:#01a1f7;"></span> Agent ships in 4.7 MB
+          <span class="flex items-center gap-2 flex-shrink-0">
+            <span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#01a1f7;"></span> <span class="break-words">Agent ships in 4.7 MB</span>
           </span>
         </div>
       </div>
 
-      <div class="reveal">
-        <div class="card-strong rounded-3xl p-6 bg-gradient-to-b from-[#061638] to-[#040a1d] shadow-[0_35px_100px_rgba(3,10,30,0.65)] hover:scale-[1.02] transition-transform duration-200">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Live feed</p>
-              <p class="text-2xl font-semibold text-white mt-1">Kyxel Sensor Mesh</p>
+      <div class="reveal w-full overflow-hidden">
+        <div class="card-strong rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-gradient-to-b from-[#061638] to-[#040a1d] shadow-[0_35px_100px_rgba(3,10,30,0.65)] hover:scale-[1.02] transition-transform duration-200 w-full max-w-full">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="min-w-0 flex-1">
+              <p class="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] text-slate-400">Live feed</p>
+              <p class="text-xl sm:text-2xl font-semibold text-white mt-1 break-words">Kyxel Sensor Mesh</p>
             </div>
             <!-- <a href={`${baseUrl}dashboard`} class="text-sm" style="color:#01a1f7;text-decoration:underline;">Open demo</a> -->
           </div>
 
-          <div class="mt-6 grid grid-cols-3 gap-4 text-center">
-            <div>
-              <p class="text-3xl font-bold text-white">1,342</p>
-              <p class="text-xs text-slate-400">Attacks today</p>
+          <div class="mt-4 sm:mt-6 grid grid-cols-3 gap-2 sm:gap-4 text-center">
+            <div class="min-w-0">
+              <p class="text-2xl sm:text-3xl font-bold text-white break-words">1,342</p>
+              <p class="text-[10px] sm:text-xs text-slate-400 break-words">Attacks today</p>
             </div>
-            <div>
-              <p class="text-3xl font-bold text-white">724</p>
-              <p class="text-xs text-slate-400">Unique IPs</p>
+            <div class="min-w-0">
+              <p class="text-2xl sm:text-3xl font-bold text-white break-words">724</p>
+              <p class="text-[10px] sm:text-xs text-slate-400 break-words">Unique IPs</p>
             </div>
-            <div>
-              <p class="text-3xl font-bold text-white">18</p>
-              <p class="text-xs text-slate-400">Regions</p>
+            <div class="min-w-0">
+              <p class="text-2xl sm:text-3xl font-bold text-white break-words">18</p>
+              <p class="text-[10px] sm:text-xs text-slate-400 break-words">Regions</p>
             </div>
-            </div>
+          </div>
 
-          <div class="mt-6 rounded-2xl border border-white/10 p-4 bg-white/5">
-            <div class="flex items-center justify-between text-xs text-slate-400">
-              <span>Sensor network</span>
-              <span>Encrypted TLS · 45 ms latency</span>
+          <div class="mt-4 sm:mt-6 rounded-xl sm:rounded-2xl border border-white/10 p-3 sm:p-4 bg-white/5 w-full overflow-hidden">
+            <div class="flex items-center justify-between text-[10px] sm:text-xs text-slate-400 flex-wrap gap-1">
+              <span class="break-words">Sensor network</span>
+              <span class="break-words whitespace-nowrap">Encrypted TLS · 45 ms latency</span>
             </div>
-            <div class="mt-4 flex flex-col gap-3">
-              <div class="flex items-center gap-3">
-                <div class="flex-1 rounded-full bg-slate-800/80 p-2 flex items-center justify-between">
-                  <span class="text-sm text-white/80">Edge servers</span>
-                  <span class="text-[0.65rem] text-[#01a1f7] uppercase tracking-[0.3em]">Agents</span>
+            <div class="mt-3 sm:mt-4 flex flex-col gap-2 sm:gap-3 w-full overflow-hidden">
+              <div class="flex items-center gap-1.5 sm:gap-3 overflow-x-auto pb-1">
+                <div class="flex-1 min-w-[100px] rounded-full bg-slate-800/80 p-1.5 sm:p-2 flex items-center justify-between gap-1">
+                  <span class="text-xs sm:text-sm text-white/80 truncate">Edge servers</span>
+                  <span class="text-[0.6rem] sm:text-[0.65rem] text-[#01a1f7] uppercase tracking-[0.2em] sm:tracking-[0.3em] flex-shrink-0">Agents</span>
                 </div>
-                <span class="text-[#01a1f7]">⇢</span>
-                <div class="flex-1 rounded-full bg-slate-800/80 p-2 flex items-center justify-between">
-                  <span class="text-sm text-white/80">Kyxel Cloud</span>
-                  <span class="text-[0.65rem] text-slate-400 uppercase tracking-[0.3em]">Enrich</span>
+                <span class="text-[#01a1f7] flex-shrink-0">⇢</span>
+                <div class="flex-1 min-w-[100px] rounded-full bg-slate-800/80 p-1.5 sm:p-2 flex items-center justify-between gap-1">
+                  <span class="text-xs sm:text-sm text-white/80 truncate">Kyxel Cloud</span>
+                  <span class="text-[0.6rem] sm:text-[0.65rem] text-slate-400 uppercase tracking-[0.2em] sm:tracking-[0.3em] flex-shrink-0">Enrich</span>
                 </div>
-                <span class="text-[#01a1f7]">⇢</span>
-                <div class="flex-1 rounded-full bg-slate-800/80 p-2 flex items-center justify-between">
-                  <span class="text-sm text-white/80">Command</span>
-                  <span class="text-[0.65rem] text-slate-400 uppercase tracking-[0.3em]">Alert</span>
+                <span class="text-[#01a1f7] flex-shrink-0">⇢</span>
+                <div class="flex-1 min-w-[100px] rounded-full bg-slate-800/80 p-1.5 sm:p-2 flex items-center justify-between gap-1">
+                  <span class="text-xs sm:text-sm text-white/80 truncate">Command</span>
+                  <span class="text-[0.6rem] sm:text-[0.65rem] text-slate-400 uppercase tracking-[0.2em] sm:tracking-[0.3em] flex-shrink-0">Alert</span>
                 </div>
               </div>
               <div class="chart-row">
@@ -112,7 +112,7 @@ const baseUrl = import.meta.env.BASE_URL;
                 <div class="chart-bar small"></div>
                 <div class="chart-bar large"></div>
               </div>
-              <div class="flex justify-between text-[0.65rem] text-slate-500">
+              <div class="flex justify-between text-[0.6rem] sm:text-[0.65rem] text-slate-500">
                 <span>00:00</span>
                 <span>06:00</span>
                 <span>12:00</span>
@@ -122,9 +122,9 @@ const baseUrl = import.meta.env.BASE_URL;
             </div>
           </div>
 
-          <div class="mt-6 text-xs text-slate-400 flex items-center justify-between">
-            <span>Last sync: 2m ago</span>
-            <span>v0.1.0-alpha</span>
+          <div class="mt-4 sm:mt-6 text-[10px] sm:text-xs text-slate-400 flex items-center justify-between flex-wrap gap-1">
+            <span class="break-words">Last sync: 2m ago</span>
+            <span class="break-words">v0.1.0-alpha</span>
           </div>
         </div>
       </div>

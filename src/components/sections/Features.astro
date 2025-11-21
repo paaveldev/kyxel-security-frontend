@@ -34,24 +34,24 @@ const features = [
 ---
 <section aria-label="Part of the Kyxel ecosystem" class="bg-[#030617] py-10 md:py-12 border-y border-white/5">
 <section id="features" class="pt-20 pb-24 bg-gradient-to-b from-[#040514] to-kyxel-900/90">
-  <div class="max-w-7xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="max-w-3xl">
-      <p class="section-eyebrow" style="color:#01a1f7">Platform</p>
-      <h2 class="section-heading mt-3">Everything you need to keep hostile traffic in check</h2>
-      <p class="mt-4 text-slate-300">
+      <p class="section-eyebrow text-xs sm:text-sm" style="color:#01a1f7">Platform</p>
+      <h2 class="section-heading mt-3 text-2xl sm:text-3xl md:text-4xl break-words">Everything you need to keep hostile traffic in check</h2>
+      <p class="mt-4 text-sm sm:text-base text-slate-300 break-words">
         Kyxel Security centralizes telemetry, investigations and orchestrations so your SREs, SOC analysts and producers stay aligned.
       </p>
     </div>
 
-    <div class="mt-10 grid gap-5 md:grid-cols-2">
+    <div class="mt-10 grid gap-4 sm:gap-5 md:grid-cols-2">
       {features.map((feature) => (
-        <article class="card-strong rounded-2xl p-6 flex gap-4 hover:-translate-y-1 transition duration-300 feature-glow" style="box-shadow:0 20px 60px rgba(1,161,247,0.15);">
-          <div class="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center text-[#01a1f7] text-xl">
+        <article class="card-strong rounded-xl sm:rounded-2xl p-4 sm:p-6 flex gap-3 sm:gap-4 hover:-translate-y-1 transition duration-300 feature-glow w-full overflow-hidden" style="box-shadow:0 20px 60px rgba(1,161,247,0.15);">
+          <div class="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-white/10 flex items-center justify-center text-[#01a1f7] text-lg sm:text-xl flex-shrink-0">
             <i class={feature.icon} aria-hidden="true" style="color:#01a1f7"></i>
           </div>
-          <div>
-            <h3 class="text-xl font-semibold text-white">{feature.title}</h3>
-            <p class="mt-2 text-sm text-slate-300">{feature.copy}</p>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg sm:text-xl font-semibold text-white break-words">{feature.title}</h3>
+            <p class="mt-2 text-xs sm:text-sm text-slate-300 break-words">{feature.copy}</p>
           </div>
         </article>
       ))}

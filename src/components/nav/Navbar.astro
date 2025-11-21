@@ -89,7 +89,8 @@ const baseUrl = import.meta.env.BASE_URL;
       </div>
     </div>
 
-    <div class="flex md:hidden items-center py-2 gap-2 px-4 md:px-6 max-w-7xl mx-auto">
+    <!-- Mobile Navigation -->
+    <div class="flex md:hidden items-center py-2 gap-1.5 px-3 sm:px-4 max-w-7xl mx-auto">
       <a
         href={`${baseUrl}`}
         class="inline-flex items-center flex-shrink-0"
@@ -100,45 +101,47 @@ const baseUrl = import.meta.env.BASE_URL;
           width={logo.width}
           height={logo.height}
           alt="Kyxel Security"
-          class="h-16 w-auto object-contain cursor-pointer"
+          class="h-8 sm:h-10 w-auto object-contain cursor-pointer"
         />
       </a>
-      <div class="flex items-center gap-4 flex-1 justify-end">
-        <a
-          href="#features"
-          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
-          onclick="event.preventDefault(); document.getElementById('features').scrollIntoView({behavior: 'smooth'});"
-        >
-          Features
-        </a>
-        <a
-          href="#how-it-works"
-          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
-          onclick="event.preventDefault(); document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'});"
-        >
-          How it works
-        </a>
+      <div class="flex items-center gap-2 sm:gap-2.5 flex-1 justify-end overflow-hidden min-w-0">
+        <!-- PRICING, DOCS, FAQ y luego 3 puntos -->
         <a
           href="#pricing"
-          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
+          class="hover:text-[#01a1f7] text-slate-300 nav-text text-sm sm:text-base whitespace-nowrap flex-shrink-0"
           onclick="event.preventDefault(); document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});"
         >
-          Pricing
+          PRICING
         </a>
         <a
           href={`${baseUrl}docs`}
-          class="hover:text-[#01a1f7] text-slate-300 nav-text text-xl"
+          class="hover:text-[#01a1f7] text-slate-300 nav-text text-sm sm:text-base whitespace-nowrap flex-shrink-0"
         >
-          Docs
+          DOCS
         </a>
+        <a
+          href="#faq"
+          class="hover:text-[#01a1f7] text-slate-300 nav-text text-sm sm:text-base whitespace-nowrap flex-shrink-0"
+          onclick="event.preventDefault(); document.getElementById('faq').scrollIntoView({behavior: 'smooth'});"
+        >
+          FAQ
+        </a>
+        <!-- Botón de menú hamburguesa (3 puntitos) -->
         <button
           id="mobile-menu-btn"
-          class="p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+          class="p-1 sm:p-1.5 rounded focus:outline-none focus:ring-2 focus:ring-[#01a1f7] flex-shrink-0 ml-0.5"
+          aria-label="Open menu"
         >
-          <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
-            <rect y="7" width="32" height="3" rx="1.5" fill="#01a1f7" />
-            <rect y="14" width="32" height="3" rx="1.5" fill="#01a1f7" />
-            <rect y="21" width="32" height="3" rx="1.5" fill="#01a1f7" />
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" class="text-[#01a1f7] sm:w-5 sm:h-5">
+            <circle cx="5" cy="5" r="1.5" fill="currentColor" />
+            <circle cx="12" cy="5" r="1.5" fill="currentColor" />
+            <circle cx="19" cy="5" r="1.5" fill="currentColor" />
+            <circle cx="5" cy="12" r="1.5" fill="currentColor" />
+            <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+            <circle cx="19" cy="12" r="1.5" fill="currentColor" />
+            <circle cx="5" cy="19" r="1.5" fill="currentColor" />
+            <circle cx="12" cy="19" r="1.5" fill="currentColor" />
+            <circle cx="19" cy="19" r="1.5" fill="currentColor" />
           </svg>
         </button>
       </div>
@@ -150,72 +153,88 @@ const baseUrl = import.meta.env.BASE_URL;
   </div>
 </nav>
 
+<!-- Mobile Menu Overlay -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 bg-black/90 z-[999] hidden md:hidden flex-col justify-center items-center
-         transition-transform duration-300 ease-in-out translate-x-full"
+  class="fixed inset-0 bg-black/95 backdrop-blur-md z-[999] hidden md:hidden flex-col
+         transition-all duration-300 ease-in-out opacity-0 pointer-events-none"
 >
   <button
     id="close-menu"
-    class="absolute top-6 right-6 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+    class="absolute top-4 right-4 p-3 rounded-full bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#01a1f7] transition-colors"
+    aria-label="Close menu"
   >
-    <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
-      <line x1="8" y1="8" x2="24" y2="24" stroke="#01a1f7" stroke-width="3" stroke-linecap="round" />
-      <line x1="24" y1="8" x2="8" y2="24" stroke="#01a1f7" stroke-width="3" stroke-linecap="round" />
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" class="text-[#01a1f7]">
+      <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
     </svg>
   </button>
 
-  <nav class="flex flex-col gap-6 text-xl text-slate-100 nav-text items-center mt-12">
-    <a
-      href="#features"
-      class="hover:text-[#01a1f7]"
-      onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); const el=document.getElementById('features'); if(el){el.scrollIntoView({behavior:'smooth'});} return false;"
-    >
-      Features
-    </a>
-    <a
-      href="#how-it-works"
-      class="hover:text-[#01a1f7]"
-      onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); const el=document.getElementById('how-it-works'); if(el){el.scrollIntoView({behavior:'smooth'});} return false;"
-    >
-      How it works
-    </a>
-    <a
-      href="#pricing"
-      class="hover:text-[#01a1f7]"
-      onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); const el=document.getElementById('pricing'); if(el){el.scrollIntoView({behavior:'smooth'});} return false;"
-    >
-      Pricing
-    </a>
-    <a
-      href="#faq"
-      class="hover:text-[#01a1f7]"
-      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
-    >
-      FAQ
-    </a>
-    <a
-      href={`${baseUrl}docs`}
-      class="hover:text-[#01a1f7]"
-      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
-    >
-      Docs
-    </a>
-    <a
-      href={`${baseUrl}login`}
-      class="px-6 py-3 bg-[#01a1f7] text-black rounded-full font-display tracking-nav"
-      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
-    >
-      Login
-    </a>
-    <a
-      href={`${baseUrl}register`}
-      class="px-6 py-3 bg-[#01a1f7] text-black rounded-full font-display tracking-nav"
-      onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
-    >
-      Register
-    </a>
-  </nav>
+  <div class="flex flex-col justify-center items-center h-full px-6 py-20 overflow-y-auto">
+    <nav class="flex flex-col gap-3 w-full max-w-sm">
+      <!-- Todos los elementos del menú móvil -->
+      <a
+        href="#features"
+        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg-white/5 transition-colors text-center"
+        onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); setTimeout(() => { const el=document.getElementById('features'); if(el){el.scrollIntoView({behavior:'smooth'});} }, 300); return false;"
+      >
+        Features
+      </a>
+      <a
+        href="#how-it-works"
+        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg-white/5 transition-colors text-center"
+        onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); setTimeout(() => { const el=document.getElementById('how-it-works'); if(el){el.scrollIntoView({behavior:'smooth'});} }, 300); return false;"
+      >
+        How it works
+      </a>
+      <a
+        href="#pricing"
+        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg-white/5 transition-colors text-center"
+        onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); setTimeout(() => { const el=document.getElementById('pricing'); if(el){el.scrollIntoView({behavior:'smooth'});} }, 300); return false;"
+      >
+        Pricing
+      </a>
+      <a
+        href={`${baseUrl}docs`}
+        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg-white/5 transition-colors text-center"
+        onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+      >
+        Docs
+      </a>
+      <a
+        href={`${baseUrl}pricing`}
+        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg-white/5 transition-colors text-center"
+        onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+      >
+        Plans
+      </a>
+      <a
+        href="#faq"
+        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg-white/5 transition-colors text-center"
+        onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); setTimeout(() => { const el=document.getElementById('faq'); if(el){el.scrollIntoView({behavior:'smooth'});} }, 300); return false;"
+      >
+        FAQ
+      </a>
+      
+      <div class="border-t border-white/10 my-2"></div>
+      
+      <!-- Botones de acción -->
+      <a
+        href={`${baseUrl}login`}
+        class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold text-center transition-colors border border-white/20 text-sm sm:text-base"
+        onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+      >
+        Login
+      </a>
+      <a
+        href={`${baseUrl}register`}
+        class="px-6 py-3 bg-[#01a1f7] hover:bg-[#01b0ff] text-black rounded-full font-semibold text-center transition-colors text-sm sm:text-base"
+        onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+      >
+        Register
+      </a>
+    </nav>
+  </div>
 </div>
 
 <script>
@@ -225,15 +244,15 @@ const baseUrl = import.meta.env.BASE_URL;
 
   function openMenu() {
     if (!mobileMenu) return;
-    mobileMenu.classList.remove('hidden', 'translate-x-full');
-    mobileMenu.classList.add('flex', 'translate-x-0');
+    mobileMenu.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+    mobileMenu.classList.add('flex', 'opacity-100', 'pointer-events-auto');
     document.body.style.overflow = 'hidden';
   }
 
   function closeMenuFn() {
     if (!mobileMenu) return;
-    mobileMenu.classList.remove('translate-x-0');
-    mobileMenu.classList.add('translate-x-full');
+    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
     setTimeout(() => {
       mobileMenu.classList.add('hidden');
       mobileMenu.classList.remove('flex');
@@ -241,9 +260,23 @@ const baseUrl = import.meta.env.BASE_URL;
     }, 300);
   }
 
-  menuBtn && menuBtn.addEventListener('click', openMenu);
-  closeMenu && closeMenu.addEventListener('click', closeMenuFn);
+  if (menuBtn) {
+    menuBtn.addEventListener('click', openMenu);
+  }
+  
+  if (closeMenu) {
+    closeMenu.addEventListener('click', closeMenuFn);
+  }
 
-  // cerrar menú cuando se navega con los links del overlay (evento custom opcional)
+  // Cerrar menú cuando se navega con los links
   window.addEventListener('close-mobile-menu', closeMenuFn);
+  
+  // Cerrar menú al hacer clic fuera del contenido
+  if (mobileMenu) {
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        closeMenuFn();
+      }
+    });
+  }
 </script>

@@ -29,23 +29,23 @@ const faqs = [
 ---
 
 <section id="faq" class="py-20 md:py-24 bg-[#030417]">
-  <div class="max-w-5xl mx-auto px-6">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
     <div class="text-center">
-      <p class="section-eyebrow" style="color:#01a1f7">FAQ</p>
-      <h2 class="section-heading mt-3">Everything teams ask before shipping agents</h2>
-      <p class="mt-4 text-slate-300">
-          Need more? Email <a href="mailto:security@kyxelstudios.com" style="color:#01a1f7;text-decoration:underline;">security@kyxelstudios.com</a> and we’ll help you scope.
+      <p class="section-eyebrow text-xs sm:text-sm" style="color:#01a1f7">FAQ</p>
+      <h2 class="section-heading mt-3 text-2xl sm:text-3xl md:text-4xl break-words">Everything teams ask before shipping agents</h2>
+      <p class="mt-4 text-sm sm:text-base text-slate-300 break-words">
+          Need more? Email <a href="mailto:security@kyxelstudios.com" style="color:#01a1f7;text-decoration:underline;word-break:break-all;">security@kyxelstudios.com</a> and we'll help you scope.
       </p>
     </div>
 
-    <div class="mt-12 space-y-6">
+    <div class="mt-12 space-y-4 sm:space-y-6">
       {faqs.map((item) => (
-        <details class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition cursor-pointer">
-          <summary class="flex items-center justify-between text-left text-lg font-semibold text-white list-none w-full">
-            <span class="flex-1 pr-4">{item.question}</span>
-            <span style="color:#01a1f7" class="transition group-open:rotate-45 flex-shrink-0">+</span>
+        <details class="group rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6 transition cursor-pointer w-full overflow-hidden">
+          <summary class="flex items-center justify-between text-left text-base sm:text-lg font-semibold text-white list-none w-full gap-3">
+            <span class="flex-1 pr-2 sm:pr-4 break-words">{item.question}</span>
+            <span style="color:#01a1f7" class="transition group-open:rotate-45 flex-shrink-0 text-xl sm:text-2xl">+</span>
           </summary>
-          <p class="mt-4 text-sm text-slate-300 leading-relaxed">{item.answer}</p>
+          <p class="mt-4 text-xs sm:text-sm text-slate-300 leading-relaxed break-words">{item.answer}</p>
         </details>
       ))}
     </div>

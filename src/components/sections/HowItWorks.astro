@@ -27,67 +27,67 @@ const steps = [
 ---
 
 <section id="how-it-works" class="py-20 md:py-24">
-  <div class="max-w-7xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="max-w-3xl">
-      <p class="section-eyebrow text-[#01a1f7]">How it works</p>
-      <h2 class="section-heading mt-3">Deploy agents, stream telemetry, unlock full visibility</h2>
-      <p class="mt-4 text-slate-300">
+      <p class="section-eyebrow text-xs sm:text-sm text-[#01a1f7]">How it works</p>
+      <h2 class="section-heading mt-3 text-2xl sm:text-3xl md:text-4xl break-words">Deploy agents, stream telemetry, unlock full visibility</h2>
+      <p class="mt-4 text-sm sm:text-base text-slate-300 break-words">
         No appliances, no week-long onboarding. Just connect, authorize and watch incidents arrive enriched and prioritized.
       </p>
     </div>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
+    <div class="mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
       {steps.map((item) => (
-        <article class="card-strong rounded-2xl p-6 flex flex-col gap-3 hover:shadow-[0_20px_60px_rgba(0,166,249,0.15)] transition duration-300">
-          <div class="flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-[#01a1f7]">
-            <span>{item.step}</span>
+        <article class="card-strong rounded-xl sm:rounded-2xl p-4 sm:p-6 flex flex-col gap-3 hover:shadow-[0_20px_60px_rgba(0,166,249,0.15)] transition duration-300 w-full overflow-hidden">
+          <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[#01a1f7]">
+            <span class="whitespace-nowrap">{item.step}</span>
             <div class="h-px flex-1 bg-[#01a1f7]/30"></div>
           </div>
-          <div class="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center text-[#01a1f7]">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <div class="h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-white/10 flex items-center justify-center text-[#01a1f7] flex-shrink-0">
+            <svg class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d={item.icon}></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-white">{item.title}</h3>
-          <p class="text-sm text-slate-300 flex-1">{item.body}</p>
+          <h3 class="text-lg sm:text-xl font-semibold text-white break-words">{item.title}</h3>
+          <p class="text-xs sm:text-sm text-slate-300 flex-1 break-words">{item.body}</p>
         </article>
       ))}
     </div>
 
-    <div class="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-      <div class="grid gap-6 md:grid-cols-3 items-center">
-        <div class="space-y-2">
-          <p class="text-sm font-semibold text-[#01a1f7] uppercase tracking-[0.3em]">Flow</p>
-          <h4 class="text-lg font-semibold text-white whitespace-nowrap">Servers → Kyxel Security → Dashboard</h4>
-          <p class="text-sm text-slate-300">Every hop is encrypted. Latency stays under 80ms globally.</p>
+    <div class="mt-12 rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 md:p-10 w-full overflow-hidden">
+      <div class="grid gap-4 sm:gap-6 md:grid-cols-3 items-center">
+        <div class="space-y-2 min-w-0">
+          <p class="text-xs sm:text-sm font-semibold text-[#01a1f7] uppercase tracking-[0.2em] sm:tracking-[0.3em]">Flow</p>
+          <h4 class="text-base sm:text-lg font-semibold text-white break-words">Servers → Kyxel Security → Dashboard</h4>
+          <p class="text-xs sm:text-sm text-slate-300 break-words">Every hop is encrypted. Latency stays under 80ms globally.</p>
         </div>
 
-        <div class="md:col-span-2">
-          <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
+        <div class="md:col-span-2 min-w-0 w-full">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-3 flex-wrap justify-center md:justify-start">
 
               <!-- Server -->
-              <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
-                <img src={server.src} alt="Server icon" class="h-8 w-8 object-contain" />
+              <span class="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638] flex-shrink-0">
+                <img src={server.src} alt="Server icon" class="h-6 w-6 sm:h-8 sm:w-8 object-contain" />
               </span>
 
-              <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
+              <div class="w-8 sm:w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16 flex-shrink-0"></div>
 
               <!-- Kyxel Security -->
-              <span class="h-12 w-12 rounded-full border border-[#01a1f7] flex items-center justify-center bg-[#061638]">
-                <img src={kyxelsecurity.src} alt="Kyxel Security" class="h-8 w-8 object-contain" />
+              <span class="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-[#01a1f7] flex items-center justify-center bg-[#061638] flex-shrink-0">
+                <img src={kyxelsecurity.src} alt="Kyxel Security" class="h-6 w-6 sm:h-8 sm:w-8 object-contain" />
               </span>
 
-              <div class="w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16"></div>
+              <div class="w-8 sm:w-12 h-px bg-gradient-to-r from-[#01a1f7] to-transparent md:w-16 flex-shrink-0"></div>
 
               <!-- Dashboard -->
-              <span class="h-12 w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638]">
-                <img src={dashboard.src} alt="Dashboard icon" class="h-8 w-8 object-contain" />
+              <span class="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-[#01a1f7]/40 flex items-center justify-center bg-[#061638] flex-shrink-0">
+                <img src={dashboard.src} alt="Dashboard icon" class="h-6 w-6 sm:h-8 sm:w-8 object-contain" />
               </span>
 
             </div>
 
-            <a href={`${baseUrl}docs`} class="text-sm text-[#01a1f7] underline">View setup docs</a>
+            <a href={`${baseUrl}docs`} class="text-xs sm:text-sm text-[#01a1f7] underline whitespace-nowrap">View setup docs</a>
           </div>
         </div>
       </div>

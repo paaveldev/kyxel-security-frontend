@@ -9,35 +9,35 @@ const mockAttacks = [
 ---
 <section aria-label="Part of the Kyxel ecosystem" class="bg-[#030617] py-10 md:py-12 border-y border-white/5">
 <section class="py-20 md:py-24">
-  <div class="max-w-7xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="grid gap-10 lg:grid-cols-2 items-center">
-      <div>
-        <p class="section-eyebrow text-cyan-200">Command center</p>
-        <h2 class="section-heading mt-3">Your dashboard stays ahead of every spike</h2>
-        <p class="mt-4 text-slate-300">
+      <div class="w-full overflow-hidden">
+        <p class="section-eyebrow text-xs sm:text-sm text-cyan-200">Command center</p>
+        <h2 class="section-heading mt-3 text-2xl sm:text-3xl md:text-4xl break-words">Your dashboard stays ahead of every spike</h2>
+        <p class="mt-4 text-sm sm:text-base text-slate-300 break-words">
           Follow live traffic, drill into suspicious IPs, and push mitigations back to your infrastructure with a single click.
           The dashboard reflects the real monitoring experience used in production environments.
         </p>
-        <div class="mt-8 grid grid-cols-2 gap-4">
-          <div class="rounded-2xl border border-white/10 p-5">
-            <p class="text-sm text-slate-400">Mean detection time</p>
-            <p class="text-3xl font-bold text-white">14s</p>
-            <p class="text-xs text-green-400 mt-1">-32% vs last week</p>
+        <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-4">
+          <div class="rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-5 overflow-hidden">
+            <p class="text-xs sm:text-sm text-slate-400 break-words">Mean detection time</p>
+            <p class="text-2xl sm:text-3xl font-bold text-white break-words">14s</p>
+            <p class="text-[10px] sm:text-xs text-green-400 mt-1 break-words">-32% vs last week</p>
           </div>
-          <div class="rounded-2xl border border-white/10 p-5">
-            <p class="text-sm text-slate-400">Automation coverage</p>
-            <p class="text-3xl font-bold text-white">82%</p>
-            <p class="text-xs text-slate-400 mt-1">Playbooks executed</p>
+          <div class="rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-5 overflow-hidden">
+            <p class="text-xs sm:text-sm text-slate-400 break-words">Automation coverage</p>
+            <p class="text-2xl sm:text-3xl font-bold text-white break-words">82%</p>
+            <p class="text-[10px] sm:text-xs text-slate-400 mt-1 break-words">Playbooks executed</p>
           </div>
         </div>
-        <div class="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">Real-time charting</span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">Audit-ready logs</span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">Role-based access</span>
+        <div class="mt-8 flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm text-slate-300">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-2 sm:px-3 py-1 break-words">Real-time charting</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-2 sm:px-3 py-1 break-words">Audit-ready logs</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-2 sm:px-3 py-1 break-words">Role-based access</span>
         </div>
         <a
           href={`${baseUrl}dashboard`}
-          class="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold text-black shadow-soft transition duration-200 hover:scale-105"
+          class="mt-8 inline-flex items-center gap-2 rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-black shadow-soft transition duration-200 hover:scale-105 text-sm sm:text-base whitespace-nowrap"
           style="background-color: #01a1f7;"
         >
           Launch dashboard
@@ -45,13 +45,13 @@ const mockAttacks = [
         </a>
       </div>
 
-      <div class="card-strong rounded-3xl p-6 bg-gradient-to-b from-[#050b1e] to-[#030612] hover:scale-[1.02] transition-transform duration-200">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs uppercase tracking-[0.4em] text-cyan-200">Overview</p>
-            <p class="text-xl font-semibold text-white mt-1">Attacks last 24h</p>
+      <div class="card-strong rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-gradient-to-b from-[#050b1e] to-[#030612] hover:scale-[1.02] transition-transform duration-200 w-full overflow-hidden">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div class="min-w-0">
+            <p class="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] text-cyan-200">Overview</p>
+            <p class="text-lg sm:text-xl font-semibold text-white mt-1 break-words">Attacks last 24h</p>
           </div>
-          <span class="text-xs text-slate-400">Synced 2m ago</span>
+          <span class="text-[10px] sm:text-xs text-slate-400 whitespace-nowrap">Synced 2m ago</span>
         </div>
 
         <div class="mt-6">
@@ -75,24 +75,26 @@ const mockAttacks = [
         </div>
 
         <div class="mt-8">
-          <div class="flex items-center justify-between text-sm text-slate-300">
-            <span>Recent incidents</span>
-            <span class="text-xs text-slate-500">Auto sorted by severity</span>
+          <div class="flex items-center justify-between text-xs sm:text-sm text-slate-300 flex-wrap gap-2">
+            <span class="break-words">Recent incidents</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 whitespace-nowrap">Auto sorted by severity</span>
           </div>
-          <div class="mt-4 divide-y divide-white/10">
-            {mockAttacks.map((attack) => (
-              <div class="py-3 grid grid-cols-5 gap-3 text-sm text-white items-center">
-                <span class="font-mono text-xs text-slate-400">{attack.time}</span>
-                <span class="font-mono">{attack.ip}</span>
-                <span class="text-slate-300">{attack.type}</span>
-                <span class={`text-xs font-semibold ${
-                  attack.severity === 'Critical' ? 'text-red-400' : attack.severity === 'High' ? 'text-orange-300' : 'text-yellow-200'
-                }`}>
-                  {attack.severity}
-                </span>
-                <span class="text-right text-xs text-slate-400">{attack.status}</span>
-              </div>
-            ))}
+          <div class="mt-4 divide-y divide-white/10 overflow-x-auto">
+            <div class="min-w-[600px]">
+              {mockAttacks.map((attack) => (
+                <div class="py-3 grid grid-cols-5 gap-2 sm:gap-3 text-xs sm:text-sm text-white items-center">
+                  <span class="font-mono text-[10px] sm:text-xs text-slate-400 whitespace-nowrap flex-shrink-0">{attack.time}</span>
+                  <span class="font-mono text-[10px] sm:text-xs whitespace-nowrap break-all min-w-0 flex-shrink-0">{attack.ip}</span>
+                  <span class="text-slate-300 text-[10px] sm:text-xs break-words min-w-0">{attack.type}</span>
+                  <span class={`text-[10px] sm:text-xs font-semibold whitespace-nowrap flex-shrink-0 ${
+                    attack.severity === 'Critical' ? 'text-red-400' : attack.severity === 'High' ? 'text-orange-300' : 'text-yellow-200'
+                  }`}>
+                    {attack.severity}
+                  </span>
+                  <span class="text-right text-[10px] sm:text-xs text-slate-400 whitespace-nowrap flex-shrink-0">{attack.status}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
