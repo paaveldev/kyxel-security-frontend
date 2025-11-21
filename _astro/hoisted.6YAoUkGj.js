@@ -1,1 +1,0 @@
-import"./hoisted.BYtksDbE.js";(function(){const n=document.getElementById("faq");n&&n.querySelectorAll("details").forEach(e=>{e.addEventListener("click",t=>{const r=e.querySelector("summary");t.target!==r&&!r.contains(t.target)&&(t.preventDefault(),e.open=!e.open)})})})();
