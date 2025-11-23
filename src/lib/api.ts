@@ -3,7 +3,7 @@ const envApiBase = (import.meta as { env?: { PUBLIC_API_BASE_URL?: string; DEV?:
 
 const defaultDevApiBase =
   (import.meta as { env?: { DEV?: boolean } }).env?.DEV === true
-    ? 'https://api.kyxelsecurity.com/api/v1'
+    ? 'https://api.kyxelsecurity.com/api'
     : '';
 
 const API_BASE = (envApiBase || defaultDevApiBase || '').replace(/\/$/, '');
@@ -150,7 +150,7 @@ export function apiGetEvents(projectId: string, token: string) {
 // ===============================
 
 export function apiGetCurrentUser(token: string) {
-  // El backend expone GET /api/v1/me, pero como API_BASE ya incluye /api/v1,
+  // El backend expone GET /api/me, pero como API_BASE ya incluye /api,
   // aquí solo usamos /me
   return request<AccountResponse>('/me', {
     headers: { Authorization: `Bearer ${token}` },
@@ -158,7 +158,7 @@ export function apiGetCurrentUser(token: string) {
 }
 
 export function apiUpdateCurrentUser(input: UpdateCurrentUserInput, token: string) {
-  // Igual que arriba: PATCH /me sobre base /api/v1
+  // Igual que arriba: PATCH /me sobre base /api
   return request<AccountResponse>('/me', {
     method: 'PATCH',
     headers: { Authorization: `Bearer ${token}` },
