@@ -7,7 +7,7 @@ const sections = [
     title: 'Getting started',
     body:
       'Install the Kyxel agent on any Linux host with a single command. The agent streams telemetry over TLS and auto-updates in the background.',
-    code: `curl -s https://get.kyxel.sh | bash -s -- --token <YOUR_TOKEN>
+    code: `curl -s https://get.kyxelsecurity.com | bash -s -- --token <YOUR_TOKEN>
 kyxel-agent enroll --project <project-id>
 kyxel-agent status`,
   },
@@ -15,7 +15,7 @@ kyxel-agent status`,
     id: 'api',
     title: 'API reference',
     body: 'Use the REST API to pull incidents, suppression lists and metrics. Authenticate with a project token.',
-    code: `GET https://api.kyxel.sh/v1/incidents
+    code: `GET https://api.kyxelsecurity.com/v1/incidents
 Authorization: Bearer <project-token>`,
   },
   {
