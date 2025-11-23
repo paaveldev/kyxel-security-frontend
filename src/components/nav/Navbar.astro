@@ -8,6 +8,7 @@ const baseUrl = import.meta.env.BASE_URL;
   <div class="bg-transparent">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="hidden md:flex items-center py-4 w-full">
+        <!-- LEFT LINKS -->
         <div class="flex gap-10 flex-1 justify-end pr-20">
           <a
             href="#features"
@@ -32,6 +33,7 @@ const baseUrl = import.meta.env.BASE_URL;
           </a>
         </div>
 
+        <!-- LOGO CENTER -->
         <div class="flex-shrink-0 flex justify-center items-center">
           <a
             href={`${baseUrl}`}
@@ -50,6 +52,7 @@ const baseUrl = import.meta.env.BASE_URL;
           </a>
         </div>
 
+        <!-- RIGHT LINKS + AUTH -->
         <div class="flex gap-10 flex-1 justify-start items-center pl-20">
           <a
             href={`${baseUrl}docs`}
@@ -70,7 +73,9 @@ const baseUrl = import.meta.env.BASE_URL;
           >
             FAQ
           </a>
-          <div class="flex gap-2 items-center">
+
+          <!-- 🔹 Invitado (desktop) -->
+          <div id="nav-auth-guest-desktop" class="flex gap-2 items-center">
             <a
               href={`${baseUrl}login`}
               class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text"
@@ -85,6 +90,51 @@ const baseUrl = import.meta.env.BASE_URL;
               REGISTER
             </a>
           </div>
+
+          <!-- 🔹 Logueado (desktop) -->
+          <!-- IMPORTANTE: sin md:flex aquí, solo hidden; el JS añade/quita 'flex' -->
+          <div id="nav-auth-user-desktop" class="hidden items-center relative z-[70]">
+            <button
+              id="user-menu-button"
+              type="button"
+              class="w-10 h-10 rounded-full bg-gradient-to-br from-white/30 via-white/15 to-white/5 text-white font-semibold flex items-center justify-center ring-1 ring-white/20 shadow-[0_12px_30px_rgba(1,161,247,0.35)] transition-all duration-200 ease-out hover:scale-105 hover:ring-[#01a1f7]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#01a1f7] focus-visible:ring-offset-2 focus-visible:ring-offset-[#030417]/80"
+              aria-label="Account menu"
+              aria-haspopup="menu"
+              aria-expanded="false"
+            >
+              K
+            </button>
+            <div
+              id="user-menu-dropdown"
+              class="hidden absolute right-0 top-full mt-3 w-56 origin-top-right rounded-2xl bg-[#05071f]/95 border border-white/10 shadow-[0_30px_60px_rgba(3,4,23,0.7)] backdrop-blur-xl p-2 transition-all duration-200 ease-out opacity-0 translate-y-2 pointer-events-none scale-95 z-[75]"
+              role="menu"
+              aria-labelledby="user-menu-button"
+            >
+              <a
+                href={`${baseUrl}dashboard`}
+                class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-100 hover:bg-white/5 transition-colors"
+                role="menuitem"
+              >
+                Dashboard
+              </a>
+              <a
+                href={`${baseUrl}account`}
+                class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-100 hover:bg-white/5 transition-colors"
+                role="menuitem"
+              >
+                My account
+              </a>
+              <button
+                id="logout-desktop"
+                type="button"
+                class="w-full flex items-center gap-2 px-4 py-2.5 text-left rounded-xl text-sm font-medium text-rose-300/90 hover:text-rose-200 hover:bg-rose-500/10 transition-colors"
+                role="menuitem"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+          <!-- 🔹 Fin zona auth desktop -->
         </div>
       </div>
     </div>
@@ -105,7 +155,6 @@ const baseUrl = import.meta.env.BASE_URL;
         />
       </a>
       <div class="flex items-center gap-2 sm:gap-2.5 flex-1 justify-end overflow-hidden min-w-0">
-        <!-- PRICING, DOCS, FAQ y luego 3 puntos -->
         <a
           href="#pricing"
           class="hover:text-[#01a1f7] text-slate-300 nav-text text-sm sm:text-base whitespace-nowrap flex-shrink-0"
@@ -126,7 +175,6 @@ const baseUrl = import.meta.env.BASE_URL;
         >
           FAQ
         </a>
-        <!-- Botón de menú hamburguesa (3 puntitos) -->
         <button
           id="mobile-menu-btn"
           class="p-1 sm:p-1.5 rounded focus:outline-none focus:ring-2 focus:ring-[#01a1f7] flex-shrink-0 ml-0.5"
@@ -172,10 +220,9 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <div class="flex flex-col justify-center items-center h-full px-6 py-20 overflow-y-auto">
     <nav class="flex flex-col gap-3 w-full max-w-sm">
-      <!-- Todos los elementos del menú móvil -->
       <a
         href="#features"
-        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg-white/5 transition-colors text-center"
+        class="hover:text-[#01a1f7] text-slate-200 nav-text text-base sm:text-lg py-3 px-4 rounded-lg hover:bg:white/5 hover:bg-white/5 transition-colors text-center"
         onclick="event.preventDefault(); window.dispatchEvent(new Event('close-mobile-menu')); setTimeout(() => { const el=document.getElementById('features'); if(el){el.scrollIntoView({behavior:'smooth'});} }, 300); return false;"
       >
         Features
@@ -218,21 +265,48 @@ const baseUrl = import.meta.env.BASE_URL;
       
       <div class="border-t border-white/10 my-2"></div>
       
-      <!-- Botones de acción -->
-      <a
-        href={`${baseUrl}login`}
-        class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold text-center transition-colors border border-white/20 text-sm sm:text-base"
-        onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
-      >
-        Login
-      </a>
-      <a
-        href={`${baseUrl}register`}
-        class="px-6 py-3 bg-[#01a1f7] hover:bg-[#01b0ff] text-black rounded-full font-semibold text-center transition-colors text-sm sm:text-base"
-        onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
-      >
-        Register
-      </a>
+      <!-- 🔹 Invitado móvil -->
+      <div id="nav-auth-guest-mobile" class="flex flex-col gap-2 w-full">
+        <a
+          href={`${baseUrl}login`}
+          class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold text-center transition-colors border border-white/20 text-sm sm:text-base"
+          onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+        >
+          Login
+        </a>
+        <a
+          href={`${baseUrl}register`}
+          class="px-6 py-3 bg-[#01a1f7] hover:bg-[#01b0ff] text-black rounded-full font-semibold text-center transition-colors text-sm sm:text-base"
+          onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+        >
+          Register
+        </a>
+      </div>
+
+      <!-- 🔹 Logueado móvil -->
+      <div id="nav-auth-user-mobile" class="hidden flex flex-col gap-2 w-full">
+        <a
+          href={`${baseUrl}dashboard`}
+          class="px-6 py-3 rounded-full border border-white/15 bg-white/5 text-white font-semibold text-center transition-all duration-200 text-sm sm:text-base tracking-wide shadow-[0_12px_35px_rgba(1,161,247,0.25)] hover:bg-white/10 hover:border-white/30"
+          onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+        >
+          Dashboard
+        </a>
+        <a
+          href={`${baseUrl}account`}
+          class="px-6 py-3 rounded-full border border-white/15 bg:white/5 bg-white/5 text-white font-semibold text-center transition-all duration-200 text-sm sm:text-base tracking-wide shadow-[0_12px_35px_rgba(1,161,247,0.25)] hover:bg-white/10 hover:border-white/30"
+          onclick="window.dispatchEvent(new Event('close-mobile-menu'))"
+        >
+          My account
+        </a>
+        <button
+          id="logout-mobile"
+          type="button"
+          class="px-6 py-3 rounded-full border border-red-500/40 bg-red-500/20 text-rose-100 font-semibold text-center transition-all duration-200 text-sm sm:text-base tracking-wide shadow-[0_15px_35px_rgba(248,113,113,0.35)] hover:bg-red-500/30"
+        >
+          Logout
+        </button>
+      </div>
     </nav>
   </div>
 </div>
@@ -268,10 +342,8 @@ const baseUrl = import.meta.env.BASE_URL;
     closeMenu.addEventListener('click', closeMenuFn);
   }
 
-  // Cerrar menú cuando se navega con los links
   window.addEventListener('close-mobile-menu', closeMenuFn);
   
-  // Cerrar menú al hacer clic fuera del contenido
   if (mobileMenu) {
     mobileMenu.addEventListener('click', (e) => {
       if (e.target === mobileMenu) {
@@ -279,4 +351,144 @@ const baseUrl = import.meta.env.BASE_URL;
       }
     });
   }
+
+  function isLoggedIn() {
+    try {
+      return !!localStorage.getItem('ks_token');
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // Devuelve las iniciales del nombre completo guardado en localStorage
+  function getUserInitials() {
+    try {
+      const fullName =
+        localStorage.getItem('ks_full_name') ||
+        localStorage.getItem('ks_fullname') ||
+        localStorage.getItem('ks_name');
+
+      if (!fullName) return 'K';
+
+      const parts = fullName.trim().split(/\s+/);
+      if (parts.length === 1) {
+        return parts[0].charAt(0).toUpperCase();
+      }
+      return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+    } catch (e) {
+      return 'K';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const guestDesktop = document.getElementById('nav-auth-guest-desktop');
+    const userDesktop = document.getElementById('nav-auth-user-desktop');
+    const guestMobile = document.getElementById('nav-auth-guest-mobile');
+    const userMobile = document.getElementById('nav-auth-user-mobile');
+    const loggedIn = isLoggedIn();
+
+    const userMenuButton = document.getElementById('user-menu-button');
+    const userMenuDropdown = document.getElementById('user-menu-dropdown');
+
+    if (loggedIn) {
+      // Mostrar solo usuario
+      if (guestDesktop) guestDesktop.classList.add('hidden');
+      if (userDesktop) {
+        userDesktop.classList.remove('hidden');
+        userDesktop.classList.add('flex');
+      }
+      if (guestMobile) guestMobile.classList.add('hidden');
+      if (userMobile) userMobile.classList.remove('hidden');
+
+      // Poner iniciales en el avatar
+      const initials = getUserInitials();
+      if (userMenuButton && initials) {
+        userMenuButton.textContent = initials;
+      }
+    } else {
+      // Mostrar solo login/register
+      if (guestDesktop) guestDesktop.classList.remove('hidden');
+      if (userDesktop) {
+        userDesktop.classList.add('hidden');
+        userDesktop.classList.remove('flex');
+      }
+      if (guestMobile) guestMobile.classList.remove('hidden');
+      if (userMobile) userMobile.classList.add('hidden');
+    }
+
+    const showClasses = ['opacity-100', 'translate-y-0', 'pointer-events-auto', 'scale-100'];
+    const hideClasses = ['opacity-0', 'translate-y-2', 'pointer-events-none', 'scale-95'];
+    let dropdownOpen = false;
+
+    const openUserDropdown = () => {
+      if (!userMenuDropdown || dropdownOpen) return;
+      dropdownOpen = true;
+      userMenuDropdown.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        userMenuDropdown.classList.remove(...hideClasses);
+        userMenuDropdown.classList.add(...showClasses);
+      });
+      if (userMenuButton) userMenuButton.setAttribute('aria-expanded', 'true');
+    };
+
+    const closeUserDropdown = () => {
+      if (!userMenuDropdown || !dropdownOpen) return;
+      dropdownOpen = false;
+      userMenuDropdown.classList.remove(...showClasses);
+      userMenuDropdown.classList.add(...hideClasses);
+      const handleTransitionEnd = (event) => {
+        if (event.propertyName === 'opacity' && !dropdownOpen) {
+          userMenuDropdown.classList.add('hidden');
+        }
+      };
+      userMenuDropdown.addEventListener('transitionend', handleTransitionEnd, { once: true });
+      if (userMenuButton) userMenuButton.setAttribute('aria-expanded', 'false');
+    };
+
+    if (userMenuDropdown) {
+      userMenuDropdown.addEventListener('click', (event) => event.stopPropagation());
+    }
+
+    if (userMenuButton && userMenuDropdown) {
+      userMenuButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (dropdownOpen) {
+          closeUserDropdown();
+        } else {
+          openUserDropdown();
+        }
+      });
+
+      document.addEventListener('click', closeUserDropdown);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeUserDropdown();
+        }
+      });
+    }
+
+    const logoutDesktop = document.getElementById('logout-desktop');
+    const logoutMobile = document.getElementById('logout-mobile');
+
+    function doLogout(e) {
+      if (e) e.preventDefault();
+      try {
+        localStorage.removeItem('ks_token');
+        localStorage.removeItem('ks_full_name');
+        localStorage.removeItem('ks_fullname');
+        localStorage.removeItem('ks_name');
+      } catch (err) {}
+      window.location.reload();
+    }
+
+    if (logoutDesktop) {
+      logoutDesktop.addEventListener('click', doLogout);
+    }
+    if (logoutMobile) {
+      logoutMobile.addEventListener('click', (e) => {
+        doLogout(e);
+        window.dispatchEvent(new Event('close-mobile-menu'));
+      });
+    }
+  });
 </script>

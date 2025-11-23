@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
 const baseUrl = import.meta.env.BASE_URL;
+const API_BASE = import.meta.env.PUBLIC_API_BASE_URL;
+const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <BaseLayout
@@ -12,59 +15,434 @@ const baseUrl = import.meta.env.BASE_URL;
       <div class="grid md:grid-cols-2 gap-8">
         <div>
           <h1 class="text-3xl font-bold mb-3">Create your workspace</h1>
-          <p class="text-sm text-slate-400 mb-6">Invite your team later. No credit card required.</p>
-          <form class="space-y-5">
+          <p class="text-sm text-slate-400 mb-6">
+            Invite your team later. No credit card required.
+          </p>
+
+          <!-- FORMULARIO REAL, LLAMA A LA API -->
+          <form id="register-form" class="space-y-5">
             <div>
-              <label class="text-sm font-semibold">Full name</label>
-              <input type="text" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Nova Reyes" />
+              <label class="text-sm font-semibold" for="fullName">Full name</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                required
+                class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                placeholder="Nova Reyes"
+              />
             </div>
+
             <div>
-              <label class="text-sm font-semibold">Work email</label>
-              <input type="email" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="you@kyxelstudios.com" />
+              <label class="text-sm font-semibold" for="email">Work email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                placeholder="you@kyxelstudios.com"
+              />
             </div>
+
             <div>
-              <label class="text-sm font-semibold">Workspace name</label>
-              <input type="text" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Kyxel Ops" />
+              <label class="text-sm font-semibold" for="workspace">Workspace name (optional)</label>
+              <input
+                id="workspace"
+                name="workspace"
+                type="text"
+                class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                placeholder="Kyxel Security"
+              />
             </div>
+
             <div>
-              <label class="text-sm font-semibold">Password</label>
-              <input type="password" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="••••••••" />
+              <label class="text-sm font-semibold" for="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                minlength="8"
+                class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                placeholder="••••••••"
+              />
+              <!-- Password strength bar -->
+              <div class="mt-2 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <div
+                  id="password-strength-bar"
+                  class="h-full transition-all duration-300 rounded-full"
+                  style="width: 0%; background: #f97373;"
+                ></div>
+              </div>
+              <p id="password-strength-text" class="mt-1 text-xs text-slate-400"></p>
             </div>
-            <button type="submit" class="w-full rounded-full" style="background:#01a1f7;color:#000;font-weight:600;" >Create account</button>
+
+            <div>
+              <label class="text-sm font-semibold" for="confirmPassword">Re-type your password</label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                required
+                minlength="8"
+                class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                placeholder="••••••••"
+              />
+              <p id="password-match-text" class="mt-1 text-xs text-slate-400"></p>
+            </div>
+
+            <!-- Cloudflare Turnstile (solo si hay SITE KEY) -->
+            {TURNSTILE_SITE_KEY ? (
+              <div class="mt-2">
+                <div
+                  class="cf-turnstile"
+                  data-sitekey={TURNSTILE_SITE_KEY}
+                  data-theme="dark"
+                ></div>
+              </div>
+            ) : (
+              <p class="mt-2 text-xs text-amber-300">
+                Add <code>PUBLIC_TURNSTILE_SITE_KEY</code> to your .env to enable captcha.
+              </p>
+            )}
+
+            <button
+              type="submit"
+              class="w-full rounded-full mt-4"
+              style="background:#01a1f7;color:#000;font-weight:600;"
+            >
+              Create account
+            </button>
+
+            <p
+              id="register-message"
+              class="mt-3 text-xs text-slate-300 min-h-[1.25rem]"
+            ></p>
           </form>
+
           <p class="mt-4 text-xs text-slate-500">
-            By creating an account you agree to the <a href={`${baseUrl}terms`} style="color:#01a1f7;text-decoration:underline;">Terms</a> and <a href={`${baseUrl}privacy`} style="color:#01a1f7;text-decoration:underline;">Privacy Policy</a>.
+            By creating an account you agree to the{" "}
+            <a
+              href={`${baseUrl}terms`}
+              style="color:#01a1f7;text-decoration:underline;"
+            >
+              Terms
+            </a>{" "}
+            and{" "}
+            <a
+              href={`${baseUrl}privacy`}
+              style="color:#01a1f7;text-decoration:underline;"
+            >
+              Privacy Policy
+            </a>.
           </p>
         </div>
+
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6 space-y-4">
-          <p class="section-eyebrow" style="color:#01a1f7">What’s included</p>
+          <p class="section-eyebrow" style="color:#01a1f7">
+            What’s included
+          </p>
           <ul class="space-y-3 text-sm text-slate-200">
             <li class="flex items-start gap-2">
-              <span class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;">✓</span>
+              <span
+                class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full"
+                style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;"
+              >
+                ✓
+              </span>
               Live dashboards & attack feed
             </li>
             <li class="flex items-start gap-2">
-              <span class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;">✓</span>
+              <span
+                class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full"
+                style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;"
+              >
+                ✓
+              </span>
               Access for up to 5 teammates
             </li>
             <li class="flex items-start gap-2">
-              <span class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;">✓</span>
+              <span
+                class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full"
+                style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;"
+              >
+                ✓
+              </span>
               7-day log retention + API access
             </li>
             <li class="flex items-start gap-2">
-              <span class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full" style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;">✓</span>
+              <span
+                class="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full"
+                style="background:rgba(1,161,247,0.2);color:#01a1f7;font-size:0.7rem;"
+              >
+                ✓
+              </span>
               Slack & Discord notifications
             </li>
           </ul>
           <div class="rounded-2xl bg-black/30 p-4 text-sm text-slate-300">
             <p class="font-semibold text-white">Need enterprise?</p>
-            <p class="text-slate-400">We can deploy Kyxel in a dedicated region. <a href={`${baseUrl}contact`} style="color:#01a1f7;text-decoration:underline;">Talk to sales →</a></p>
+            <p class="text-slate-400">
+              We can deploy Kyxel in a dedicated region.{" "}
+              <a
+                href={`${baseUrl}contact`}
+                style="color:#01a1f7;text-decoration:underline;"
+              >
+                Talk to sales →
+              </a>
+            </p>
           </div>
         </div>
       </div>
+
       <p class="mt-6 text-sm text-slate-400 text-center">
-        Already have an account? <a href={`${baseUrl}login`} style="color:#01a1f7;text-decoration:underline;">Sign in</a>
+        Already have an account?{" "}
+        <a
+          href={`${baseUrl}login`}
+          style="color:#01a1f7;text-decoration:underline;"
+        >
+          Sign in
+        </a>
       </p>
     </div>
   </section>
+
+  <!-- Script de Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+  <!-- Lógica del formulario: llama a /auth/register y muestra mensaje -->
+  <script>
+    const API_BASE = import.meta.env.PUBLIC_API_BASE_URL;
+    const baseUrl = import.meta.env.BASE_URL;
+
+    const form = document.getElementById('register-form');
+    const messageEl = document.getElementById('register-message');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordStrengthBar = document.getElementById('password-strength-bar');
+    const passwordStrengthText = document.getElementById('password-strength-text');
+    const passwordMatchText = document.getElementById('password-match-text');
+
+    // Password validation rules
+    function checkPasswordStrength(password) {
+      if (!password) {
+        return { strength: 0, text: '', color: '#f97373' };
+      }
+
+      let strength = 0;
+      let checks = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password),
+      };
+
+      // Calculate strength (0-100)
+      if (checks.length) strength += 20;
+      if (checks.uppercase) strength += 20;
+      if (checks.lowercase) strength += 20;
+      if (checks.number) strength += 20;
+      if (checks.special) strength += 20;
+
+      // Determine text and color
+      let text = '';
+      let color = '#f97373'; // red
+
+      if (strength < 40) {
+        text = 'Weak';
+        color = '#f97373';
+      } else if (strength < 60) {
+        text = 'Fair';
+        color = '#fb923c';
+      } else if (strength < 80) {
+        text = 'Good';
+        color = '#fbbf24';
+      } else if (strength < 100) {
+        text = 'Strong';
+        color = '#4ade80';
+      } else {
+        text = 'Very Strong';
+        color = '#22c55e';
+      }
+
+      // Check if all requirements are met
+      const allRequirementsMet = checks.length && checks.uppercase && checks.number && checks.special;
+      if (!allRequirementsMet) {
+        const missing = [];
+        if (!checks.length) missing.push('8 characters');
+        if (!checks.uppercase) missing.push('uppercase letter');
+        if (!checks.number) missing.push('number');
+        if (!checks.special) missing.push('special character');
+        text += ` (needs: ${missing.join(', ')})`;
+      }
+
+      return { strength, text, color, valid: allRequirementsMet };
+    }
+
+    // Update password strength indicator
+    passwordInput?.addEventListener('input', (e) => {
+      const password = e.target.value;
+      const result = checkPasswordStrength(password);
+
+      if (passwordStrengthBar) {
+        passwordStrengthBar.style.width = `${result.strength}%`;
+        passwordStrengthBar.style.background = result.color;
+      }
+
+      if (passwordStrengthText) {
+        passwordStrengthText.textContent = result.text;
+        passwordStrengthText.style.color = result.color;
+      }
+
+      // Check password match
+      if (confirmPasswordInput?.value) {
+        checkPasswordMatch();
+      }
+    });
+
+    // Check if passwords match
+    function checkPasswordMatch() {
+      const password = passwordInput?.value;
+      const confirmPassword = confirmPasswordInput?.value;
+
+      if (!confirmPassword) {
+        if (passwordMatchText) {
+          passwordMatchText.textContent = '';
+        }
+        return false;
+      }
+
+      if (password === confirmPassword) {
+        if (passwordMatchText) {
+          passwordMatchText.textContent = '✓ Passwords match';
+          passwordMatchText.style.color = '#4ade80';
+        }
+        return true;
+      } else {
+        if (passwordMatchText) {
+          passwordMatchText.textContent = '✗ Passwords do not match';
+          passwordMatchText.style.color = '#f97373';
+        }
+        return false;
+      }
+    }
+
+    confirmPasswordInput?.addEventListener('input', checkPasswordMatch);
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!messageEl) return;
+
+      // Validate password strength
+      const password = passwordInput?.value;
+      const passwordCheck = checkPasswordStrength(password);
+      
+      if (!passwordCheck.valid) {
+        messageEl.textContent = 'Password does not meet requirements.';
+        messageEl.style.color = '#f97373';
+        return;
+      }
+
+      // Validate password match
+      if (!checkPasswordMatch()) {
+        messageEl.textContent = 'Passwords do not match.';
+        messageEl.style.color = '#f97373';
+        return;
+      }
+
+      messageEl.textContent = 'Creating your account...';
+      messageEl.style.color = '#cbd5f5';
+
+      const formData = new FormData(form);
+      const fullName = formData.get('fullName');
+      const email = formData.get('email');
+      const workspace = formData.get('workspace');
+      const turnstileToken = formData.get('cf-turnstile-response');
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: fullName,
+            email,
+            password,
+            workspaceName: workspace,
+            turnstileToken,
+          }),
+        });
+
+        // Leemos el cuerpo como texto primero para poder loguear / parsear
+        const rawText = await res.text();
+        let data = {};
+        try {
+          data = rawText ? JSON.parse(rawText) : {};
+        } catch {
+          data = {};
+        }
+
+        console.log('Register response:', res.status, data || rawText);
+
+        // 🧠 Caso email ya en uso:
+        const textLower = (rawText || '').toLowerCase();
+        const isEmailInUse =
+          res.status === 409 ||
+          data?.error === 'EMAIL_IN_USE' ||
+          data?.code === 'EMAIL_IN_USE' ||
+          textLower.includes('e11000') ||
+          textLower.includes('duplicate key');
+
+        if (isEmailInUse) {
+          messageEl.textContent = 'This address is already in use. Try signing in instead.';
+          messageEl.style.color = '#f97373';
+          return;
+        }
+
+        if (!res.ok) {
+          const errorText = data?.message || 'Registration failed.';
+          messageEl.textContent = errorText;
+          messageEl.style.color = '#f97373';
+          return;
+        }
+
+        // 🔹 Guardar token y nombre si el backend los devuelve
+        try {
+          if (data && data.accessToken) {
+            localStorage.setItem('ks_token', data.accessToken);
+          }
+
+          let nameToStore = fullName;
+          const user = data?.user || data?.profile || null;
+          if (user) {
+            const backendName = user.fullName || user.name || user.fullname;
+            if (backendName) {
+              nameToStore = backendName;
+            }
+          }
+
+          if (nameToStore) {
+            localStorage.setItem('ks_full_name', String(nameToStore));
+          }
+        } catch (e) {
+          console.warn('Could not persist user info to localStorage', e);
+        }
+
+        // Success: redirect to verify-email page
+        if (email) {
+          sessionStorage.setItem('verifyEmail', email);
+        }
+        
+        window.location.href = `${baseUrl}verify-email`;
+
+      } catch (err) {
+        console.error(err);
+        messageEl.textContent =
+          err?.message || 'Something went wrong. Please try again.';
+        messageEl.style.color = '#f97373';
+      }
+    });
+  </script>
 </BaseLayout>

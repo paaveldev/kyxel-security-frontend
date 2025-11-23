@@ -1,0 +1,1110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = 'My account — Kyxel Security';
+const pageDescription = 'Manage your Kyxel Security profile, workspace, and security settings.';
+const apiKeyPlaceholder = 'sk_live_2837-kyxel-agent-92ff';
+const envVars = (import.meta as {
+  env?: {
+    BASE_URL?: string;
+    PUBLIC_API_BASE_URL?: string;
+    DEV?: boolean;
+  };
+}).env ?? {};
+const baseUrl = envVars.BASE_URL ?? '/';
+const devFallbackApi = envVars.DEV ? 'http://localhost:4000/api/v1' : '';
+const apiBase = (envVars.PUBLIC_API_BASE_URL || devFallbackApi || '').replace(/\/$/, '');
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="py-12 md:py-16 px-4 md:px-6">
+    <div
+      id="account-shell"
+      class="max-w-5xl mx-auto space-y-10"
+      data-base-url={baseUrl}
+      data-api-base={apiBase}
+    >
+      <div class="text-center space-y-3">
+        <p class="text-xs font-semibold tracking-[0.35em] uppercase text-[#01a1f7]">
+          Account hub
+        </p>
+        <h1 class="text-3xl md:text-4xl font-bold text-white">My account</h1>
+        <p class="text-white/70 text-base md:text-lg max-w-3xl mx-auto">
+          Manage your Kyxel Security profile, workspace, and security settings.
+        </p>
+      </div>
+
+      <div
+        id="account-toast"
+        class="hidden opacity-0 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold tracking-wide text-white/80 shadow-[0_20px_45px_rgba(3,4,23,0.55)] transition-all duration-300"
+        role="status"
+        aria-live="assertive"
+      ></div>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+        <!-- PROFILE + WORKSPACE -->
+        <section class="card-strong rounded-3xl border border-white/10 bg-white/[0.02] p-6 md:p-8 space-y-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-white/50">Profile</p>
+              <h2 class="text-xl font-semibold text-white">User information</h2>
+              <p class="text-sm text-white/60 mt-2">
+                Make quick adjustments to your contact or workspace details.
+              </p>
+            </div>
+            <span
+              id="profile-status-chip"
+              class="px-3 py-1 rounded-full bg-[#01a1f7]/15 text-[#01a1f7] text-xs font-semibold tracking-wide"
+            >
+              Active
+            </span>
+          </div>
+
+          <form id="profile-form" class="space-y-4" method="POST" novalidate>
+            <div class="space-y-1">
+              <label for="account-name" class="text-sm font-semibold text-white/80">Full name</label>
+              <input
+                id="account-name"
+                name="fullName"
+                type="text"
+                placeholder="Your name"
+                autocomplete="name"
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+              />
+            </div>
+            <div class="space-y-1">
+              <label for="account-email" class="text-sm font-semibold text-white/80">Email</label>
+              <input
+                id="account-email"
+                name="email"
+                type="email"
+                placeholder="you@kyxelsecurity.com"
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#01a1f7] cursor-not-allowed opacity-80"
+                disabled
+              />
+              <p class="text-xs text-white/40 mt-1">
+                Email changes coming soon. For now this is read-only.
+              </p>
+            </div>
+            <div class="space-y-1">
+              <label for="workspace-name" class="text-sm font-semibold text-white/80">
+                Company / Workspace name
+              </label>
+              <input
+                id="workspace-name"
+                name="workspace"
+                type="text"
+                placeholder="Kyxel Security"
+                autocomplete="organization"
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+              />
+            </div>
+            <div class="flex flex-wrap gap-3 items-center">
+              <button
+                type="submit"
+                class="inline-flex items-center justify-center rounded-2xl bg-[#01a1f7] px-6 py-3 font-semibold uppercase tracking-wide text-black shadow-[0_15px_35px_rgba(1,161,247,0.35)] transition hover:bg-[#01b8ff]"
+              >
+                Save changes
+              </button>
+              <p id="profile-message" class="text-xs text-white/50 min-h-[1.25rem]" aria-live="polite"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- SECURITY -->
+        <section class="card-strong rounded-3xl border border-white/10 bg-white/[0.02] p-6 md:p-8 space-y-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-white/50">Security</p>
+              <h2 class="text-xl font-semibold text-white">Credentials & guardrails</h2>
+              <p class="text-sm text-white/60 mt-2">
+                Rotate passwords and prepare for upcoming multi-factor flows.
+              </p>
+            </div>
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 text-xs font-semibold text-white/70">
+              <span class="w-2 h-2 rounded-full bg-[#01a1f7] animate-pulse"></span>
+              2FA coming soon
+            </span>
+          </div>
+
+          <form id="password-form" class="space-y-4" method="POST" novalidate>
+            <div class="space-y-1">
+              <label for="current-password" class="text-sm font-semibold text-white/80">
+                Current password
+              </label>
+              <input
+                id="current-password"
+                name="currentPassword"
+                type="password"
+                placeholder="••••••••"
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+              />
+            </div>
+            <div class="space-y-1">
+              <label for="new-password" class="text-sm font-semibold text-white/80">
+                New password
+              </label>
+              <input
+                id="new-password"
+                name="newPassword"
+                type="password"
+                placeholder="Create something strong"
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+              />
+            </div>
+            <div class="space-y-1">
+              <label for="confirm-password" class="text-sm font-semibold text-white/80">
+                Confirm password
+              </label>
+              <input
+                id="confirm-password"
+                name="confirmPassword"
+                type="password"
+                placeholder="Repeat new password"
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/40 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#01a1f7]"
+              />
+            </div>
+            <div class="space-y-2">
+              <button
+                type="submit"
+                class="inline-flex w-full items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold uppercase tracking-wide text-white transition hover:border-white/30 hover:bg-white/10"
+              >
+                Update password
+              </button>
+              <p id="password-message" class="text-xs text-white/50 min-h-[1.25rem]" aria-live="polite"></p>
+            </div>
+            <p class="text-xs text-white/50">
+              Extra hardening is on the roadmap: hardware keys, TOTP, and agent approvals.
+            </p>
+          </form>
+        </section>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+        <!-- API KEY -->
+        <section class="card-strong rounded-3xl border border-white/10 bg-white/[0.02] p-6 md:p-8 space-y-5">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-white/50">API & Agents</p>
+              <h2 class="text-xl font-semibold text-white">Secure automation</h2>
+              <p class="text-sm text-white/60 mt-2">
+                Share this key with the Kyxel Agent or CLI to stream telemetry.
+              </p>
+            </div>
+            <button
+              type="button"
+              data-regenerate-key
+              class="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
+            >
+              Regenerate key
+            </button>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 flex flex-wrap items-center gap-3">
+            <span
+              id="api-key-display"
+              data-placeholder={apiKeyPlaceholder}
+              class="font-mono text-sm text-white break-all flex-1"
+            >
+              {apiKeyPlaceholder}
+            </span>
+            <button
+              type="button"
+              data-copy-key={apiKeyPlaceholder}
+              class="inline-flex items-center gap-2 rounded-2xl bg-[#01a1f7]/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#01a1f7] transition hover:bg-[#01a1f7]/25"
+            >
+              Copy key
+            </button>
+            <span
+              id="api-key-feedback"
+              class="text-xs text-emerald-300 opacity-0 transition-opacity duration-200"
+            >
+              Copied
+            </span>
+          </div>
+          <p class="text-xs text-white/50">
+            Keys inherit workspace scopes. Rotate frequently and revoke in the Kyxel dashboard if you
+            suspect misuse.
+          </p>
+        </section>
+
+        <!-- BILLING -->
+        <section class="card-strong rounded-3xl border border-white/10 bg-white/[0.02] p-6 md:p-8 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-white/50">Billing overview</p>
+              <h2 class="text-xl font-semibold text-white">Plan & invoicing</h2>
+              <p class="text-sm text-white/60 mt-2">
+                Track your current tier and the next renewal window.
+              </p>
+            </div>
+            <span
+              id="subscription-plan-chip"
+              class="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-300"
+            >
+              Starter
+            </span>
+          </div>
+          <dl class="grid grid-cols-1 gap-4 text-sm text-white/70 sm:grid-cols-2">
+            <div>
+              <dt class="text-xs uppercase tracking-[0.25em] text-white/50">Current plan</dt>
+              <dd id="billing-plan" class="text-base font-semibold text-white mt-1">Starter · Monthly</dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase tracking-[0.25em] text-white/50">Next billing date</dt>
+              <dd id="billing-next" class="text-base font-semibold text-white mt-1">Jan 12, 2026</dd>
+            </div>
+          </dl>
+          <p id="billing-status" class="text-xs text-white/50">
+            Subscription active · managed via Kyxel Billing
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              href="#"
+              data-manage-billing
+              class="inline-flex items-center justify-center rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/20"
+            >
+              Manage billing
+            </a>
+            <span class="text-xs text-white/50">
+              Billing via Stripe · invoices emailed to your workspace owner
+            </span>
+          </div>
+        </section>
+      </div>
+
+      <section class="card-strong rounded-3xl border border-white/10 bg-white/[0.02] p-6 md:p-8 space-y-6">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-white/50">Security posture</p>
+            <h2 class="text-xl font-semibold text-white">Open sessions</h2>
+            <p class="text-sm text-white/60 mt-2">
+              Track where your account is signed in and remotely revoke access.
+            </p>
+          </div>
+          <span class="px-3 py-1 rounded-full border border-white/10 text-xs font-semibold text-white/70">
+            Live telemetry
+          </span>
+        </div>
+
+        <div id="sessions-message" class="text-xs text-white/50" aria-live="polite">Loading sessions…</div>
+
+        <div id="sessions-list" class="grid gap-4 md:grid-cols-2" aria-live="polite"></div>
+
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.3em] text-white/50">Geolocation overview</p>
+          <div id="sessions-map" class="h-72 w-full rounded-3xl border border-white/10 bg-black/30 overflow-hidden relative">
+            <div class="absolute inset-0 flex items-center justify-center text-sm text-white/50" data-map-empty>
+              Waiting for session coordinates…
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+      <script type="module">
+    const accountShell = document.getElementById('account-shell');
+    const baseUrl = accountShell?.dataset.baseUrl || '/';
+    const apiBase = (accountShell?.dataset.apiBase || '').replace(/\/$/, '');
+    const pricingUrl = `${baseUrl}pricing`;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('[account] script loaded');
+
+      const token = localStorage.getItem('ks_token');
+
+      if (!token) {
+        console.log('[account] no token, redirecting to login');
+        window.location.href = `${baseUrl}login`;
+        return;
+      }
+
+      if (!apiBase) {
+        console.error('[account] missing PUBLIC_API_BASE_URL');
+        return;
+      }
+
+      const profileForm = document.getElementById('profile-form');
+      const profileMessage = document.getElementById('profile-message');
+      const profileSubmit = profileForm?.querySelector('button[type="submit"]');
+      const nameInput = document.getElementById('account-name');
+      const emailInput = document.getElementById('account-email');
+      const workspaceInput = document.getElementById('workspace-name');
+      const planChip = document.getElementById('subscription-plan-chip');
+      const billingPlan = document.getElementById('billing-plan');
+      const billingNext = document.getElementById('billing-next');
+      const billingStatus = document.getElementById('billing-status');
+      const manageBillingLink = document.querySelector('[data-manage-billing]');
+      const apiKeyDisplay = document.getElementById('api-key-display');
+      const apiKeyFeedback = document.getElementById('api-key-feedback');
+      const copyKeyButton = document.querySelector('[data-copy-key]');
+      const regenerateKeyButton = document.querySelector('[data-regenerate-key]');
+      const apiKeyPlaceholder = apiKeyDisplay?.dataset.placeholder || '—';
+      const accountToast = document.getElementById('account-toast');
+      const sessionsMessage = document.getElementById('sessions-message');
+      const sessionsList = document.getElementById('sessions-list');
+      const sessionsMapContainer = document.getElementById('sessions-map');
+      const mapEmptyState = sessionsMapContainer?.querySelector('[data-map-empty]');
+
+      let toastTimeoutId;
+      const hideToast = () => {
+        if (!accountToast) return;
+        accountToast.classList.add('opacity-0');
+        window.setTimeout(() => accountToast.classList.add('hidden'), 250);
+      };
+
+      const showToast = (message, action) => {
+        if (!accountToast) return;
+        accountToast.innerHTML = '';
+        const textSpan = document.createElement('span');
+        textSpan.textContent = message;
+        accountToast.appendChild(textSpan);
+
+        if (action) {
+          const actionButton = document.createElement('button');
+          actionButton.type = 'button';
+          actionButton.className =
+            'ml-3 rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white hover:bg-white/10 transition';
+          actionButton.textContent = action.label;
+          actionButton.addEventListener('click', action.onClick, { once: true });
+          accountToast.appendChild(actionButton);
+        }
+
+        accountToast.classList.remove('hidden');
+        requestAnimationFrame(() => accountToast.classList.remove('opacity-0'));
+        clearTimeout(toastTimeoutId);
+        toastTimeoutId = window.setTimeout(() => {
+          hideToast();
+        }, action ? 8000 : 5000);
+      };
+
+      const passwordForm = document.getElementById('password-form');
+      const passwordMessage = document.getElementById('password-message');
+      const passwordSubmit = passwordForm?.querySelector('button[type="submit"]');
+      const currentPasswordInput = document.getElementById('current-password');
+      const newPasswordInput = document.getElementById('new-password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+
+      let hasActiveSubscription = false;
+      let currentApiKey = apiKeyPlaceholder;
+      let sessionsMapInstance = null;
+      let sessionMarkers = [];
+      let leafletLoader;
+
+      const palette = {
+        success: '#4ade80',
+        error: '#f97373',
+        info: '#cbd5f5',
+        muted: '#94a3b8',
+      };
+
+      const setMessage = (node, message, tone = 'muted') => {
+        if (!node) return;
+        node.textContent = message;
+        node.style.color = palette[tone] || palette.muted;
+      };
+
+      const formatRelativeTime = (isoString) => {
+        if (!isoString) return 'Unknown';
+        const date = new Date(isoString);
+        if (Number.isNaN(date.getTime())) {
+          return 'Unknown';
+        }
+        const diffMs = Date.now() - date.getTime();
+        const diffMinutes = Math.max(Math.round(diffMs / 60000), 0);
+        if (diffMinutes < 1) return 'moments ago';
+        if (diffMinutes < 60) return `${diffMinutes}m ago`;
+        const diffHours = Math.round(diffMinutes / 60);
+        if (diffHours < 24) return `${diffHours}h ago`;
+        const diffDays = Math.round(diffHours / 24);
+        if (diffDays < 7) return `${diffDays}d ago`;
+        return date.toLocaleString();
+      };
+
+      const formatLocationLabel = (session) => {
+        const { location } = session || {};
+        if (!location) return 'Unknown location';
+        const segments = [location.city, location.region, location.country]
+          .filter(Boolean)
+          .map((segment) => segment.trim());
+        if (!segments.length) return 'Unknown location';
+        return segments.join(', ');
+      };
+
+      const summarizeUserAgent = (userAgent) => {
+        if (!userAgent) return 'Unknown device';
+        const cleaned = userAgent.replace(/\s+/g, ' ').trim();
+        if (cleaned.length <= 90) return cleaned;
+        return `${cleaned.slice(0, 87)}…`;
+      };
+
+      const ensureLeaflet = () => {
+        if (typeof window === 'undefined') {
+          return Promise.reject(new Error('Leaflet unavailable on server'));
+        }
+
+        if (window.L) {
+          return Promise.resolve(window.L);
+        }
+
+        if (!leafletLoader) {
+          leafletLoader = new Promise((resolve, reject) => {
+            const stylesheet = document.createElement('link');
+            stylesheet.rel = 'stylesheet';
+            stylesheet.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+            stylesheet.integrity = 'sha256-o9N1j7kGStp0bUadYj1mP6gf1J7kG7pGsKgPz2V8m38=';
+            stylesheet.crossOrigin = '';
+            document.head.appendChild(stylesheet);
+
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            script.integrity = 'sha256-o9N1j7kGStp0bUadYj1mP6gf1J7kG7pGsKgPz2V8m38=';
+            script.crossOrigin = '';
+            script.onload = () => resolve(window.L);
+            script.onerror = (event) => reject(event);
+            document.body.appendChild(script);
+          });
+        }
+
+        return leafletLoader;
+      };
+
+      const teardownMapMarkers = () => {
+        if (!sessionMarkers.length) return;
+        sessionMarkers.forEach((marker) => {
+          if (marker?.remove) {
+            marker.remove();
+          }
+        });
+        sessionMarkers = [];
+      };
+
+      const renderSessionsMap = async (sessions = []) => {
+        if (!sessionsMapContainer) return;
+        const geoSessions = sessions.filter((session) => {
+          const lat = session?.location?.latitude;
+          const lng = session?.location?.longitude;
+          return typeof lat === 'number' && typeof lng === 'number';
+        });
+
+        if (!geoSessions.length) {
+          mapEmptyState?.classList.remove('hidden');
+          teardownMapMarkers();
+          if (sessionsMapInstance?.setView) {
+            sessionsMapInstance.setView([20, 0], 1);
+          }
+          return;
+        }
+
+        mapEmptyState?.classList.add('hidden');
+
+        try {
+          const L = await ensureLeaflet();
+          if (!sessionsMapInstance) {
+            sessionsMapInstance = L.map(sessionsMapContainer, {
+              zoomControl: false
+            }).setView([20, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(sessionsMapInstance);
+          }
+
+          teardownMapMarkers();
+
+          const bounds = [];
+          geoSessions.forEach((session) => {
+            const { latitude, longitude } = session.location;
+            const marker = L.marker([latitude, longitude]).addTo(sessionsMapInstance);
+            marker.bindPopup(
+              `<strong>${formatLocationLabel(session)}</strong><br />${session.ipAddress || 'Unknown IP'}`
+            );
+            sessionMarkers.push(marker);
+            bounds.push([latitude, longitude]);
+          });
+
+          if (bounds.length && sessionsMapInstance.fitBounds) {
+            const leafletBounds = L.latLngBounds(bounds);
+            sessionsMapInstance.fitBounds(leafletBounds, { padding: [20, 20] });
+          }
+        } catch (error) {
+          console.warn('[account] unable to load map', error);
+          mapEmptyState?.classList.remove('hidden');
+          if (sessionsMessage) {
+            setMessage(sessionsMessage, 'Map unavailable. Showing list only.', 'error');
+          }
+        }
+      };
+
+      const buildSessionCard = (session) => {
+        const card = document.createElement('article');
+        card.className = 'rounded-3xl border border-white/10 bg-black/40 p-4 space-y-3 shadow-inner shadow-black/40';
+
+        const header = document.createElement('div');
+        header.className = 'flex items-start justify-between gap-3';
+
+        const titleWrap = document.createElement('div');
+        const title = document.createElement('p');
+        title.className = 'text-base font-semibold text-white';
+        title.textContent = formatLocationLabel(session);
+        const ip = document.createElement('p');
+        ip.className = 'text-xs text-white/60 mt-1';
+        ip.textContent = session.ipAddress || 'Unknown IP';
+        titleWrap.append(title, ip);
+
+        const badge = document.createElement('span');
+        badge.className = session.isCurrent
+          ? 'rounded-full bg-emerald-500/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-200'
+          : 'rounded-full bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/60';
+        badge.textContent = session.isCurrent ? 'Current' : 'Remote';
+
+        header.append(titleWrap, badge);
+        card.appendChild(header);
+
+        const agent = document.createElement('p');
+        agent.className = 'text-xs text-white/60';
+        agent.textContent = summarizeUserAgent(session.userAgent);
+        card.appendChild(agent);
+
+        const timeline = document.createElement('p');
+        timeline.className = 'text-xs text-white/50';
+        timeline.textContent = `Last seen ${formatRelativeTime(session.lastSeenAt)}`;
+        card.appendChild(timeline);
+
+        const actions = document.createElement('div');
+        actions.className = 'flex items-center justify-between gap-3';
+
+        const created = document.createElement('span');
+        created.className = 'text-[11px] uppercase tracking-[0.4em] text-white/30';
+        const createdDate = session.createdAt ? new Date(session.createdAt) : null;
+        created.textContent = createdDate && !Number.isNaN(createdDate.getTime())
+          ? createdDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+          : '—';
+        actions.appendChild(created);
+
+        const revokeButton = document.createElement('button');
+        revokeButton.type = 'button';
+        revokeButton.dataset.sessionRevoke = session.sessionId;
+        revokeButton.dataset.sessionCurrent = String(session.isCurrent);
+        revokeButton.className = 'inline-flex items-center justify-center rounded-2xl bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50';
+        revokeButton.textContent = session.isCurrent ? 'Sign out here' : 'Sign out remotely';
+        actions.appendChild(revokeButton);
+
+        card.appendChild(actions);
+        return card;
+      };
+
+      const renderSessionsList = (sessions = []) => {
+        if (!sessionsList) return;
+        sessionsList.innerHTML = '';
+
+        if (!sessions.length) {
+          setMessage(sessionsMessage, 'No active sessions detected.', 'muted');
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        sessions.forEach((session) => {
+          fragment.appendChild(buildSessionCard(session));
+        });
+        sessionsList.appendChild(fragment);
+      };
+
+      const fetchSessions = async () => {
+        if (!sessionsMessage) return;
+        setMessage(sessionsMessage, 'Loading sessions…', 'info');
+        try {
+          const res = await fetch(`${apiBase}/me/sessions`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          if (res.status === 401) {
+            redirectToLogin();
+            return;
+          }
+
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            const message = data?.message || 'Could not load sessions.';
+            setMessage(sessionsMessage, message, 'error');
+            return;
+          }
+
+          const sessions = Array.isArray(data.sessions) ? data.sessions : [];
+          renderSessionsList(sessions);
+          await renderSessionsMap(sessions);
+
+          if (sessions.length) {
+            const label = sessions.length === 1 ? '1 active session' : `${sessions.length} active sessions`;
+            setMessage(sessionsMessage, label, 'muted');
+          } else {
+            setMessage(sessionsMessage, 'No active sessions detected.', 'muted');
+          }
+        } catch (error) {
+          console.error('[account] session fetch error', error);
+          setMessage(sessionsMessage, 'Could not load sessions.', 'error');
+        }
+      };
+
+      const revokeSession = async (sessionId) => {
+        const res = await fetch(`${apiBase}/me/sessions/${sessionId}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (res.status === 401) {
+          redirectToLogin();
+          return { revokedCurrent: false };
+        }
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          const message = data?.message || 'Could not revoke session.';
+          throw new Error(message);
+        }
+
+        const revokedCurrent = res.headers.get('x-session-revoked') === 'true';
+        return { revokedCurrent };
+      };
+
+      const toggleButtonLoading = (button, isLoading) => {
+        if (!button) return;
+        button.disabled = isLoading;
+        button.classList.toggle('opacity-60', isLoading);
+        button.classList.toggle('cursor-not-allowed', isLoading);
+      };
+
+      const formatBillingDate = (isoString) => {
+        if (!isoString) {
+          return '—';
+        }
+        const date = new Date(isoString);
+        if (Number.isNaN(date.getTime())) {
+          return '—';
+        }
+        return date.toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        });
+      };
+
+      const setApiKeyDisplay = (value) => {
+        currentApiKey = value || apiKeyPlaceholder;
+        if (apiKeyDisplay) {
+          apiKeyDisplay.textContent = currentApiKey;
+        }
+      };
+
+      const updateApiKeyControls = () => {
+        if (!copyKeyButton || !regenerateKeyButton) {
+          return;
+        }
+
+        if (hasActiveSubscription) {
+          copyKeyButton.textContent = 'Copy key';
+          copyKeyButton.disabled = false;
+          copyKeyButton.classList.remove('cursor-not-allowed', 'opacity-60');
+          regenerateKeyButton.disabled = false;
+          regenerateKeyButton.classList.remove('cursor-not-allowed', 'opacity-60');
+          if (apiKeyFeedback) {
+            apiKeyFeedback.textContent = 'Copied';
+            apiKeyFeedback.classList.add('opacity-0');
+          }
+        } else {
+          copyKeyButton.textContent = 'Get a plan';
+          copyKeyButton.disabled = false;
+          regenerateKeyButton.disabled = true;
+          regenerateKeyButton.classList.add('cursor-not-allowed', 'opacity-60');
+          if (apiKeyFeedback) {
+            apiKeyFeedback.textContent = 'Subscription required';
+            apiKeyFeedback.classList.remove('opacity-0');
+          }
+        }
+      };
+
+      const requireSubscription = () => {
+        showToast('You need an active subscription to manage API keys.', {
+          label: 'View plans',
+          onClick: () => {
+            window.location.href = pricingUrl;
+          }
+        });
+      };
+
+      const fillProfile = (user) => {
+        if (!user) return;
+        if (nameInput) {
+          nameInput.value = user.name ?? '';
+        }
+        if (emailInput) {
+          emailInput.value = user.email ?? '';
+        }
+        if (workspaceInput) {
+          workspaceInput.value = user.workspaceName ?? '';
+        }
+
+        hasActiveSubscription = Boolean(user.subscriptionActive);
+
+        if (hasActiveSubscription) {
+          setApiKeyDisplay(user.apiKey);
+        } else {
+          setApiKeyDisplay('Upgrade to unlock API access');
+        }
+        updateApiKeyControls();
+
+        if (planChip) {
+          const planLabel = user.subscriptionPlan
+            ? user.subscriptionPlan.charAt(0).toUpperCase() + user.subscriptionPlan.slice(1)
+            : 'Free';
+          planChip.textContent = planLabel;
+        }
+
+        if (billingPlan) {
+          const planText = user.subscriptionPlan
+            ? `${user.subscriptionPlan.charAt(0).toUpperCase() + user.subscriptionPlan.slice(1)} · ${
+                user.subscriptionActive ? 'Monthly' : 'Trial'
+              }`
+            : 'Free · Trial';
+          billingPlan.textContent = planText;
+        }
+
+        if (billingNext) {
+          billingNext.textContent = formatBillingDate(user.subscriptionNextBilling);
+        }
+
+        if (billingStatus) {
+          billingStatus.textContent = user.subscriptionActive
+            ? 'Subscription active · managed via Kyxel Billing'
+            : 'Subscription inactive';
+        }
+      };
+
+      const redirectToLogin = () => {
+        window.location.href = `${baseUrl}login`;
+      };
+        const redirectToHome = () => {
+          window.location.href = baseUrl || '/';
+        };
+
+      const fetchProfile = async () => {
+        if (!profileMessage) return;
+        setMessage(profileMessage, 'Loading profile…', 'info');
+        try {
+          const res = await fetch(`${apiBase}/me`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (res.status === 401) {
+            redirectToLogin();
+            return;
+          }
+
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            const errorMessage = data?.message || 'Could not load profile.';
+            setMessage(profileMessage, errorMessage, 'error');
+            return;
+          }
+
+          fillProfile(data?.user);
+          if (data?.user?.name) {
+            localStorage.setItem('ks_full_name', data.user.name);
+          }
+          if (data?.user?.email) {
+            localStorage.setItem('ks_email', data.user.email);
+          }
+          setMessage(profileMessage, 'Profile loaded.', 'muted');
+        } catch (error) {
+          console.error('[account] profile fetch error', error);
+          setMessage(profileMessage, 'Could not load profile.', 'error');
+        }
+      };
+
+      if (profileForm) {
+        fetchProfile();
+
+        profileForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          if (!profileMessage || !nameInput || !workspaceInput) {
+            console.error('[account] missing profile inputs');
+            return;
+          }
+
+          const name = nameInput.value.trim();
+          const workspaceName = workspaceInput.value.trim();
+
+          if (!name) {
+            setMessage(profileMessage, 'Name is required.', 'error');
+            return;
+          }
+
+          if (!workspaceName) {
+            setMessage(profileMessage, 'Workspace name is required.', 'error');
+            return;
+          }
+
+          toggleButtonLoading(profileSubmit, true);
+          setMessage(profileMessage, 'Saving profile…', 'info');
+
+          try {
+            const res = await fetch(`${apiBase}/me`, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                name,
+                workspaceName,
+              }),
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok) {
+              const errorMessage =
+                data?.message || data?.body?.message || 'Could not save profile.';
+              setMessage(profileMessage, errorMessage, 'error');
+              return;
+            }
+
+            fillProfile(data?.user);
+            setMessage(profileMessage, 'Profile updated successfully.', 'success');
+            if (data?.user?.name) {
+              localStorage.setItem('ks_full_name', data.user.name);
+            }
+            if (data?.user?.email) {
+              localStorage.setItem('ks_email', data.user.email);
+            }
+          } catch (error) {
+            console.error('[account] profile update error', error);
+            setMessage(profileMessage, 'Could not save profile.', 'error');
+          } finally {
+            toggleButtonLoading(profileSubmit, false);
+          }
+        });
+      } else {
+        console.error('[account] profile form not found');
+      }
+
+      manageBillingLink?.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (!hasActiveSubscription) {
+          window.location.href = pricingUrl;
+          return;
+        }
+
+        showToast('Billing portal coming soon. Contact support if you need help.');
+      });
+
+      const flashFeedback = () => {
+        if (!apiKeyFeedback) return;
+        apiKeyFeedback.classList.remove('opacity-0');
+        window.setTimeout(() => {
+          apiKeyFeedback?.classList.add('opacity-0');
+        }, 1200);
+      };
+
+      copyKeyButton?.addEventListener('click', async () => {
+        if (!hasActiveSubscription) {
+          window.location.href = pricingUrl;
+          return;
+        }
+
+        if (!currentApiKey || currentApiKey === apiKeyPlaceholder) {
+          showToast('Generate a key first.');
+          return;
+        }
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(currentApiKey);
+          } else {
+            const tempArea = document.createElement('textarea');
+            tempArea.value = currentApiKey;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+          }
+          flashFeedback();
+          showToast('API key copied to clipboard.');
+        } catch (error) {
+          console.error('[account] copy key error', error);
+          showToast('Could not copy API key.');
+        }
+      });
+
+      regenerateKeyButton?.addEventListener('click', async () => {
+        if (!hasActiveSubscription) {
+          requireSubscription();
+          return;
+        }
+
+        toggleButtonLoading(regenerateKeyButton, true);
+        showToast('Regenerating API key…');
+
+        try {
+          const res = await fetch(`${apiBase}/me/api-key`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok) {
+            const errMessage = data?.message || 'Could not regenerate API key.';
+            showToast(errMessage);
+            return;
+          }
+
+          setApiKeyDisplay(data.apiKey);
+          showToast('API key regenerated successfully.');
+          flashFeedback();
+        } catch (error) {
+          console.error('[account] regenerate error', error);
+          showToast('Could not regenerate API key.');
+        } finally {
+          toggleButtonLoading(regenerateKeyButton, false);
+        }
+      });
+
+      if (sessionsList || sessionsMessage) {
+        fetchSessions();
+      }
+
+      sessionsList?.addEventListener('click', async (event) => {
+        const target = event.target instanceof HTMLElement ? event.target : null;
+        if (!target) return;
+        const button = target.closest('[data-session-revoke]');
+        if (!(button instanceof HTMLButtonElement)) return;
+
+        const sessionId = button.dataset.sessionRevoke;
+        if (!sessionId) return;
+
+        toggleButtonLoading(button, true);
+
+        try {
+          const { revokedCurrent } = await revokeSession(sessionId);
+          const isCurrent = button.dataset.sessionCurrent === 'true';
+
+          if (isCurrent || revokedCurrent) {
+              showToast('Session closed. Redirecting home…');
+            localStorage.removeItem('ks_token');
+            window.setTimeout(() => {
+                redirectToHome();
+            }, 1200);
+            return;
+          }
+
+          showToast('Session revoked successfully.');
+          fetchSessions();
+        } catch (error) {
+          console.error('[account] revoke session error', error);
+          const message = error?.message || 'Could not revoke session.';
+          showToast(message);
+        } finally {
+          toggleButtonLoading(button, false);
+        }
+      });
+
+      if (!passwordForm) {
+        console.error('[account] password form not found');
+        return;
+      }
+
+      passwordForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        console.log('[account] submit handler fired');
+
+        if (
+          !passwordMessage ||
+          !currentPasswordInput ||
+          !newPasswordInput ||
+          !confirmPasswordInput
+        ) {
+          console.error('[account] missing inputs');
+          return;
+        }
+
+        const currentPassword = currentPasswordInput.value.trim();
+        const newPassword = newPasswordInput.value.trim();
+        const confirmPassword = confirmPasswordInput.value.trim();
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          setMessage(passwordMessage, 'All fields are required.', 'error');
+          return;
+        }
+
+        if (newPassword.length < 8) {
+          setMessage(passwordMessage, 'New password must have at least 8 characters.', 'error');
+          return;
+        }
+
+        if (newPassword !== confirmPassword) {
+          setMessage(passwordMessage, 'New passwords do not match.', 'error');
+          return;
+        }
+
+        toggleButtonLoading(passwordSubmit, true);
+        setMessage(passwordMessage, 'Updating password...', 'info');
+
+        if (!apiBase) {
+          console.error('[account] missing PUBLIC_API_BASE_URL');
+          setMessage(
+            passwordMessage,
+            'Missing API base URL. Please configure PUBLIC_API_BASE_URL.',
+            'error'
+          );
+          toggleButtonLoading(passwordSubmit, false);
+          return;
+        }
+
+        try {
+          const endpoint = `${apiBase}/me`;
+          console.log('[account] sending request to', endpoint);
+
+          const res = await fetch(endpoint, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              currentPassword,
+              newPassword,
+            }),
+          });
+
+          const data = await res.json().catch(() => ({}));
+          console.log('[account] response', res.status, data);
+
+          if (!res.ok) {
+            const msg =
+              data?.message ||
+              data?.body?.message ||
+              'Could not update password.';
+            setMessage(passwordMessage, msg, 'error');
+            return;
+          }
+
+          setMessage(passwordMessage, 'Password updated successfully.', 'success');
+          passwordForm.reset();
+        } catch (error) {
+          console.error('[account] fetch error', error);
+          setMessage(passwordMessage, 'Could not update password.', 'error');
+        } finally {
+          toggleButtonLoading(passwordSubmit, false);
+        }
+      });
+    });
+  </script>
+</BaseLayout>

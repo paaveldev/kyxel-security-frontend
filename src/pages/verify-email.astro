@@ -1,0 +1,299 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const API_BASE = import.meta.env.PUBLIC_API_BASE_URL;
+---
+
+<BaseLayout
+  title="Verify Email — Kyxel Security"
+  description="Verify your email address to complete your Kyxel Security account setup."
+>
+  <section class="py-20 bg-[#030417] text-white min-h-[60vh] flex items-center justify-center px-6">
+    <div class="w-full max-w-lg card-strong rounded-3xl p-10">
+      <h1 class="text-3xl font-bold mb-2">Verify your email</h1>
+      <p class="text-sm text-slate-400 mb-8">
+        Enter the verification code sent to your email address.
+      </p>
+
+      <form id="verify-form" class="space-y-6">
+        <!-- EMAIL -->
+        <div>
+          <label for="email" class="block text-sm font-semibold text-slate-200">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 
+                   focus:border-[#01a1f7] focus:outline-none"
+            placeholder="you@kyxelstudios.com"
+          />
+        </div>
+
+        <!-- VERIFICATION CODE -->
+        <div>
+          <label for="code" class="block text-sm font-semibold text-slate-200">Verification code</label>
+          <input
+            type="text"
+            id="code"
+            name="code"
+            required
+            inputmode="numeric"
+            maxlength="6"
+            class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 
+                   focus:border-[#01a1f7] focus:outline-none"
+            placeholder="123456"
+          />
+        </div>
+
+        <!-- RESEND CODE BUTTON -->
+        <div class="text-center">
+          <button
+            type="button"
+            id="resend-btn"
+            class="text-sm underline transition hover:text-[#59bff5]"
+            style="color: #01a1f7;"
+          >
+            Resend code
+          </button>
+        </div>
+
+        <!-- COUNTDOWN TIMER -->
+        <p id="countdown" class="text-sm text-slate-300 text-center"></p>
+
+        <!-- MESSAGE AREA -->
+        <p
+          id="verify-message"
+          class="text-sm text-slate-300 min-h-[1.25rem] text-center"
+        ></p>
+
+        <!-- VERIFY BUTTON -->
+        <button
+          type="submit"
+          id="verify-btn"
+          class="w-full rounded-full bg-[#01a1f7] text-black font-semibold py-3 
+                 hover:bg-[#59bff5] transition disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Verify
+        </button>
+      </form>
+
+      <p class="mt-6 text-sm text-slate-400 text-center">
+        Didn't receive the code?
+        <a
+          href={`${baseUrl}contact`}
+          class="text-[#01a1f7] hover:text-[#59bff5] underline transition"
+        >
+          Contact support
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const API_BASE = import.meta.env.PUBLIC_API_BASE_URL;
+    const baseUrl = import.meta.env.BASE_URL;
+    const form = document.getElementById('verify-form');
+    const emailInput = document.getElementById('email');
+    const codeInput = document.getElementById('code');
+    const verifyBtn = document.getElementById('verify-btn');
+    const resendBtn = document.getElementById('resend-btn');
+    const messageEl = document.getElementById('verify-message');
+    const countdownEl = document.getElementById('countdown');
+
+    // Get email from sessionStorage if available (from registration)
+    const storedEmail = sessionStorage.getItem('verifyEmail');
+    if (emailInput && storedEmail) {
+      emailInput.value = storedEmail;
+      emailInput.readOnly = true;
+      emailInput.style.opacity = '0.7';
+      emailInput.style.cursor = 'not-allowed';
+    }
+
+    let countdownInterval = null;
+    let timeRemaining = 600; // 10 minutes in seconds
+    let isExpired = false;
+
+    // Format time as mm:ss
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    // Update countdown display
+    function updateCountdown() {
+      if (countdownEl) {
+        countdownEl.textContent = `Code expires in: ${formatTime(timeRemaining)}`;
+      }
+
+      if (timeRemaining <= 0) {
+        clearInterval(countdownInterval);
+        isExpired = true;
+        
+        if (countdownEl) {
+          countdownEl.textContent = '';
+        }
+        
+        if (messageEl) {
+          messageEl.textContent = 'Code expired. Please request a new one.';
+          messageEl.style.color = '#f97373';
+        }
+        
+        if (verifyBtn) {
+          verifyBtn.disabled = true;
+        }
+        
+        if (codeInput) {
+          codeInput.disabled = true;
+        }
+      } else {
+        timeRemaining--;
+      }
+    }
+
+    // Start countdown
+    function startCountdown() {
+      timeRemaining = 600;
+      isExpired = false;
+      
+      if (codeInput) {
+        codeInput.disabled = false;
+      }
+      
+      if (verifyBtn) {
+        verifyBtn.disabled = false;
+      }
+      
+      if (countdownEl) {
+        countdownEl.textContent = `Code expires in: ${formatTime(timeRemaining)}`;
+      }
+      
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
+    // Resend code handler
+    resendBtn?.addEventListener('click', async () => {
+      const email = emailInput?.value;
+      
+      if (!email) {
+        if (messageEl) {
+          messageEl.textContent = 'Please enter your email address first.';
+          messageEl.style.color = '#f97373';
+        }
+        return;
+      }
+
+      if (resendBtn) {
+        resendBtn.disabled = true;
+        resendBtn.textContent = 'Sending...';
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/resend-code`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        if (!res.ok) {
+          let errorText = 'Failed to resend code';
+          try {
+            const data = await res.json();
+            if (data?.message) errorText = data.message;
+          } catch {
+            // ignore parse error
+          }
+          throw new Error(errorText);
+        }
+
+        // Success: reset countdown and show confirmation
+        startCountdown();
+        
+        if (messageEl) {
+          messageEl.textContent = 'New code sent to your email.';
+          messageEl.style.color = '#4ade80';
+        }
+      } catch (err) {
+        console.error(err);
+        if (messageEl) {
+          messageEl.textContent = err?.message || 'Failed to resend code. Please try again.';
+          messageEl.style.color = '#f97373';
+        }
+      } finally {
+        if (resendBtn) {
+          resendBtn.disabled = false;
+          resendBtn.textContent = 'Resend code';
+        }
+      }
+    });
+
+    // Verify form handler
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (isExpired) {
+        if (messageEl) {
+          messageEl.textContent = 'Code expired. Please request a new one.';
+          messageEl.style.color = '#f97373';
+        }
+        return;
+      }
+
+      if (!messageEl || !verifyBtn) return;
+
+      verifyBtn.disabled = true;
+      messageEl.textContent = 'Verifying...';
+      messageEl.style.color = '#cbd5f5';
+
+      const formData = new FormData(form);
+      const email = formData.get('email');
+      const code = formData.get('code');
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/verify-email`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, code }),
+        });
+
+        if (!res.ok) {
+          let errorText = 'Verification failed';
+          try {
+            const data = await res.json();
+            if (data?.message) errorText = data.message;
+          } catch {
+            // ignore parse error
+          }
+          throw new Error(errorText);
+        }
+
+        // Success
+        messageEl.textContent = 'Email verified successfully! Account created. Redirecting...';
+        messageEl.style.color = '#4ade80';
+        
+        clearInterval(countdownInterval);
+        
+        // Clear stored email
+        sessionStorage.removeItem('verifyEmail');
+        
+        // Redirect to login
+        setTimeout(() => {
+          window.location.href = `${baseUrl}login`;
+        }, 1500);
+      } catch (err) {
+        console.error(err);
+        messageEl.textContent = err?.message || 'Invalid code. Please try again.';
+        messageEl.style.color = '#f97373';
+      } finally {
+        verifyBtn.disabled = false;
+      }
+    });
+
+    // Start countdown on page load
+    startCountdown();
+  </script>
+</BaseLayout>
+

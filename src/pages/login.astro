@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
 const baseUrl = import.meta.env.BASE_URL;
+const apiBase = import.meta.env.PUBLIC_API_BASE_URL;
 ---
 
 <BaseLayout
@@ -12,7 +14,11 @@ const baseUrl = import.meta.env.BASE_URL;
       <h1 class="text-3xl font-bold mb-2">Welcome back</h1>
       <p class="text-sm text-slate-400 mb-8">Sign in to access your command center.</p>
 
-      <form class="space-y-6">
+      <form
+        id="login-form"
+        class="space-y-6"
+        data-api-base={apiBase}
+      >
         <!-- EMAIL -->
         <div>
           <label for="email" class="block text-sm font-semibold text-slate-200">Work email</label>
@@ -41,20 +47,6 @@ const baseUrl = import.meta.env.BASE_URL;
           />
         </div>
 
-        <!-- MFA CODE -->
-        <div>
-          <label for="otp" class="block text-sm font-semibold text-slate-200">MFA code</label>
-          <input
-            type="text"
-            id="otp"
-            name="otp"
-            inputmode="numeric"
-            class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 
-                   focus:border-[#01a1f7] focus:outline-none"
-            placeholder="123456"
-          />
-        </div>
-
         <!-- REMEMBER + FORGOT -->
         <div class="flex items-center justify-between text-sm text-slate-400">
           <label class="inline-flex items-center gap-2">
@@ -66,6 +58,9 @@ const baseUrl = import.meta.env.BASE_URL;
             Forgot password?
           </a>
         </div>
+
+        <!-- ERROR MESSAGE -->
+        <p id="login-error" class="text-sm text-red-400 min-h-[1.25rem]"></p>
 
         <!-- SIGN-IN BUTTON -->
         <button
@@ -85,4 +80,66 @@ const baseUrl = import.meta.env.BASE_URL;
       </p>
     </div>
   </section>
+
+  <!-- Script de login en el cliente -->
+  <script type="module">
+    const form = document.getElementById('login-form');
+    const errorEl = document.getElementById('login-error');
+    const apiBase = form?.dataset.apiBase;
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!apiBase) {
+        console.error('Missing API base URL');
+        errorEl.textContent = 'Configuration error. Please try again later.';
+        return;
+      }
+
+      errorEl.textContent = '';
+
+      const formData = new FormData(form);
+      const email = formData.get('email');
+      const password = formData.get('password');
+
+      try {
+        const res = await fetch(`${apiBase}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (!res.ok) {
+          errorEl.textContent = 'Invalid credentials or server error.';
+          return;
+        }
+
+        const data = await res.json();
+
+        // Guardar token en localStorage
+        if (data.accessToken) {
+          localStorage.setItem('ks_token', data.accessToken);
+        }
+
+        // Guardar nombre completo y email para avatar + página de cuenta
+        const user = data.user || data.profile || null;
+        if (user) {
+          const fullName = user.fullName || user.name || user.fullname;
+          if (fullName) {
+            localStorage.setItem('ks_full_name', fullName);
+          }
+          if (user.email) {
+            localStorage.setItem('ks_email', user.email);
+          }
+        }
+
+        // TODO: cambiar '/' por `${baseUrl}dashboard` cuando tengas el dashboard listo
+        window.location.href = '/';
+      } catch (err) {
+        console.error(err);
+        errorEl.textContent = 'Unable to connect to Kyxel Security API.';
+      }
+    });
+  </script>
 </BaseLayout>
