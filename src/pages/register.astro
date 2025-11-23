@@ -20,9 +20,17 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
           </p>
 
           <!-- FORMULARIO REAL, LLAMA A LA API -->
-          <form id="register-form" class="space-y-5">
+          <form
+            id="register-form"
+            class="space-y-5"
+            data-api-base={API_BASE}
+            data-base-url={baseUrl}
+          >
             <div>
-              <label class="text-sm font-semibold" for="fullName">Full name</label>
+              <label class="text-sm font-semibold flex items-center gap-1" for="fullName">
+                Full name
+                <span class="text-red-400" aria-hidden="true">*</span>
+              </label>
               <input
                 id="fullName"
                 name="fullName"
@@ -34,7 +42,10 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
             </div>
 
             <div>
-              <label class="text-sm font-semibold" for="email">Work email</label>
+              <label class="text-sm font-semibold flex items-center gap-1" for="email">
+                Work email
+                <span class="text-red-400" aria-hidden="true">*</span>
+              </label>
               <input
                 id="email"
                 name="email"
@@ -46,7 +57,10 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
             </div>
 
             <div>
-              <label class="text-sm font-semibold" for="workspace">Workspace name (optional)</label>
+              <label class="text-sm font-semibold flex items-center gap-1" for="workspace">
+                Workspace name
+                <span class="text-white/60 text-xs font-normal">(optional)</span>
+              </label>
               <input
                 id="workspace"
                 name="workspace"
@@ -57,7 +71,10 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
             </div>
 
             <div>
-              <label class="text-sm font-semibold" for="password">Password</label>
+              <label class="text-sm font-semibold flex items-center gap-1" for="password">
+                Password
+                <span class="text-red-400" aria-hidden="true">*</span>
+              </label>
               <input
                 id="password"
                 name="password"
@@ -79,7 +96,10 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
             </div>
 
             <div>
-              <label class="text-sm font-semibold" for="confirmPassword">Re-type your password</label>
+              <label class="text-sm font-semibold flex items-center gap-1" for="confirmPassword">
+                Re-type your password
+                <span class="text-red-400" aria-hidden="true">*</span>
+              </label>
               <input
                 id="confirmPassword"
                 name="confirmPassword"
@@ -212,10 +232,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Lógica del formulario: llama a /auth/register y muestra mensaje -->
-  <script>
-    const API_BASE = import.meta.env.PUBLIC_API_BASE_URL;
-    const baseUrl = import.meta.env.BASE_URL;
-
+  <script type="module">
     const form = document.getElementById('register-form');
     const messageEl = document.getElementById('register-message');
     const passwordInput = document.getElementById('password');
@@ -224,14 +241,20 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     const passwordStrengthText = document.getElementById('password-strength-text');
     const passwordMatchText = document.getElementById('password-match-text');
 
+    const API_BASE = form instanceof HTMLFormElement ? form.dataset.apiBase ?? '' : '';
+    const BASE_URL = form instanceof HTMLFormElement ? form.dataset.baseUrl ?? '/' : '/';
+
+    const isInput = (element) => element instanceof HTMLInputElement;
+    const getStringValue = (value) => (typeof value === 'string' ? value : '');
+
     // Password validation rules
     function checkPasswordStrength(password) {
       if (!password) {
-        return { strength: 0, text: '', color: '#f97373' };
+        return { strength: 0, text: '', color: '#f97373', valid: false };
       }
 
       let strength = 0;
-      let checks = {
+      const checks = {
         length: password.length >= 8,
         uppercase: /[A-Z]/.test(password),
         lowercase: /[a-z]/.test(password),
@@ -270,6 +293,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       // Check if all requirements are met
       const allRequirementsMet = checks.length && checks.uppercase && checks.number && checks.special;
       if (!allRequirementsMet) {
+        /** @type {string[]} */
         const missing = [];
         if (!checks.length) missing.push('8 characters');
         if (!checks.uppercase) missing.push('uppercase letter');
@@ -283,7 +307,11 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
     // Update password strength indicator
     passwordInput?.addEventListener('input', (e) => {
-      const password = e.target.value;
+      const target = e.target;
+      if (!(target instanceof HTMLInputElement)) {
+        return;
+      }
+      const password = target.value;
       const result = checkPasswordStrength(password);
 
       if (passwordStrengthBar) {
@@ -297,15 +325,15 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       }
 
       // Check password match
-      if (confirmPasswordInput?.value) {
+      if (isInput(confirmPasswordInput) && confirmPasswordInput.value) {
         checkPasswordMatch();
       }
     });
 
     // Check if passwords match
     function checkPasswordMatch() {
-      const password = passwordInput?.value;
-      const confirmPassword = confirmPasswordInput?.value;
+      const password = isInput(passwordInput) ? passwordInput.value : '';
+      const confirmPassword = isInput(confirmPasswordInput) ? confirmPasswordInput.value : '';
 
       if (!confirmPassword) {
         if (passwordMatchText) {
@@ -334,10 +362,10 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      if (!messageEl) return;
+      if (!(form instanceof HTMLFormElement) || !messageEl) return;
 
       // Validate password strength
-      const password = passwordInput?.value;
+      const password = isInput(passwordInput) ? passwordInput.value : '';
       const passwordCheck = checkPasswordStrength(password);
       
       if (!passwordCheck.valid) {
@@ -357,10 +385,10 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       messageEl.style.color = '#cbd5f5';
 
       const formData = new FormData(form);
-      const fullName = formData.get('fullName');
-      const email = formData.get('email');
-      const workspace = formData.get('workspace');
-      const turnstileToken = formData.get('cf-turnstile-response');
+      const fullName = getStringValue(formData.get('fullName')).trim();
+      const email = getStringValue(formData.get('email')).trim();
+      const workspace = getStringValue(formData.get('workspace')).trim();
+      const turnstileToken = getStringValue(formData.get('cf-turnstile-response')).trim();
 
       try {
         const res = await fetch(`${API_BASE}/auth/register`, {
@@ -370,8 +398,8 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
             name: fullName,
             email,
             password,
-            workspaceName: workspace,
-            turnstileToken,
+            workspaceName: workspace || undefined,
+            turnstileToken: turnstileToken || undefined,
           }),
         });
 
@@ -408,34 +436,18 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
           return;
         }
 
-        // 🔹 Guardar token y nombre si el backend los devuelve
-        try {
-          if (data && data.accessToken) {
-            localStorage.setItem('ks_token', data.accessToken);
-          }
-
-          let nameToStore = fullName;
-          const user = data?.user || data?.profile || null;
-          if (user) {
-            const backendName = user.fullName || user.name || user.fullname;
-            if (backendName) {
-              nameToStore = backendName;
-            }
-          }
-
-          if (nameToStore) {
-            localStorage.setItem('ks_full_name', String(nameToStore));
-          }
-        } catch (e) {
-          console.warn('Could not persist user info to localStorage', e);
-        }
-
-        // Success: redirect to verify-email page
         if (email) {
-          sessionStorage.setItem('verifyEmail', email);
+          sessionStorage.setItem('verifyEmail', String(email));
         }
-        
-        window.location.href = `${baseUrl}verify-email`;
+
+        messageEl.textContent =
+          data?.message ||
+          'Code sent! Look for Kyxel Security in your inbox (or spam). Need help? Email support@kyxel.studio.';
+        messageEl.style.color = '#4ade80';
+
+        setTimeout(() => {
+          window.location.href = `${BASE_URL}verify-email`;
+        }, 1000);
 
       } catch (err) {
         console.error(err);

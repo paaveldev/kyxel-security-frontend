@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const baseUrl = import.meta.env.BASE_URL;
-const apiBase = import.meta.env.PUBLIC_API_BASE_URL;
+const env = (import.meta as { env?: Record<string, string | undefined> }).env ?? {};
+const baseUrl = env.BASE_URL ?? '/';
+const apiBase = env.PUBLIC_API_BASE_URL ?? '';
 ---
 
 <BaseLayout
@@ -18,6 +19,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE_URL;
         id="login-form"
         class="space-y-6"
         data-api-base={apiBase}
+        data-base-url={baseUrl}
       >
         <!-- EMAIL -->
         <div>
@@ -54,9 +56,13 @@ const apiBase = import.meta.env.PUBLIC_API_BASE_URL;
             Remember me
           </label>
 
-          <a href={`${baseUrl}contact`} class="text-[#01a1f7] hover:text-[#59bff5] transition">
+          <button
+            type="button"
+            id="forgot-password-btn"
+            class="text-[#01a1f7] hover:text-[#59bff5] transition"
+          >
             Forgot password?
-          </a>
+          </button>
         </div>
 
         <!-- ERROR MESSAGE -->
@@ -81,21 +87,391 @@ const apiBase = import.meta.env.PUBLIC_API_BASE_URL;
     </div>
   </section>
 
+  <!-- Forgot password modal -->
+  <div
+    id="reset-modal"
+    class="fixed inset-0 z-40 hidden bg-black/70"
+    aria-hidden="true"
+  >
+    <div class="flex min-h-full items-center justify-center px-4">
+      <div class="w-full max-w-md rounded-3xl border border-white/10 bg-[#070c1a] p-6 text-white shadow-2xl relative">
+        <button
+          type="button"
+          id="reset-close-btn"
+          class="absolute right-4 top-4 text-white/60 hover:text-white"
+          aria-label="Close password reset"
+        >
+          ✕
+        </button>
+        <div class="space-y-2 mb-6 text-center">
+          <p class="text-xs uppercase tracking-[0.35em] text-[#01a1f7]">Password help</p>
+          <h2 class="text-2xl font-semibold">Reset access</h2>
+          <p class="text-sm text-white/60">Follow the steps to receive a code and set a new password.</p>
+        </div>
+
+        <div class="space-y-6">
+          <div data-reset-step="request">
+            <form id="reset-request-form" class="space-y-4">
+              <div>
+                <label for="reset-email" class="text-sm font-semibold text-white/80">Work email</label>
+                <input
+                  type="email"
+                  id="reset-email"
+                  name="email"
+                  required
+                  class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                  placeholder="ops@kyxelstudios.com"
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-full rounded-full bg-[#01a1f7] py-3 font-semibold text-black"
+              >
+                Send reset code
+              </button>
+            </form>
+          </div>
+
+          <div data-reset-step="verify" class="hidden">
+            <form id="reset-code-form" class="space-y-4">
+              <div>
+                <label for="reset-code" class="text-sm font-semibold text-white/80">Enter the 6-digit code</label>
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="6"
+                  id="reset-code"
+                  name="code"
+                  class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 tracking-[0.4em] text-center text-lg"
+                  placeholder="123456"
+                />
+              </div>
+              <div class="flex items-center justify-between text-xs text-white/60">
+                <span>Didn’t get it?</span>
+                <button type="button" id="reset-resend-btn" class="text-[#01a1f7] hover:text-[#59bff5]">
+                  Resend code
+                </button>
+              </div>
+              <button
+                type="submit"
+                class="w-full rounded-full bg-[#01a1f7] py-3 font-semibold text-black"
+              >
+                Verify code
+              </button>
+            </form>
+          </div>
+
+          <div data-reset-step="new" class="hidden">
+            <form id="reset-complete-form" class="space-y-4">
+              <div>
+                <label for="reset-new-password" class="text-sm font-semibold text-white/80">New password</label>
+                <input
+                  type="password"
+                  id="reset-new-password"
+                  name="newPassword"
+                  minlength="8"
+                  class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                  placeholder="Create something strong"
+                />
+              </div>
+              <div>
+                <label for="reset-confirm-password" class="text-sm font-semibold text-white/80">Confirm password</label>
+                <input
+                  type="password"
+                  id="reset-confirm-password"
+                  name="confirmPassword"
+                  minlength="8"
+                  class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3"
+                  placeholder="Repeat it"
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-full rounded-full bg-[#01a1f7] py-3 font-semibold text-black"
+              >
+                Update password
+              </button>
+            </form>
+          </div>
+
+          <p id="reset-flow-message" class="min-h-[1.25rem] text-center text-sm text-white/70"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Script de login en el cliente -->
   <script type="module">
     const form = document.getElementById('login-form');
     const errorEl = document.getElementById('login-error');
-    const apiBase = form?.dataset.apiBase;
+    const apiBase = form?.dataset.apiBase || '';
+    const baseUrl = form?.dataset.baseUrl || '/';
+
+    const forgotBtn = document.getElementById('forgot-password-btn');
+    const resetModal = document.getElementById('reset-modal');
+    const resetCloseBtn = document.getElementById('reset-close-btn');
+    const resetSteps = document.querySelectorAll('[data-reset-step]');
+    const resetMessage = document.getElementById('reset-flow-message');
+    const resetRequestForm = document.getElementById('reset-request-form');
+    const resetCodeForm = document.getElementById('reset-code-form');
+    const resetCompleteForm = document.getElementById('reset-complete-form');
+    const resetEmailInput = document.getElementById('reset-email');
+    const resetCodeInput = document.getElementById('reset-code');
+    const resetResendBtn = document.getElementById('reset-resend-btn');
+    const resetNewPasswordInput = document.getElementById('reset-new-password');
+    const resetConfirmPasswordInput = document.getElementById('reset-confirm-password');
+
+    let resetEmail = '';
+    let verifiedCode = '';
+
+    const parseResponseError = async (response) => {
+      try {
+        const data = await response.clone().json();
+        if (typeof data?.message === 'string') return data.message;
+        if (typeof data?.error?.message === 'string') return data.error.message;
+        if (Array.isArray(data?.errors) && data.errors[0]?.message) {
+          return data.errors[0].message;
+        }
+        if (typeof data === 'string') return data;
+      } catch {
+        /* ignore */
+      }
+      const text = await response.text().catch(() => '');
+      return text || response.statusText || 'Request failed';
+    };
+
+    const setResetMessage = (text, color = '#cbd5f5') => {
+      if (!resetMessage) return;
+      resetMessage.textContent = text;
+      resetMessage.style.color = color;
+    };
+
+    const showResetStep = (step) => {
+      resetSteps.forEach((stepElement) => {
+        if (!(stepElement instanceof HTMLElement)) return;
+        const shouldShow = stepElement.dataset.resetStep === step;
+        stepElement.classList.toggle('hidden', !shouldShow);
+      });
+    };
+
+    const toggleBodyScroll = (disabled) => {
+      document.body.style.overflow = disabled ? 'hidden' : '';
+    };
+
+    const openResetModal = () => {
+      if (!(resetModal instanceof HTMLElement)) return;
+      resetModal.classList.remove('hidden');
+      toggleBodyScroll(true);
+      resetEmail = '';
+      verifiedCode = '';
+      setResetMessage('');
+      showResetStep('request');
+      resetRequestForm?.reset();
+      resetCodeForm?.reset();
+      resetCompleteForm?.reset();
+      resetEmailInput?.focus();
+    };
+
+    const closeResetModal = () => {
+      if (!(resetModal instanceof HTMLElement)) return;
+      resetModal.classList.add('hidden');
+      toggleBodyScroll(false);
+    };
+
+    forgotBtn?.addEventListener('click', (event) => {
+      event.preventDefault();
+      openResetModal();
+    });
+
+    resetCloseBtn?.addEventListener('click', closeResetModal);
+
+    resetModal?.addEventListener('click', (event) => {
+      if (event.target === resetModal) {
+        closeResetModal();
+      }
+    });
+
+    resetRequestForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!apiBase) {
+        setResetMessage('API configuration missing. Please try again later.', '#f97373');
+        return;
+      }
+
+      const formData = new FormData(resetRequestForm);
+      const email = String(formData.get('email') || '').trim();
+
+      if (!email) {
+        setResetMessage('Enter your work email to continue.', '#f97373');
+        return;
+      }
+
+      setResetMessage('Sending code...', '#cbd5f5');
+
+      try {
+        const response = await fetch(`${apiBase}/auth/password-reset/request`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        if (!response.ok) {
+          const message = await parseResponseError(response);
+          throw new Error(message);
+        }
+
+        resetEmail = email;
+        showResetStep('verify');
+        setResetMessage('Code sent! Check your inbox or spam folder.', '#4ade80');
+        resetCodeInput?.focus();
+      } catch (error) {
+        console.error(error);
+        setResetMessage(error?.message || 'Unable to send reset code.', '#f97373');
+      }
+    });
+
+    resetResendBtn?.addEventListener('click', async () => {
+      if (!apiBase) {
+        setResetMessage('API configuration missing. Please try again later.', '#f97373');
+        return;
+      }
+
+      if (!resetEmail) {
+        setResetMessage('Enter your email first.', '#f97373');
+        return;
+      }
+
+      setResetMessage('Resending code...', '#cbd5f5');
+
+      try {
+        const response = await fetch(`${apiBase}/auth/password-reset/request`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: resetEmail })
+        });
+
+        if (!response.ok) {
+          const message = await parseResponseError(response);
+          throw new Error(message);
+        }
+
+        setResetMessage('New code sent. Check spam if you do not see it.', '#4ade80');
+      } catch (error) {
+        console.error(error);
+        setResetMessage(error?.message || 'Unable to resend code.', '#f97373');
+      }
+    });
+
+    resetCodeForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!apiBase) {
+        setResetMessage('API configuration missing. Please try again later.', '#f97373');
+        return;
+      }
+
+      if (!resetEmail) {
+        setResetMessage('Enter your email first.', '#f97373');
+        showResetStep('request');
+        return;
+      }
+
+      const formData = new FormData(resetCodeForm);
+      const code = String(formData.get('code') || '').trim();
+
+      if (code.length !== 6) {
+        setResetMessage('Enter the 6-digit code from your email.', '#f97373');
+        return;
+      }
+
+      setResetMessage('Verifying code...', '#cbd5f5');
+
+      try {
+        const response = await fetch(`${apiBase}/auth/password-reset/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: resetEmail, code })
+        });
+
+        if (!response.ok) {
+          const message = await parseResponseError(response);
+          throw new Error(message);
+        }
+
+        verifiedCode = code;
+        showResetStep('new');
+        setResetMessage('Code verified! Set a new password below.', '#4ade80');
+        resetNewPasswordInput?.focus();
+      } catch (error) {
+        console.error(error);
+        setResetMessage(error?.message || 'Invalid or expired code.', '#f97373');
+      }
+    });
+
+    resetCompleteForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!apiBase) {
+        setResetMessage('API configuration missing. Please try again later.', '#f97373');
+        return;
+      }
+
+      if (!resetEmail || !verifiedCode) {
+        setResetMessage('Verify your email and code first.', '#f97373');
+        showResetStep(resetEmail ? 'verify' : 'request');
+        return;
+      }
+
+      const formData = new FormData(resetCompleteForm);
+      const newPassword = String(formData.get('newPassword') || '').trim();
+      const confirmPassword = String(formData.get('confirmPassword') || '').trim();
+
+      if (newPassword.length < 8) {
+        setResetMessage('Password must be at least 8 characters.', '#f97373');
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        setResetMessage('Passwords do not match.', '#f97373');
+        return;
+      }
+
+      setResetMessage('Updating password...', '#cbd5f5');
+
+      try {
+        const response = await fetch(`${apiBase}/auth/password-reset/complete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: resetEmail, code: verifiedCode, newPassword })
+        });
+
+        if (!response.ok) {
+          const message = await parseResponseError(response);
+          throw new Error(message);
+        }
+
+        setResetMessage('Password updated. You can now sign in with the new password.', '#4ade80');
+        resetCompleteForm.reset();
+        setTimeout(() => {
+          closeResetModal();
+        }, 1500);
+      } catch (error) {
+        console.error(error);
+        setResetMessage(error?.message || 'Unable to reset password.', '#f97373');
+      }
+    });
 
     form?.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!apiBase) {
         console.error('Missing API base URL');
-        errorEl.textContent = 'Configuration error. Please try again later.';
+        if (errorEl) {
+          errorEl.textContent = 'Configuration error. Please try again later.';
+        }
         return;
       }
 
-      errorEl.textContent = '';
+      if (errorEl) {
+        errorEl.textContent = '';
+      }
 
       const formData = new FormData(form);
       const email = formData.get('email');
@@ -111,18 +487,19 @@ const apiBase = import.meta.env.PUBLIC_API_BASE_URL;
         });
 
         if (!res.ok) {
-          errorEl.textContent = 'Invalid credentials or server error.';
+          const message = await parseResponseError(res);
+          if (errorEl) {
+            errorEl.textContent = message || 'Invalid credentials or server error.';
+          }
           return;
         }
 
         const data = await res.json();
 
-        // Guardar token en localStorage
         if (data.accessToken) {
           localStorage.setItem('ks_token', data.accessToken);
         }
 
-        // Guardar nombre completo y email para avatar + página de cuenta
         const user = data.user || data.profile || null;
         if (user) {
           const fullName = user.fullName || user.name || user.fullname;
@@ -134,11 +511,12 @@ const apiBase = import.meta.env.PUBLIC_API_BASE_URL;
           }
         }
 
-        // TODO: cambiar '/' por `${baseUrl}dashboard` cuando tengas el dashboard listo
-        window.location.href = '/';
+        window.location.href = baseUrl || '/';
       } catch (err) {
         console.error(err);
-        errorEl.textContent = 'Unable to connect to Kyxel Security API.';
+        if (errorEl) {
+          errorEl.textContent = 'Unable to connect to Kyxel Security API.';
+        }
       }
     });
   </script>
