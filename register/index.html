@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" class="dark"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Register — Kyxel Security</title><link rel="canonical" href="https://paaveldev.github.io/kyxel-security-frontend/register/"><meta name="description" content="Create your Kyxel Security workspace and connect your servers in minutes."><!-- Favicon --><link rel="icon" type="image/png" href="/kyxel-security-frontend/_astro/favicon.CfHK3PgL.png"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Kyxel Security"><meta property="og:title" content="Register — Kyxel Security"><meta property="og:description" content="Create your Kyxel Security workspace and connect your servers in minutes."><meta property="og:image" content="/kyxel-security-frontend/_astro/kyxelsecurity.BxxlCV4L.png"><meta property="og:image:alt" content="Kyxel Security brand mark"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Register — Kyxel Security"><meta name="twitter:description" content="Create your Kyxel Security workspace and connect your servers in minutes."><meta name="twitter:image" content="/kyxel-security-frontend/_astro/kyxelsecurity.BxxlCV4L.png"><meta name="theme-color" content="#030417"><!-- Tailwind / global styles imported via ../styles/global.css --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><link rel="stylesheet" href="/kyxel-security-frontend/_astro/about.DH78NNxX.css"><script type="module" src="/kyxel-security-frontend/_astro/hoisted.C9HBSJGY.js"></script></head> <body> <div class="min-h-screen flex flex-col"> <nav class="site-header sticky top-0 z-50"> <div class="header-beam"></div> <div class="bg-transparent"> <div class="max-w-7xl mx-auto px-4 md:px-6"> <div class="hidden md:flex items-center py-4 w-full"> <!-- LEFT LINKS --> <div class="flex gap-10 flex-1 justify-end pr-20"> <a href="#features" class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text" onclick="event.preventDefault(); const el=document.getElementById('features'); if(el){el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>{window.scrollBy({top:-window.innerHeight/2+el.getBoundingClientRect().height/2,behavior:'smooth'});},400);} return false;">
+<!DOCTYPE html><html lang="en" class="dark"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Register — Kyxel Security</title><link rel="canonical" href="https://paaveldev.github.io/kyxel-security-frontend/register/"><meta name="description" content="Create your Kyxel Security workspace and connect your servers in minutes."><!-- Favicon --><link rel="icon" type="image/png" href="/kyxel-security-frontend/_astro/favicon.CfHK3PgL.png"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Kyxel Security"><meta property="og:title" content="Register — Kyxel Security"><meta property="og:description" content="Create your Kyxel Security workspace and connect your servers in minutes."><meta property="og:image" content="/kyxel-security-frontend/_astro/kyxelsecurity.BxxlCV4L.png"><meta property="og:image:alt" content="Kyxel Security brand mark"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Register — Kyxel Security"><meta name="twitter:description" content="Create your Kyxel Security workspace and connect your servers in minutes."><meta name="twitter:image" content="/kyxel-security-frontend/_astro/kyxelsecurity.BxxlCV4L.png"><meta name="theme-color" content="#030417"><!-- Tailwind / global styles imported via ../styles/global.css --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><link rel="stylesheet" href="/kyxel-security-frontend/_astro/about.BKUzZ-Kt.css"><script type="module" src="/kyxel-security-frontend/_astro/hoisted.C3h40C66.js"></script></head> <body> <div class="min-h-screen flex flex-col"> <nav class="site-header sticky top-0 z-50"> <div class="header-beam"></div> <div class="bg-transparent"> <div class="max-w-7xl mx-auto px-4 md:px-6"> <div class="hidden md:flex items-center py-4 w-full"> <!-- LEFT LINKS --> <div class="flex gap-10 flex-1 justify-end pr-20"> <a href="#features" class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text" onclick="event.preventDefault(); const el=document.getElementById('features'); if(el){el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>{window.scrollBy({top:-window.innerHeight/2+el.getBoundingClientRect().height/2,behavior:'smooth'});},400);} return false;">
 Features
 </a> <a href="#how-it-works" class="hover:text-[#01a1f7] whitespace-nowrap text-base nav-text" onclick="event.preventDefault(); const el=document.getElementById('how-it-works'); if(el){el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>{window.scrollBy({top:-window.innerHeight/2+el.getBoundingClientRect().height/2,behavior:'smooth'});},400);} return false;">
 How it works
@@ -53,7 +53,17 @@ My account
 Logout
 </button> </div> </nav> </div> </div>  <main class="flex-1">  <section class="py-20 bg-[#030417] text-white min-h-[60vh] flex items-center justify-center px-6"> <div class="w-full max-w-3xl card-strong rounded-3xl p-10"> <div class="grid md:grid-cols-2 gap-8"> <div> <h1 class="text-3xl font-bold mb-3">Create your workspace</h1> <p class="text-sm text-slate-400 mb-6">
 Invite your team later. No credit card required.
-</p> <!-- FORMULARIO REAL, LLAMA A LA API --> <form id="register-form" class="space-y-5"> <div> <label class="text-sm font-semibold" for="fullName">Full name</label> <input id="fullName" name="fullName" type="text" required class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Nova Reyes"> </div> <div> <label class="text-sm font-semibold" for="email">Work email</label> <input id="email" name="email" type="email" required class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="you@kyxelstudios.com"> </div> <div> <label class="text-sm font-semibold" for="workspace">Workspace name (optional)</label> <input id="workspace" name="workspace" type="text" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Kyxel Security"> </div> <div> <label class="text-sm font-semibold" for="password">Password</label> <input id="password" name="password" type="password" required minlength="8" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="••••••••"> <!-- Password strength bar --> <div class="mt-2 h-1.5 bg-white/5 rounded-full overflow-hidden"> <div id="password-strength-bar" class="h-full transition-all duration-300 rounded-full" style="width: 0%; background: #f97373;"></div> </div> <p id="password-strength-text" class="mt-1 text-xs text-slate-400"></p> </div> <div> <label class="text-sm font-semibold" for="confirmPassword">Re-type your password</label> <input id="confirmPassword" name="confirmPassword" type="password" required minlength="8" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="••••••••"> <p id="password-match-text" class="mt-1 text-xs text-slate-400"></p> </div> <!-- Cloudflare Turnstile (solo si hay SITE KEY) --> <p class="mt-2 text-xs text-amber-300">
+</p> <!-- FORMULARIO REAL, LLAMA A LA API --> <form id="register-form" class="space-y-5" data-base-url="/kyxel-security-frontend/"> <div> <label class="text-sm font-semibold flex items-center gap-1" for="fullName">
+Full name
+<span class="text-red-400" aria-hidden="true">*</span> </label> <input id="fullName" name="fullName" type="text" required class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Nova Reyes"> </div> <div> <label class="text-sm font-semibold flex items-center gap-1" for="email">
+Work email
+<span class="text-red-400" aria-hidden="true">*</span> </label> <input id="email" name="email" type="email" required class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="you@kyxelstudios.com"> </div> <div> <label class="text-sm font-semibold flex items-center gap-1" for="workspace">
+Workspace name
+<span class="text-white/60 text-xs font-normal">(optional)</span> </label> <input id="workspace" name="workspace" type="text" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Kyxel Security"> </div> <div> <label class="text-sm font-semibold flex items-center gap-1" for="password">
+Password
+<span class="text-red-400" aria-hidden="true">*</span> </label> <input id="password" name="password" type="password" required minlength="8" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="••••••••"> <!-- Password strength bar --> <div class="mt-2 h-1.5 bg-white/5 rounded-full overflow-hidden"> <div id="password-strength-bar" class="h-full transition-all duration-300 rounded-full" style="width: 0%; background: #f97373;"></div> </div> <p id="password-strength-text" class="mt-1 text-xs text-slate-400"></p> </div> <div> <label class="text-sm font-semibold flex items-center gap-1" for="confirmPassword">
+Re-type your password
+<span class="text-red-400" aria-hidden="true">*</span> </label> <input id="confirmPassword" name="confirmPassword" type="password" required minlength="8" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3" placeholder="••••••••"> <p id="password-match-text" class="mt-1 text-xs text-slate-400"></p> </div> <!-- Cloudflare Turnstile (solo si hay SITE KEY) --> <p class="mt-2 text-xs text-amber-300">
 Add <code>PUBLIC_TURNSTILE_SITE_KEY</code> to your .env to enable captcha.
 </p> <button type="submit" class="w-full rounded-full mt-4" style="background:#01a1f7;color:#000;font-weight:600;">
 Create account
@@ -88,6 +98,230 @@ Talk to sales →
 </a> </p> </div> </div> </div> <p class="mt-6 text-sm text-slate-400 text-center">
 Already have an account?  <a href="/kyxel-security-frontend/login" style="color:#01a1f7;text-decoration:underline;">
 Sign in
-</a> </p> </div> </section>  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>    </main> <footer class="relative bg-[#04050a] border-t border-kyxel-800 overflow-hidden" data-astro-cid-dwl4onjj> <div class="absolute -top-10 left-0 w-full h-10 pointer-events-none z-10" data-astro-cid-dwl4onjj> <div class="w-full h-full bg-gradient-to-b from-[#031a2b] via-[#04050a] to-[#04050a] opacity-80" data-astro-cid-dwl4onjj></div> </div> <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-6 gap-8 text-slate-300" data-astro-cid-dwl4onjj> <div class="md:col-span-2 space-y-4" data-astro-cid-dwl4onjj> <a href="/kyxel-security-frontend/" class="footer-logo-link" style="display:inline-block;" data-astro-cid-dwl4onjj> <img src="/kyxel-security-frontend/_astro/kyxelsecurity.BxxlCV4L.png" alt="Kyxel Security" class="h-10 w-auto footer-logo" data-astro-cid-dwl4onjj> </a>  <p class="text-sm text-slate-400" data-astro-cid-dwl4onjj>
+</a> </p> </div> </section>  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>  <script type="module">
+    const form = document.getElementById('register-form');
+    const messageEl = document.getElementById('register-message');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordStrengthBar = document.getElementById('password-strength-bar');
+    const passwordStrengthText = document.getElementById('password-strength-text');
+    const passwordMatchText = document.getElementById('password-match-text');
+
+    const API_BASE = form instanceof HTMLFormElement ? form.dataset.apiBase ?? '' : '';
+    const BASE_URL = form instanceof HTMLFormElement ? form.dataset.baseUrl ?? '/' : '/';
+
+    const isInput = (element) => element instanceof HTMLInputElement;
+    const getStringValue = (value) => (typeof value === 'string' ? value : '');
+
+    // Password validation rules
+    function checkPasswordStrength(password) {
+      if (!password) {
+        return { strength: 0, text: '', color: '#f97373', valid: false };
+      }
+
+      let strength = 0;
+      const checks = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password),
+      };
+
+      // Calculate strength (0-100)
+      if (checks.length) strength += 20;
+      if (checks.uppercase) strength += 20;
+      if (checks.lowercase) strength += 20;
+      if (checks.number) strength += 20;
+      if (checks.special) strength += 20;
+
+      // Determine text and color
+      let text = '';
+      let color = '#f97373'; // red
+
+      if (strength < 40) {
+        text = 'Weak';
+        color = '#f97373';
+      } else if (strength < 60) {
+        text = 'Fair';
+        color = '#fb923c';
+      } else if (strength < 80) {
+        text = 'Good';
+        color = '#fbbf24';
+      } else if (strength < 100) {
+        text = 'Strong';
+        color = '#4ade80';
+      } else {
+        text = 'Very Strong';
+        color = '#22c55e';
+      }
+
+      // Check if all requirements are met
+      const allRequirementsMet = checks.length && checks.uppercase && checks.number && checks.special;
+      if (!allRequirementsMet) {
+        /** @type {string[]} */
+        const missing = [];
+        if (!checks.length) missing.push('8 characters');
+        if (!checks.uppercase) missing.push('uppercase letter');
+        if (!checks.number) missing.push('number');
+        if (!checks.special) missing.push('special character');
+        text += ` (needs: ${missing.join(', ')})`;
+      }
+
+      return { strength, text, color, valid: allRequirementsMet };
+    }
+
+    // Update password strength indicator
+    passwordInput?.addEventListener('input', (e) => {
+      const target = e.target;
+      if (!(target instanceof HTMLInputElement)) {
+        return;
+      }
+      const password = target.value;
+      const result = checkPasswordStrength(password);
+
+      if (passwordStrengthBar) {
+        passwordStrengthBar.style.width = `${result.strength}%`;
+        passwordStrengthBar.style.background = result.color;
+      }
+
+      if (passwordStrengthText) {
+        passwordStrengthText.textContent = result.text;
+        passwordStrengthText.style.color = result.color;
+      }
+
+      // Check password match
+      if (isInput(confirmPasswordInput) && confirmPasswordInput.value) {
+        checkPasswordMatch();
+      }
+    });
+
+    // Check if passwords match
+    function checkPasswordMatch() {
+      const password = isInput(passwordInput) ? passwordInput.value : '';
+      const confirmPassword = isInput(confirmPasswordInput) ? confirmPasswordInput.value : '';
+
+      if (!confirmPassword) {
+        if (passwordMatchText) {
+          passwordMatchText.textContent = '';
+        }
+        return false;
+      }
+
+      if (password === confirmPassword) {
+        if (passwordMatchText) {
+          passwordMatchText.textContent = '✓ Passwords match';
+          passwordMatchText.style.color = '#4ade80';
+        }
+        return true;
+      } else {
+        if (passwordMatchText) {
+          passwordMatchText.textContent = '✗ Passwords do not match';
+          passwordMatchText.style.color = '#f97373';
+        }
+        return false;
+      }
+    }
+
+    confirmPasswordInput?.addEventListener('input', checkPasswordMatch);
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!(form instanceof HTMLFormElement) || !messageEl) return;
+
+      // Validate password strength
+      const password = isInput(passwordInput) ? passwordInput.value : '';
+      const passwordCheck = checkPasswordStrength(password);
+      
+      if (!passwordCheck.valid) {
+        messageEl.textContent = 'Password does not meet requirements.';
+        messageEl.style.color = '#f97373';
+        return;
+      }
+
+      // Validate password match
+      if (!checkPasswordMatch()) {
+        messageEl.textContent = 'Passwords do not match.';
+        messageEl.style.color = '#f97373';
+        return;
+      }
+
+      messageEl.textContent = 'Creating your account...';
+      messageEl.style.color = '#cbd5f5';
+
+      const formData = new FormData(form);
+      const fullName = getStringValue(formData.get('fullName')).trim();
+      const email = getStringValue(formData.get('email')).trim();
+      const workspace = getStringValue(formData.get('workspace')).trim();
+      const turnstileToken = getStringValue(formData.get('cf-turnstile-response')).trim();
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: fullName,
+            email,
+            password,
+            workspaceName: workspace || undefined,
+            turnstileToken: turnstileToken || undefined,
+          }),
+        });
+
+        // Leemos el cuerpo como texto primero para poder loguear / parsear
+        const rawText = await res.text();
+        let data = {};
+        try {
+          data = rawText ? JSON.parse(rawText) : {};
+        } catch {
+          data = {};
+        }
+
+        console.log('Register response:', res.status, data || rawText);
+
+        // 🧠 Caso email ya en uso:
+        const textLower = (rawText || '').toLowerCase();
+        const isEmailInUse =
+          res.status === 409 ||
+          data?.error === 'EMAIL_IN_USE' ||
+          data?.code === 'EMAIL_IN_USE' ||
+          textLower.includes('e11000') ||
+          textLower.includes('duplicate key');
+
+        if (isEmailInUse) {
+          messageEl.textContent = 'This address is already in use. Try signing in instead.';
+          messageEl.style.color = '#f97373';
+          return;
+        }
+
+        if (!res.ok) {
+          const errorText = data?.message || 'Registration failed.';
+          messageEl.textContent = errorText;
+          messageEl.style.color = '#f97373';
+          return;
+        }
+
+        if (email) {
+          sessionStorage.setItem('verifyEmail', String(email));
+        }
+
+        messageEl.textContent =
+          data?.message ||
+          'Code sent! Look for Kyxel Security in your inbox (or spam). Need help? Email support@kyxel.studio.';
+        messageEl.style.color = '#4ade80';
+
+        setTimeout(() => {
+          window.location.href = `${BASE_URL}verify-email`;
+        }, 1000);
+
+      } catch (err) {
+        console.error(err);
+        messageEl.textContent =
+          err?.message || 'Something went wrong. Please try again.';
+        messageEl.style.color = '#f97373';
+      }
+    });
+  </script>  </main> <footer class="relative bg-[#04050a] border-t border-kyxel-800 overflow-hidden" data-astro-cid-dwl4onjj> <div class="absolute -top-10 left-0 w-full h-10 pointer-events-none z-10" data-astro-cid-dwl4onjj> <div class="w-full h-full bg-gradient-to-b from-[#031a2b] via-[#04050a] to-[#04050a] opacity-80" data-astro-cid-dwl4onjj></div> </div> <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-6 gap-8 text-slate-300" data-astro-cid-dwl4onjj> <div class="md:col-span-2 space-y-4" data-astro-cid-dwl4onjj> <a href="/kyxel-security-frontend/" class="footer-logo-link" style="display:inline-block;" data-astro-cid-dwl4onjj> <img src="/kyxel-security-frontend/_astro/kyxelsecurity.BxxlCV4L.png" alt="Kyxel Security" class="h-10 w-auto footer-logo" data-astro-cid-dwl4onjj> </a>  <p class="text-sm text-slate-400" data-astro-cid-dwl4onjj>
 Real-time attack visibility, IP intelligence and automated responses for servers, VPS and multiplayer infrastructures.
 </p> <div class="space-y-2" data-astro-cid-dwl4onjj> <a href="mailto:security@kyxelstudios.com" class="text-sm footer-email" style="color:#01a1f7" data-astro-cid-dwl4onjj>security@kyxelstudios.com</a> </div> <div class="flex gap-4 text-lg" data-astro-cid-dwl4onjj> <a href="https://github.com" aria-label="GitHub" class="hover:text-white transition" data-astro-cid-dwl4onjj><i class="fa-brands fa-github" data-astro-cid-dwl4onjj></i></a> <a href="https://x.com" aria-label="X" class="hover:text-white transition" data-astro-cid-dwl4onjj><i class="fa-brands fa-x-twitter" data-astro-cid-dwl4onjj></i></a> <a href="https://linkedin.com" aria-label="LinkedIn" class="hover:text-white transition" data-astro-cid-dwl4onjj><i class="fa-brands fa-linkedin" data-astro-cid-dwl4onjj></i></a> </div> </div> <div data-astro-cid-dwl4onjj> <p class="font-semibold mb-3" style="color:#01a1f7" data-astro-cid-dwl4onjj>Product</p> <ul class="space-y-2 text-sm" data-astro-cid-dwl4onjj> <li data-astro-cid-dwl4onjj><a href="#features" class="hover:text-white transition" data-astro-cid-dwl4onjj>Features</a></li> <li data-astro-cid-dwl4onjj><a href="#how-it-works" class="hover:text-white transition" data-astro-cid-dwl4onjj>How it works</a></li> <li data-astro-cid-dwl4onjj><a href="#pricing" class="hover:text-white transition" data-astro-cid-dwl4onjj>Pricing</a></li> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/docs" class="hover:text-white transition" data-astro-cid-dwl4onjj>Docs</a></li> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/dashboard" class="hover:text-white transition" data-astro-cid-dwl4onjj>Dashboard</a></li> </ul> </div> <div data-astro-cid-dwl4onjj> <p class="font-semibold mb-3" style="color:#01a1f7" data-astro-cid-dwl4onjj>Company</p> <ul class="space-y-2 text-sm" data-astro-cid-dwl4onjj> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/about" class="hover:text-white transition" data-astro-cid-dwl4onjj>About</a></li> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/contact" class="hover:text-white transition" data-astro-cid-dwl4onjj>Contact</a></li> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/careers" class="hover:text-white transition" data-astro-cid-dwl4onjj>Careers</a></li> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/docs#roadmap" class="hover:text-white transition" data-astro-cid-dwl4onjj>Roadmap</a></li> </ul> </div> <div data-astro-cid-dwl4onjj> <p class="font-semibold mb-3" style="color:#01a1f7" data-astro-cid-dwl4onjj>Legal</p> <ul class="space-y-2 text-sm" data-astro-cid-dwl4onjj> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/privacy" class="hover:text-white transition" data-astro-cid-dwl4onjj>Privacy Policy</a></li> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/terms" class="hover:text-white transition" data-astro-cid-dwl4onjj>Terms of Service</a></li> <li data-astro-cid-dwl4onjj><a href="/kyxel-security-frontend/docs#security" class="hover:text-white transition" data-astro-cid-dwl4onjj>Security</a></li> </ul> </div> <div data-astro-cid-dwl4onjj> <p class="font-semibold mb-3" style="color:#01a1f7" data-astro-cid-dwl4onjj>Ecosystem</p> <ul class="space-y-2 text-sm" data-astro-cid-dwl4onjj> <li data-astro-cid-dwl4onjj><a href="https://paaveldev.github.io/kyxel-security-frontend/" target="_blank" style="color:#fff" rel="noopener" data-astro-cid-dwl4onjj>Kyxel Studios</a></li> <li data-astro-cid-dwl4onjj><a href="https://paaveldev.github.io/kyxelhosting-frontend/" target="_blank" style="color:#fff" rel="noopener" data-astro-cid-dwl4onjj>Kyxel Hosting</a></li> <li data-astro-cid-dwl4onjj><a href="https://paaveldev.github.io/coimoi-frontend-test/" target="_blank" style="color:#fff" rel="noopener" data-astro-cid-dwl4onjj>Coimoi eSports</a></li> <li data-astro-cid-dwl4onjj><a href="https://paveltodica.dev/" target="_blank" style="color:#fff" rel="noopener" data-astro-cid-dwl4onjj>CCC</a></li> </ul> </div> </div> <div class="border-t border-kyxel-800" data-astro-cid-dwl4onjj> <div class="max-w-7xl mx-auto px-6 py-5 text-sm flex flex-col items-center justify-center" data-astro-cid-dwl4onjj> <span style="color:#01a1f7;display:block;text-align:center;width:100%;" data-astro-cid-dwl4onjj>© 2025 Kyxel Security. Part of the Kyxel Studios ecosystem.</span> </div> </div>  </footer> </div>  </body> </html>
