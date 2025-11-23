@@ -3,7 +3,7 @@ const envApiBase = (import.meta as { env?: { PUBLIC_API_BASE_URL?: string; DEV?:
 
 const defaultDevApiBase =
   (import.meta as { env?: { DEV?: boolean } }).env?.DEV === true
-    ? 'https://api.kyxelsecurity.com/api'
+    ? 'https://api.kyxelsecurity.com/api/v1'
     : '';
 
 const API_BASE = (envApiBase || defaultDevApiBase || '').replace(/\/$/, '');
